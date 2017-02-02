@@ -5,6 +5,7 @@ const path = require("path");
 const gutil = require("gulp-util");
 const webpack = require("webpack");
 const devWebpackConfig = require("./webpack.config");
+const prodWebpackConfig = require("./webpack.config.prod");
 const express = require("express");
 
 
@@ -23,5 +24,16 @@ gulp.task("serve", () => {
         }
 
         console.log('Listening at http://localhost:3000/');
+    })
+});
+
+gulp.task("build", (c)=> {
+    let compiler = webpack(prodWebpackConfig, function (err, stats) {
+        if (err) {
+            throw new gutil.PluginError("webpack", err);
+
+        }
+        gutil.log("[webpack]", stats.toString({}));
+        c();
     })
 });

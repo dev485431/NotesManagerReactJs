@@ -1,8 +1,7 @@
 import React from "react"
 import {connect} from "react-redux"
-import SearchField from "../components/SearchField"
 
-class ListNotes extends React.Component {
+class AddFolder extends React.Component {
 
     // prop types for components used in this container
     // static propTypes = {}
@@ -17,16 +16,16 @@ class ListNotes extends React.Component {
 
     }
 
-
     // 'main' render function
     render() {
         return (
-            <SearchField/>
+            <div>
+
+            </div>
         )
     }
 
 }
-
 
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 export default connect(state => {
@@ -41,4 +40,4 @@ export default connect(state => {
     dispatch => {
         return {}
 
-    })(ListNotes)
+    })(AddFolder)
