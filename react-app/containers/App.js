@@ -37,13 +37,13 @@ export default class App extends React.Component {
     }
 
     // routes for particular views/containers
+    //  tell the router to use our enhanced history
     render() {
         return (
             <Provider store={store}>
-                /* Tell the Router to use our enhanced history */
                 <Router history={history}>
                     <Route path="/" component={ListNotes}/>
-                    {/*<Route path="/addFolder" component={AddFolder}/>*/}
+                    <Route path="/addFolder" component={AddFolder}/>
                     {/*<Route path="/removeFolder/:idNote" component={RemoveFolder}/>*/}
                     {/*<Route path="/addNote" component={AddNote}/>*/}
                     {/*<Route path="/removeNote/:idNote" component={RemoveNote}/>*/}

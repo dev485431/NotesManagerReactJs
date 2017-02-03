@@ -5,7 +5,9 @@ import SearchField from "../components/SearchField"
 class ListNotes extends React.Component {
 
     // prop types for components used in this container
-    // static propTypes = {}
+    static propTypes = {
+        someObject: React.PropTypes.object
+    }
 
 
     constructor(props) {

@@ -8,11 +8,7 @@ export default class SearchField extends React.Component {
 
     render() {
         return (
-            <footer>
-                <div >
-
-                </div>
-            </footer>
+            <div>123</div>
         )
     }
 }

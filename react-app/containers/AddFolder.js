@@ -4,7 +4,9 @@ import {connect} from "react-redux"
 class AddFolder extends React.Component {
 
     // prop types for components used in this container
-    // static propTypes = {}
+    static propTypes = {
+       someObject: React.PropTypes.object
+    }
 
 
     constructor(props) {
@@ -19,9 +21,7 @@ class AddFolder extends React.Component {
     // 'main' render function
     render() {
         return (
-            <div>
-
-            </div>
+            321
         )
     }
 
