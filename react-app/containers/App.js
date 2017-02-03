@@ -3,12 +3,11 @@ import {Router, Route, hashHistory} from "react-router"
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
 import {createStore, combineReducers} from 'redux'
-import queryString from "query-string";
 import * as reducers from "../reducers"
 
 // import of containers for particular views/routes
-import ListNotes from "./ListNotes"
-import AddFolder from "./AddFolder"
+import MainPage from "./MainPage"
+import AddFolderPage from "./AddFolderPage"
 
 // function without params to get initial/preloaded state and pass to the store
 let getInitState = () => {
@@ -42,8 +41,8 @@ export default class App extends React.Component {
         return (
             <Provider store={store}>
                 <Router history={history}>
-                    <Route path="/" component={ListNotes}/>
-                    <Route path="/addFolder" component={AddFolder}/>
+                    <Route path="/" component={MainPage}/>
+                    <Route path="/addFolder" component={AddFolderPage}/>
                     {/*<Route path="/removeFolder/:idNote" component={RemoveFolder}/>*/}
                     {/*<Route path="/addNote" component={AddNote}/>*/}
                     {/*<Route path="/removeNote/:idNote" component={RemoveNote}/>*/}

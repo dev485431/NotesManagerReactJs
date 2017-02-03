@@ -1,11 +1,17 @@
 import React from "react"
 import {connect} from "react-redux"
 
-class AddFolder extends React.Component {
+import Menu from "../components/Menu"
+import Folders from "../components/Folders"
+import SearchField from "../components/SearchField"
+import Files from "../components/Files"
+
+
+class MainPage extends React.Component {
 
     // prop types for components used in this container
     static propTypes = {
-       someObject: React.PropTypes.object
+        someObject: React.PropTypes.object
     }
 
 
@@ -18,15 +24,23 @@ class AddFolder extends React.Component {
 
     }
 
+
     // 'main' render function
     render() {
         return (
-            321
+            <div>
+                <Menu/>
+                <Folders />
+                <SearchField/>
+                <Files />
+            </div>
         )
     }
 
 }
 
+
+// smart components are aware of the store
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 export default connect(state => {
 
@@ -40,4 +54,4 @@ export default connect(state => {
     dispatch => {
         return {}
 
-    })(AddFolder)
+    })(MainPage)

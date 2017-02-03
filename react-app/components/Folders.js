@@ -1,14 +1,13 @@
 import React from "react"
-import {Link} from "react-router"
 
-export default class SearchField extends React.Component {
+export default class Folders extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <div>search field</div>
+            <div>folders</div>
         )
     }
 }
