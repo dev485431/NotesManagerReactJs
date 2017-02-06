@@ -7,7 +7,7 @@ export default class Folders extends React.Component {
 
     render() {
         return (
-            <div>folders</div>
+            <div className="well">folders</div>
         )
     }
 }

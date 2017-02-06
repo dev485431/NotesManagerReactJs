@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 
 import Menu from "../components/Menu"
 import Folders from "../components/Folders"
-import SearchField from "../components/SearchField"
+import Search from "../components/Search"
 import Files from "../components/Files"
 
 
@@ -29,10 +29,20 @@ class MainPage extends React.Component {
     render() {
         return (
             <div>
-                <Menu/>
-                <Folders />
-                <SearchField/>
-                <Files />
+                <div className="col-sm-1">
+                    <Menu/>
+                </div>
+                <div className="col-sm-4">
+                    <Folders />
+                </div>
+                <div className="col-sm-7">
+                    <div className="row">
+                        <Search/>
+                    </div><br/>
+                    <div className="row">
+                        <Files />
+                    </div>
+                </div>
             </div>
         )
     }

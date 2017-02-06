@@ -5,7 +5,7 @@ class AddFolder extends React.Component {
 
     // prop types for components used in this container
     static propTypes = {
-       someObject: React.PropTypes.object
+        someObject: React.PropTypes.object
     }
 
 
@@ -21,7 +21,9 @@ class AddFolder extends React.Component {
     // 'main' render function
     render() {
         return (
-            321
+            <div>
+                321
+            </div>
         )
     }
 
