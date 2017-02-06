@@ -1,10 +1,10 @@
 import React from "react"
 import {connect} from "react-redux"
 
-import Menu from "../components/Menu"
-import Folders from "../components/Folders"
-import Search from "../components/Search"
-import Files from "../components/Files"
+import MainMenu from "../components/MainMenu"
+import FoldersList from "../components/FoldersList"
+import SearchForm from "../components/SearchForm"
+import FilesList from "../components/FilesList"
 
 
 class MainPage extends React.Component {
@@ -30,17 +30,18 @@ class MainPage extends React.Component {
         return (
             <div>
                 <div className="col-sm-1">
-                    <Menu/>
+                    <MainMenu />
                 </div>
                 <div className="col-sm-4">
-                    <Folders />
+                    <FoldersList />
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
-                        <Search/>
-                    </div><br/>
+                        <SearchForm/>
+                    </div>
+                    <br/>
                     <div className="row">
-                        <Files />
+                        <FilesList />
                     </div>
                 </div>
             </div>

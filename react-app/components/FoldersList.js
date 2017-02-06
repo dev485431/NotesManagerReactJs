@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class Folders extends React.Component {
+export default class FoldersList extends React.Component {
     constructor(props) {
         super(props)
     }

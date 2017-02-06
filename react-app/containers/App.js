@@ -10,20 +10,31 @@ import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
 
 // function without params to get initial/preloaded state and pass to the store
+// there should be reducers for each initial state object's keys !!!
+// otherwise keys will be ignored and not put into the state
 let getInitState = () => {
-    // let query = window.location.hash;
-    // let obj = queryString.parse(query.split("?")[1]);
-    // return obj
+    let obj = {errors: 1}
+    return obj
+
 }
 
 // create redux store
 // pass: reducers,  initial state
+// const store = createStore(
+//     combineReducers({
+//         ...reducers,
+//         routing: routerReducer
+//     }),
+//     getInitState()
+// );
+
 const store = createStore(
     combineReducers({
         ...reducers,
         routing: routerReducer
     }),
-    getInitState()
+    getInitState(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 

@@ -1,7 +1,7 @@
 import React from "react"
 import {Link} from "react-router"
 
-export default class Search extends React.Component {
+export default class SearchForm extends React.Component {
     constructor(props) {
         super(props)
     }
