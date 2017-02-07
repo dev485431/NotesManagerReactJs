@@ -3,3 +3,8 @@ body {
     position: relative;
     margin-top: 40px;
 }
+
+.nav{
+    max-height: 500px;
+    overflow-y:scroll;
+}

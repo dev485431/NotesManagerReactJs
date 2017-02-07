@@ -3,13 +3,9 @@ import {Link} from "react-router"
 
 export default class MainMenu extends React.Component {
     static propTypes = {
-        // title: React.PropTypes.shape({
-        //     checkInDate: React.PropTypes.string.isRequired,
-        //     checkOutDate: React.PropTypes.string.isRequired,
-        //     guests: React.PropTypes.number.isRequired,
-        //     radius: React.PropTypes.number.isRequired,
-        //     location: React.PropTypes.string.isRequired,
-        // }).isRequired
+        addError: React.PropTypes.func.isRequired,
+        addFolder: React.PropTypes.func.isRequired,
+        removeFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -20,8 +16,8 @@ export default class MainMenu extends React.Component {
         return (
             <div>
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default" to="">
-                        <span className="glyphicon glyphicon-plus" />
+                    <Link className="btn btn-lg btn-default" to="/addFolder">
+                        <span className="glyphicon glyphicon-plus"/>
                     </Link>
                     <br/>
                     <small>Add folder</small>
@@ -29,8 +25,8 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default" to="">
-                        <span className="glyphicon glyphicon-pencil" />
+                    <Link className="btn btn-lg btn-default" to="/addNote">
+                        <span className="glyphicon glyphicon-pencil"/>
                     </Link>
                     <br/>
                     <small>Add note</small>
@@ -38,8 +34,8 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default" to="">
-                        <span className="glyphicon glyphicon-remove" />
+                    <Link className="btn btn-lg btn-default" to="/removeFolder">
+                        <span className="glyphicon glyphicon-remove"/>
                     </Link>
                     <br/>
                     <small>Remove folder</small>

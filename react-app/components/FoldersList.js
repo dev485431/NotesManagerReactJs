@@ -5,9 +5,20 @@ export default class FoldersList extends React.Component {
         super(props)
     }
 
+    static propTypes = {
+        folders: React.PropTypes.array.isRequired
+    }
+
     render() {
+        let folders = this.props.folders.map(folder => {
+            return '<li>' + folder.id + '</li>';
+        })
         return (
-            <div className="well">folders</div>
+            <div className="well nav">
+                <ul className="list-unstyled">
+                    {folders}
+                </ul>
+            </div>
         )
     }
 }

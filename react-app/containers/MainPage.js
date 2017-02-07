@@ -2,17 +2,22 @@ import React from "react"
 import {connect} from "react-redux"
 
 import MainMenu from "../components/MainMenu"
-import FoldersList from "../components/FoldersList"
 import SearchForm from "../components/SearchForm"
 import FilesList from "../components/FilesList"
 
+import Errors from "../components/Errors"
+import {addError} from "../actions/errors"
+import {removeError} from "../actions/errors"
+
+import FoldersList from "../components/FoldersList"
+import {addFolder} from "../actions/folders"
+import {removeFolder} from "../actions/folders"
 
 class MainPage extends React.Component {
 
     // prop types for components used in this container
-    static propTypes = {
-        someObject: React.PropTypes.object
-    }
+    // basically everything from mapStateToProps
+    static propTypes = {}
 
 
     constructor(props) {
@@ -29,11 +34,15 @@ class MainPage extends React.Component {
     render() {
         return (
             <div>
+                <div className="row">
+                    <Errors errors={this.props.errors} clearError={this.props.removeError}/>
+                </div>
                 <div className="col-sm-1">
-                    <MainMenu />
+                    <MainMenu addError={this.props.addError} addFolder={this.props.addFolder}
+                              removeFolder={this.props.removeFolder}/>
                 </div>
                 <div className="col-sm-4">
-                    <FoldersList />
+                    <FoldersList folders={this.props.folders}/>
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
@@ -53,16 +62,33 @@ class MainPage extends React.Component {
 
 // smart components are aware of the store
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+// containers = take their props directly from the state
 export default connect(state => {
 
         // mapStateToProps
         // map application state to this container's props
-        return {}
+        return {
+            errors: state.errors,
+            folders: state.folders
+        }
 
     },
     // mapDispatchToProps
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
-        return {}
+        return {
+            addError: (err) => {
+                dispatch(addError(err))
+            },
+            removeError: (err) => {
+                dispatch(removeError(err))
+            },
+            addFolder: (folder) => {
+                dispatch(addFolder(folder))
+            },
+            removeFolder: (folder) => {
+                dispatch(removeFolder(folder))
+            }
+        }
 
     })(MainPage)

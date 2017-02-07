@@ -13,8 +13,8 @@ import AddFolderPage from "./AddFolderPage"
 // there should be reducers for each initial state object's keys !!!
 // otherwise keys will be ignored and not put into the state
 let getInitState = () => {
-    let obj = {errors: 1}
-    return obj
+    // let obj = {errors: 1}
+    // return obj
 
 }
 

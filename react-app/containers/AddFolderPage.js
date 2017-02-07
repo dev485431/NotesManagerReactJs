@@ -1,28 +1,54 @@
 import React from "react"
 import {connect} from "react-redux"
+import {Link} from "react-router"
 
-class AddFolder extends React.Component {
+class AddFolderPage extends React.Component {
 
-    // prop types for components used in this container
     static propTypes = {
         someObject: React.PropTypes.object
     }
 
-
     constructor(props) {
         super(props);
-        // do some work in constructor
-        // if (this.props.hotelList.status != LOADED) {
-        //     this.props.loadData(this.props.search)
-        // }
-
     }
 
-    // 'main' render function
+    isAddFolderButtonDisabled = () => {
+        return false;
+    }
+
+    addFolderAction = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!this.isAddFolderButtonDisabled()) {
+            this.props.router.push({pathname: '/'})
+        }
+    }
+
     render() {
         return (
             <div>
-                321
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="folderName">Folder name</label>
+                        <input type="text" className="form-control" id="folderName" placeholder="Folder name"/>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="folderDesc">Folder description</label>
+                        <textarea className="form-control" id="folderDesc" rows="3" placeholder="Folder description"/>
+                    </div>
+
+                    <div className="form-group text-center">
+                        <Link onClick={this.addFolderAction} disabled={this.isAddFolderButtonDisabled()}
+                              className="btn btn-primary btn-search width-100"
+                              type="submit">Search</Link>
+
+                        &nbsp;
+                        <Link to="/">
+                            <button type="submit" className="btn btn-default">Back</button>
+                        </Link>
+                    </div>
+                </form>
             </div>
         )
     }
@@ -43,4 +69,4 @@ export default connect(state => {
     dispatch => {
         return {}
 
-    })(AddFolder)
+    })(AddFolderPage)
