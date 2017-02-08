@@ -3,21 +3,25 @@ import {connect} from "react-redux"
 
 import MainMenu from "../components/MainMenu"
 import SearchForm from "../components/SearchForm"
-import FilesList from "../components/FilesList"
+import FileList from "../components/FileList/FileList"
 
 import Errors from "../components/Errors"
-import {addError} from "../actions/errors"
-import {removeError} from "../actions/errors"
+import {addError, removeError} from "../actions/errors"
 
+import FolderList from "../components/FolderList/FolderList"
 import {LOADED} from "../constants/folderListState"
-import {fetchFolders} from "../actions/folderList"
-import FoldersList from "../components/FoldersList"
-import {addFolder, removeFolder} from "../actions/folderList"
+import {addFolder, removeFolder, fetchFolders, setActiveFolder} from "../actions/folderList"
 
 class MainPage extends React.Component {
 
     static propTypes = {
-        folderList: React.PropTypes.object.isRequired
+        folderList: React.PropTypes.object.isRequired,
+        addError: React.PropTypes.func.isRequired,
+        removeError: React.PropTypes.func.isRequired,
+        loadFolders: React.PropTypes.func.isRequired,
+        setActiveFolder: React.PropTypes.func.isRequired,
+        addFolder: React.PropTypes.func.isRequired,
+        removeFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -38,7 +42,7 @@ class MainPage extends React.Component {
                               removeFolder={this.props.removeFolder}/>
                 </div>
                 <div className="col-sm-4">
-                    <FoldersList folders={this.props.folderList.folders}/>
+                    <FolderList folders={this.props.folderList.folders} setActiveFolder={this.props.setActiveFolder}/>
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
@@ -46,19 +50,14 @@ class MainPage extends React.Component {
                     </div>
                     <br/>
                     <div className="row">
-                        <FilesList />
+                        <FileList/>
                     </div>
                 </div>
             </div>
         )
     }
-
 }
 
-
-// smart components are aware of the store
-// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
-// containers = take their props directly from the state
 export default connect(state => {
 
         // mapStateToProps
@@ -73,20 +72,23 @@ export default connect(state => {
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
         return {
-            loadFolders: () => {
-                fetchFolders(dispatch)
-            },
             addError: (err) => {
                 dispatch(addError(err))
             },
             removeError: (err) => {
                 dispatch(removeError(err))
             },
+            loadFolders: () => {
+                fetchFolders(dispatch)
+            },
+            setActiveFolder: (folderId) => {
+                dispatch(setActiveFolder(folderId))
+            },
             addFolder: (folder) => {
                 dispatch(addFolder(folder))
             },
-            removeFolder: (folder) => {
-                dispatch(removeFolder(folder))
+            removeFolder: (folderId) => {
+                dispatch(removeFolder(folderId))
             }
         }
 

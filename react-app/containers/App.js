@@ -5,7 +5,6 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
 import {createStore, combineReducers} from 'redux'
 import * as reducers from "../reducers"
 
-// import of containers for particular views/routes
 import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
 
@@ -13,20 +12,8 @@ import AddFolderPage from "./AddFolderPage"
 // there should be reducers for each initial state object's keys !!!
 // otherwise keys will be ignored and not put into the state
 let getInitState = () => {
-    // let obj = {errors: 1}
-    // return obj
 
 }
-
-// create redux store
-// pass: reducers,  initial state
-// const store = createStore(
-//     combineReducers({
-//         ...reducers,
-//         routing: routerReducer
-//     }),
-//     getInitState()
-// );
 
 const store = createStore(
     combineReducers({
@@ -34,6 +21,7 @@ const store = createStore(
         routing: routerReducer
     }),
     getInitState(),
+    //todo: remove in final version
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
