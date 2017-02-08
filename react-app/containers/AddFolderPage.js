@@ -41,7 +41,7 @@ class AddFolderPage extends React.Component {
                     <div className="form-group text-center">
                         <Link onClick={this.addFolderAction} disabled={this.isAddFolderButtonDisabled()}
                               className="btn btn-primary btn-search width-100"
-                              type="submit">Search</Link>
+                              type="submit">Add</Link>
 
                         &nbsp;
                         <Link to="/">

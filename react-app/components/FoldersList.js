@@ -11,7 +11,7 @@ export default class FoldersList extends React.Component {
 
     render() {
         let folders = this.props.folders.map(folder => {
-            return '<li>' + folder.id + '</li>';
+            return <li key={folder.id}>{folder.name}</li>;
         })
         return (
             <div className="well nav">

@@ -23,7 +23,7 @@ export default class Errors extends React.Component {
             return <div key={key}>{el}</div>
         })
         return (
-            errs.length ? <div className="bg-danger">{errs}</div> : <span/>
+            errs.length ? <div className="alert alert-danger">{errs}</div> : <span/>
         )
     }
 }

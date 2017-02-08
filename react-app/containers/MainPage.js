@@ -9,28 +9,24 @@ import Errors from "../components/Errors"
 import {addError} from "../actions/errors"
 import {removeError} from "../actions/errors"
 
+import {LOADED} from "../constants/folderListState"
+import {fetchFolders} from "../actions/folderList"
 import FoldersList from "../components/FoldersList"
-import {addFolder} from "../actions/folders"
-import {removeFolder} from "../actions/folders"
+import {addFolder, removeFolder} from "../actions/folderList"
 
 class MainPage extends React.Component {
 
-    // prop types for components used in this container
-    // basically everything from mapStateToProps
-    static propTypes = {}
-
+    static propTypes = {
+        folderList: React.PropTypes.object.isRequired
+    }
 
     constructor(props) {
         super(props);
-        // do some work in constructor
-        // if (this.props.hotelList.status != LOADED) {
-        //     this.props.loadData(this.props.search)
-        // }
-
+        if (this.props.folderList.status != LOADED) {
+            this.props.loadFolders()
+        }
     }
 
-
-    // 'main' render function
     render() {
         return (
             <div>
@@ -42,7 +38,7 @@ class MainPage extends React.Component {
                               removeFolder={this.props.removeFolder}/>
                 </div>
                 <div className="col-sm-4">
-                    <FoldersList folders={this.props.folders}/>
+                    <FoldersList folders={this.props.folderList.folders}/>
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
@@ -69,7 +65,7 @@ export default connect(state => {
         // map application state to this container's props
         return {
             errors: state.errors,
-            folders: state.folders
+            folderList: state.folderList
         }
 
     },
@@ -77,6 +73,9 @@ export default connect(state => {
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
         return {
+            loadFolders: () => {
+                fetchFolders(dispatch)
+            },
             addError: (err) => {
                 dispatch(addError(err))
             },
