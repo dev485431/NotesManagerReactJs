@@ -2,24 +2,41 @@ import React from "react"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 
+import {saveFolder} from "../actions/folderList"
+
 class AddFolderPage extends React.Component {
 
     static propTypes = {
-        someObject: React.PropTypes.object
+        errors: React.PropTypes.array,
+        saveFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props);
+        this.state = {
+            folderName: "",
+            folderDesc: ""
+        };
+    }
+
+    handleInputChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     isAddFolderButtonDisabled = () => {
-        return false;
+        return !(this.state.folderName.trim() && this.state.folderDesc.trim());
     }
 
     addFolderAction = (e) => {
         e.preventDefault();
-        e.stopPropagation();
         if (!this.isAddFolderButtonDisabled()) {
+            //todo: pass the parent folder id
+            this.props.saveFolder(1, this.state.folderName)
             this.props.router.push({pathname: '/'})
         }
     }
@@ -30,12 +47,14 @@ class AddFolderPage extends React.Component {
                 <form>
                     <div className="form-group">
                         <label htmlFor="folderName">Folder name</label>
-                        <input type="text" className="form-control" id="folderName" placeholder="Folder name"/>
+                        <input type="text" className="form-control" id="folderName" name="folderName"
+                               placeholder="Folder name" onChange={this.handleInputChange}/>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="folderDesc">Folder description</label>
-                        <textarea className="form-control" id="folderDesc" rows="3" placeholder="Folder description"/>
+                        <textarea className="form-control" id="folderDesc" name="folderDesc" rows="3"
+                                  placeholder="Folder description" onChange={this.handleInputChange}/>
                     </div>
 
                     <div className="form-group text-center">
@@ -55,18 +74,22 @@ class AddFolderPage extends React.Component {
 
 }
 
-// smart components are aware of the store
-// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 export default connect(state => {
 
         // mapStateToProps
         // map application state to this container's props
-        return {}
+        return {
+            errors: state.errors
+        }
 
     },
     // mapDispatchToProps
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
-        return {}
+        return {
+            saveFolder: (parentId, name) => {
+                saveFolder(parentId, name, dispatch)
+            }
+        }
 
     })(AddFolderPage)

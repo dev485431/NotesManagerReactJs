@@ -10,18 +10,17 @@ import {addError, removeError} from "../actions/errors"
 
 import FolderList from "../components/FolderList/FolderList"
 import {LOADED} from "../constants/folderListState"
-import {addFolder, removeFolder, fetchFolders, setActiveFolder} from "../actions/folderList"
+import {fetchFolders, setActiveFolder} from "../actions/folderList"
 
 class MainPage extends React.Component {
 
     static propTypes = {
+        errors: React.PropTypes.array,
         folderList: React.PropTypes.object.isRequired,
         addError: React.PropTypes.func.isRequired,
         removeError: React.PropTypes.func.isRequired,
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
-        addFolder: React.PropTypes.func.isRequired,
-        removeFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -38,8 +37,7 @@ class MainPage extends React.Component {
                     <Errors errors={this.props.errors} clearError={this.props.removeError}/>
                 </div>
                 <div className="col-sm-1">
-                    <MainMenu addError={this.props.addError} addFolder={this.props.addFolder}
-                              removeFolder={this.props.removeFolder}/>
+                    <MainMenu addError={this.props.addError}/>
                 </div>
                 <div className="col-sm-4">
                     <FolderList folders={this.props.folderList.folders} setActiveFolder={this.props.setActiveFolder}/>
@@ -66,7 +64,6 @@ export default connect(state => {
             errors: state.errors,
             folderList: state.folderList
         }
-
     },
     // mapDispatchToProps
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
@@ -83,12 +80,6 @@ export default connect(state => {
             },
             setActiveFolder: (folderId) => {
                 dispatch(setActiveFolder(folderId))
-            },
-            addFolder: (folder) => {
-                dispatch(addFolder(folder))
-            },
-            removeFolder: (folderId) => {
-                dispatch(removeFolder(folderId))
             }
         }
 

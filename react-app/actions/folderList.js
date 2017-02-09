@@ -36,8 +36,26 @@ export function setActiveFolder(activeId) {
 export function fetchFolders(dispatch) {
     axios.get("/directories")
         .then(function (data) {
-            // dispatch action object
             dispatch(setFoldersList(data.data))
+        })
+        .catch(function (err) {
+
+            dispatch(addError(err.response.data))
+        })
+}
+
+export function saveFolder(parentId, name, dispatch) {
+    axios.post("/directories", {
+        parentId: parentId,
+        name: name
+    })
+        .then(function (data) {
+            let folder = {
+                id: data.data.id,
+                parentId: parentId,
+                name: name
+            }
+            dispatch(addFolder(folder))
         })
         .catch(function (err) {
 

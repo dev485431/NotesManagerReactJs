@@ -2,11 +2,6 @@ import React from "react"
 import {Link} from "react-router"
 
 export default class MainMenu extends React.Component {
-    static propTypes = {
-        addError: React.PropTypes.func.isRequired,
-        addFolder: React.PropTypes.func.isRequired,
-        removeFolder: React.PropTypes.func.isRequired
-    }
 
     constructor(props) {
         super(props)
