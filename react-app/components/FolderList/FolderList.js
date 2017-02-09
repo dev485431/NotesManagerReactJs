@@ -1,8 +1,6 @@
 import React from "react"
 import Folder from "./Folder";
 
-import {setActiveFolder} from "../../actions/folderList"
-
 export default class FolderList extends React.Component {
 
     static propTypes = {
@@ -12,25 +10,36 @@ export default class FolderList extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            openFolderIds: []
+        }
     }
 
-    state = {
-        openFolderIds: []
+    onFolderClick = (folderId) => {
+        this.changeFolderIcon(folderId);
+        this.props.setActiveFolder(folderId);
     }
 
-    // todo: push open folders if not already on the list
-    setActiveFolder = (activeId) => {
-        this.props.setActiveFolder(activeId);
+    changeFolderIcon = (folderId) => {
+        let folderIndex = this.state.openFolderIds.indexOf(folderId);
+        let folderIds = this.state.openFolderIds.slice();
+        if (folderIndex > -1) {
+            folderIds.splice(folderIndex, 1)
+        } else {
+            folderIds.push(folderId)
+        }
         this.setState(Object.assign({}, {
-            openFolderIds: [...self.state.openFolderIds, activeId]
+            openFolderIds: folderIds
         }));
     }
 
     render() {
         let folders = this.props.folders.map(folder => {
-            return <Folder key={folder.id} folder={folder} isOpen={false}
-                           onClick={() => this.setActiveFolder(folder.id)}/>
+            let isOpen = this.state.openFolderIds.indexOf(folder.id) > -1;
+            return <Folder key={folder.id} folder={folder} isOpen={isOpen}
+                           onFolderClick={this.onFolderClick.bind(this, folder.id)}/>
         })
+
         return (
             <div className="well nav">
                 <ul className="list-unstyled">
