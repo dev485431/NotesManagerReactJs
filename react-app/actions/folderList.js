@@ -1,5 +1,5 @@
 import {addError} from "../actions/errors"
-import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS_LIST, SET_ACTIVE_FOLDER} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS_LIST, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -29,6 +29,13 @@ export function setActiveFolder(activeFolderId) {
     return {
         type: SET_ACTIVE_FOLDER,
         activeFolderId
+    }
+}
+
+export function setOpenFolders(openFolderIds) {
+    return {
+        type: SET_OPEN_FOLDERS,
+        openFolderIds
     }
 }
 

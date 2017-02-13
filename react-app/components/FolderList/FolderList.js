@@ -4,16 +4,14 @@ import Folder from "./Folder";
 export default class FolderList extends React.Component {
 
     static propTypes = {
-        folders: React.PropTypes.array.isRequired,
+        folderList: React.PropTypes.object.isRequired,
+        //todo: use active folderId when rendering to highlight active folder
         setActiveFolder: React.PropTypes.func.isRequired,
-        activeFolderId: React.PropTypes.number.isRequired
+        setOpenFolders: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props)
-        this.state = {
-            openFolderIds: []
-        }
     }
 
     onFolderClick = (folderId) => {
@@ -22,20 +20,18 @@ export default class FolderList extends React.Component {
     }
 
     openCloseFolder = (folderId) => {
-        let folderIndex = this.state.openFolderIds.indexOf(folderId);
-        let openFolders = this.state.openFolderIds.slice();
+        let folderIndex = this.props.folderList.openFolderIds.indexOf(folderId);
+        let openFolders = this.props.folderList.openFolderIds.slice();
         if (folderIndex > -1) {
             openFolders.splice(folderIndex, 1)
         } else {
             openFolders.push(folderId)
         }
-        this.setState(Object.assign({}, {
-            openFolderIds: openFolders
-        }));
+        this.props.setOpenFolders(openFolders);
     }
 
     getFoldersTree = () => {
-        let nodes = this.props.folders.slice();
+        let nodes = this.props.folderList.folders.slice();
         let map = {}, roots = [];
 
         for (let i = 0; i < nodes.length; i++) {
@@ -55,7 +51,8 @@ export default class FolderList extends React.Component {
     getFolderSubTree = (folder) => {
         let folderSubTree = [];
 
-        let isOpen = this.state.openFolderIds.indexOf(folder.id) > -1;
+        let isOpen = this.props.folderList.openFolderIds.indexOf(folder.id) > -1;
+        //todo: use active folderId when rendering to highlight active folder
         let isSelected;
         folderSubTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen}
                                    onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)

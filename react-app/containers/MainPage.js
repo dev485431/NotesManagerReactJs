@@ -10,7 +10,7 @@ import {addError, removeError} from "../actions/errors"
 
 import FolderList from "../components/FolderList/FolderList"
 import {LOADED} from "../constants/folderListState"
-import {fetchFolders, setActiveFolder} from "../actions/folderList"
+import {fetchFolders, setActiveFolder, setOpenFolders} from "../actions/folderList"
 
 class MainPage extends React.Component {
 
@@ -21,7 +21,7 @@ class MainPage extends React.Component {
         removeError: React.PropTypes.func.isRequired,
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
-        activeFolderId: React.PropTypes.number.isRequired
+        setOpenFolders: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -41,7 +41,8 @@ class MainPage extends React.Component {
                     <MainMenu addError={this.props.addError}/>
                 </div>
                 <div className="col-sm-4">
-                    <FolderList folders={this.props.folderList.folders} setActiveFolder={this.props.setActiveFolder} activeFolderId={this.props.activeFolderId}/>
+                    <FolderList folderList={this.props.folderList} setActiveFolder={this.props.setActiveFolder}
+                                setOpenFolders={this.props.setOpenFolders}/>
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
@@ -64,7 +65,6 @@ export default connect(state => {
         return {
             errors: state.errors,
             folderList: state.folderList,
-            activeFolderId: state.folderList.activeFolderId
         }
     },
     // mapDispatchToProps
@@ -82,6 +82,9 @@ export default connect(state => {
             },
             setActiveFolder: (folderId) => {
                 dispatch(setActiveFolder(folderId))
+            },
+            setOpenFolders: (openFolderIds) => {
+                dispatch(setOpenFolders(openFolderIds))
             }
         }
 

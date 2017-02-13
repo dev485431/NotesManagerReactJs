@@ -1,10 +1,10 @@
-import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS_LIST, SET_ACTIVE_FOLDER} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS_LIST, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/folderListState"
 import _ from "lodash"
 
 import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
-let initState = {folders: [], status: NOT_LOADED, activeFolderId: ROOT_FOLDER_ID};
+let initState = {folders: [], status: NOT_LOADED, activeFolderId: ROOT_FOLDER_ID, openFolderIds: []};
 
 export default function folderList(state = initState, action) {
 
@@ -28,6 +28,11 @@ export default function folderList(state = initState, action) {
         case SET_ACTIVE_FOLDER:
             return Object.assign({}, state, {
                 activeFolderId: action.activeFolderId
+            });
+            break;
+        case SET_OPEN_FOLDERS:
+            return Object.assign({}, state, {
+                openFolderIds: action.openFolderIds
             });
             break;
         default:
