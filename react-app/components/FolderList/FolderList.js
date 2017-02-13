@@ -1,6 +1,5 @@
 import React from "react"
 import Folder from "./Folder";
-import _ from "lodash"
 
 export default class FolderList extends React.Component {
 
@@ -34,7 +33,7 @@ export default class FolderList extends React.Component {
         }));
     }
 
-    getFolderTree = () => {
+    getFoldersTree = () => {
         let nodes = this.props.folders.slice();
         let map = {}, roots = [];
 
@@ -71,7 +70,7 @@ export default class FolderList extends React.Component {
 
     render() {
         let folderTree = [];
-        this.getFolderTree().map(folder => {
+        this.getFoldersTree().map(folder => {
             folderTree.push(...this.getFolderSubTree(folder));
         })
         return (

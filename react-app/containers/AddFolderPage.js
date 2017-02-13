@@ -10,7 +10,7 @@ class AddFolderPage extends React.Component {
     static propTypes = {
         errors: React.PropTypes.array,
         saveFolder: React.PropTypes.func.isRequired,
-        activeFolderId: React.PropTypes.number
+        activeId: React.PropTypes.number
     }
 
     constructor(props) {
@@ -38,8 +38,8 @@ class AddFolderPage extends React.Component {
         e.preventDefault();
         if (!this.isAddFolderButtonDisabled()) {
             let activeFolderId = this.props.activeId || ROOT_FOLDER_ID;
-            this.props.saveFolder(activeFolderId, this.state.folderName)
-            this.props.router.push({pathname: '/'})
+            this.props.saveFolder(activeFolderId, this.state.folderName);
+            this.props.router.push({pathname: '/'});
         }
     }
 
