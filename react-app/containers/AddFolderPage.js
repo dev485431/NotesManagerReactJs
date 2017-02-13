@@ -10,7 +10,7 @@ class AddFolderPage extends React.Component {
     static propTypes = {
         errors: React.PropTypes.array,
         saveFolder: React.PropTypes.func.isRequired,
-        activeFolderId: React.PropTypes.number.isRequired
+        activeFolderId: React.PropTypes.number
     }
 
     constructor(props) {
