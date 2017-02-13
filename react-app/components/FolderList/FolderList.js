@@ -59,7 +59,7 @@ export default class FolderList extends React.Component {
         folderSubTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen}
                                    onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
 
-        if (folder.children.length > 0) {
+        if (isOpen && folder.children.length > 0) {
             let subFolders = [];
             folder.children.map(child => {
                 subFolders.push(...this.getFolderSubTree(child));
