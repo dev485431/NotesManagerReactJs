@@ -15,7 +15,6 @@ class AddFolderPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.def_active_folder_id = 1;
         this.state = {
             folderName: "",
             folderDesc: ""
