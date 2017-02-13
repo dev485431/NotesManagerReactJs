@@ -49,22 +49,22 @@ export default class FolderList extends React.Component {
     }
 
     getFolderSubTree = (folder) => {
-        let folderSubTree = [];
+        let subTree = [];
 
         let isOpen = this.props.folderList.openFolderIds.indexOf(folder.id) > -1;
-        //todo: use active folderId when rendering to highlight active folder
-        let isSelected;
-        folderSubTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen}
-                                   onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
+        let isSelected = folder.id === this.props.folderList.activeFolderId;
+
+        subTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen} isSelected={isSelected}
+                             onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
 
         if (isOpen && folder.children.length > 0) {
             let subFolders = [];
             folder.children.map(child => {
                 subFolders.push(...this.getFolderSubTree(child));
             })
-            folderSubTree.push(<ul key={"" + folder.id + folder.id}>{subFolders}</ul>);
+            subTree.push(<ul key={"" + folder.id + folder.id}>{subFolders}</ul>);
         }
-        return folderSubTree;
+        return subTree;
     }
 
     render() {
