@@ -9,7 +9,7 @@ export default function folderList(state = initState, action) {
     switch (action.type) {
         case ADD_FOLDER:
             return Object.assign({}, state, {
-                folders: [action.folder, ...state.folders]
+                folders: [...state.folders, action.folder]
             });
             break;
         case REMOVE_FOLDER:
