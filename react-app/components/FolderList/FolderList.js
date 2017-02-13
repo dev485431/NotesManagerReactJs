@@ -1,5 +1,6 @@
 import React from "react"
 import Folder from "./Folder";
+import _ from "lodash"
 
 export default class FolderList extends React.Component {
 
@@ -22,28 +23,61 @@ export default class FolderList extends React.Component {
 
     changeFolderIcon = (folderId) => {
         let folderIndex = this.state.openFolderIds.indexOf(folderId);
-        let folderIds = this.state.openFolderIds.slice();
+        let openFolders = this.state.openFolderIds.slice();
         if (folderIndex > -1) {
-            folderIds.splice(folderIndex, 1)
+            openFolders.splice(folderIndex, 1)
         } else {
-            folderIds.push(folderId)
+            openFolders.push(folderId)
         }
         this.setState(Object.assign({}, {
-            openFolderIds: folderIds
+            openFolderIds: openFolders
         }));
     }
 
-    render() {
-        let folders = this.props.folders.map(folder => {
-            let isOpen = this.state.openFolderIds.indexOf(folder.id) > -1;
-            return <Folder key={folder.id} folder={folder} isOpen={isOpen}
-                           onFolderClick={this.onFolderClick.bind(this, folder.id)}/>
-        })
+    getFolderTree = () => {
+        let nodes = this.props.folders.slice();
+        let map = {}, roots = [];
 
+        for (let i = 0; i < nodes.length; i++) {
+            let node = nodes[i];
+            node.children = [];
+            map[node.id] = i;
+
+            if (node.parentId) {
+                nodes[map[node.parentId]].children.push(node);
+            } else {
+                roots.push(node);
+            }
+        }
+        return roots;
+    }
+
+    getFolderSubTree = (folder) => {
+        let folderSubTree = [];
+
+        let isOpen = this.state.openFolderIds.indexOf(folder.id) > -1;
+        folderSubTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen}
+                                   onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
+
+        if (folder.children.length > 0) {
+            let subFolders = [];
+            folder.children.map(child => {
+                subFolders.push(...this.getFolderSubTree(child));
+            })
+            folderSubTree.push(<ul key={"" + folder.id + folder.id}>{subFolders}</ul>);
+        }
+        return folderSubTree;
+    }
+
+    render() {
+        let folderTree = [];
+        this.getFolderTree().map(folder => {
+            folderTree.push(...this.getFolderSubTree(folder));
+        })
         return (
             <div className="well nav">
                 <ul className="list-unstyled">
-                    {folders}
+                    {folderTree}
                 </ul>
             </div>
         )
