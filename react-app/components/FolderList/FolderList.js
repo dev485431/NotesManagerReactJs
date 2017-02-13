@@ -5,7 +5,8 @@ export default class FolderList extends React.Component {
 
     static propTypes = {
         folders: React.PropTypes.array.isRequired,
-        setActiveFolder: React.PropTypes.func.isRequired
+        setActiveFolder: React.PropTypes.func.isRequired,
+        activeFolderId: React.PropTypes.number.isRequired
     }
 
     constructor(props) {
@@ -16,11 +17,11 @@ export default class FolderList extends React.Component {
     }
 
     onFolderClick = (folderId) => {
-        this.changeFolderIcon(folderId);
+        this.openCloseFolder(folderId);
         this.props.setActiveFolder(folderId);
     }
 
-    changeFolderIcon = (folderId) => {
+    openCloseFolder = (folderId) => {
         let folderIndex = this.state.openFolderIds.indexOf(folderId);
         let openFolders = this.state.openFolderIds.slice();
         if (folderIndex > -1) {
@@ -55,6 +56,7 @@ export default class FolderList extends React.Component {
         let folderSubTree = [];
 
         let isOpen = this.state.openFolderIds.indexOf(folder.id) > -1;
+        let isSelected;
         folderSubTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen}
                                    onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
 

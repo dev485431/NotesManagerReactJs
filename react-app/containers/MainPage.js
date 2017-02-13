@@ -21,6 +21,7 @@ class MainPage extends React.Component {
         removeError: React.PropTypes.func.isRequired,
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
+        activeFolderId: React.PropTypes.number.isRequired
     }
 
     constructor(props) {
@@ -40,7 +41,7 @@ class MainPage extends React.Component {
                     <MainMenu addError={this.props.addError}/>
                 </div>
                 <div className="col-sm-4">
-                    <FolderList folders={this.props.folderList.folders} setActiveFolder={this.props.setActiveFolder}/>
+                    <FolderList folders={this.props.folderList.folders} setActiveFolder={this.props.setActiveFolder} activeFolderId={this.props.activeFolderId}/>
                 </div>
                 <div className="col-sm-7">
                     <div className="row">
@@ -62,7 +63,8 @@ export default connect(state => {
         // map application state to this container's props
         return {
             errors: state.errors,
-            folderList: state.folderList
+            folderList: state.folderList,
+            activeFolderId: state.folderList.activeFolderId
         }
     },
     // mapDispatchToProps

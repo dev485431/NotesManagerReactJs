@@ -3,14 +3,13 @@ import {connect} from "react-redux"
 import {Link} from "react-router"
 
 import {saveFolder} from "../actions/folderList"
-import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
 class AddFolderPage extends React.Component {
 
     static propTypes = {
         errors: React.PropTypes.array,
         saveFolder: React.PropTypes.func.isRequired,
-        activeId: React.PropTypes.number
+        activeFolderId: React.PropTypes.number
     }
 
     constructor(props) {
@@ -37,7 +36,7 @@ class AddFolderPage extends React.Component {
     addFolderAction = (e) => {
         e.preventDefault();
         if (!this.isAddFolderButtonDisabled()) {
-            let activeFolderId = this.props.activeId || ROOT_FOLDER_ID;
+            let activeFolderId = this.props.activeFolderId;
             this.props.saveFolder(activeFolderId, this.state.folderName);
             this.props.router.push({pathname: '/'});
         }
@@ -82,7 +81,7 @@ export default connect(state => {
         // map application state to this container's props
         return {
             errors: state.errors,
-            activeId: state.folderList.activeId
+            activeFolderId: state.folderList.activeFolderId
         }
 
     },

@@ -25,10 +25,10 @@ export function setFoldersList(folders) {
     }
 }
 
-export function setActiveFolder(activeId) {
+export function setActiveFolder(activeFolderId) {
     return {
         type: SET_ACTIVE_FOLDER,
-        activeId
+        activeFolderId
     }
 }
 
