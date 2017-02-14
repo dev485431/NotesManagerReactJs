@@ -6,7 +6,7 @@ import SearchForm from "../components/SearchForm"
 import FileList from "../components/FileList/FileList"
 
 import Errors from "../components/Errors"
-import {addError, removeError} from "../actions/errors"
+import {removeError} from "../actions/errors"
 
 import FolderList from "../components/FolderList/FolderList"
 import {LOADED} from "../constants/folderListState"
@@ -17,7 +17,6 @@ class MainPage extends React.Component {
     static propTypes = {
         errors: React.PropTypes.array,
         folderList: React.PropTypes.object.isRequired,
-        addError: React.PropTypes.func.isRequired,
         removeError: React.PropTypes.func.isRequired,
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
@@ -38,7 +37,7 @@ class MainPage extends React.Component {
                     <Errors errors={this.props.errors} clearError={this.props.removeError}/>
                 </div>
                 <div className="col-sm-1">
-                    <MainMenu addError={this.props.addError}/>
+                    <MainMenu />
                 </div>
                 <div className="col-sm-4">
                     <FolderList folderList={this.props.folderList} setActiveFolder={this.props.setActiveFolder}
@@ -71,9 +70,6 @@ export default connect(state => {
     // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
         return {
-            addError: (err) => {
-                dispatch(addError(err))
-            },
             removeError: (err) => {
                 dispatch(removeError(err))
             },

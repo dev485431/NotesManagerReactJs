@@ -3,11 +3,12 @@ import {connect} from "react-redux"
 import {Link} from "react-router"
 
 import {saveFolder} from "../actions/folderList"
+import {FOLDER_NAME_MIN, FOLDER_NAME_MAX, FOLDER_DESC_MIN, FOLDER_DESC_MAX} from "../constants/appSettings"
+
 
 class AddFolderPage extends React.Component {
 
     static propTypes = {
-        errors: React.PropTypes.array,
         saveFolder: React.PropTypes.func.isRequired,
         activeFolderId: React.PropTypes.number
     }
@@ -30,6 +31,12 @@ class AddFolderPage extends React.Component {
     }
 
     isAddFolderButtonDisabled = () => {
+        if (this.state.folderName.length < FOLDER_NAME_MIN || this.state.folderName.length > FOLDER_NAME_MAX) {
+            return true;
+        }
+        if (this.state.folderDesc.length < FOLDER_DESC_MIN || this.state.folderDesc.length > FOLDER_DESC_MAX) {
+            return true;
+        }
         return !(this.state.folderName.trim() && this.state.folderDesc.trim());
     }
 
@@ -50,12 +57,18 @@ class AddFolderPage extends React.Component {
                         <label htmlFor="folderName">Folder name</label>
                         <input type="text" className="form-control" id="folderName" name="folderName"
                                placeholder="Folder name" onChange={this.handleInputChange}/>
+                        <small className="text-muted">
+                            min {FOLDER_NAME_MIN} max {FOLDER_NAME_MAX} characters
+                        </small>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="folderDesc">Folder description</label>
                         <textarea className="form-control" id="folderDesc" name="folderDesc" rows="3"
                                   placeholder="Folder description" onChange={this.handleInputChange}/>
+                        <small className="text-muted">
+                            min {FOLDER_DESC_MIN} max {FOLDER_DESC_MAX} characters
+                        </small>
                     </div>
 
                     <div className="form-group text-center">
@@ -79,7 +92,6 @@ export default connect(state => {
 
         // mapStateToProps
         return {
-            errors: state.errors,
             activeFolderId: state.folderList.activeFolderId
         }
 
