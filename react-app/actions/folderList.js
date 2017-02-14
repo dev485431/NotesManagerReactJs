@@ -1,5 +1,5 @@
 import {addError} from "../actions/errors"
-import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS_LIST, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -18,9 +18,9 @@ export function removeFolder(removedId) {
     }
 }
 
-export function setFoldersList(folders) {
+export function setFolders(folders) {
     return {
-        type: SET_FOLDERS_LIST,
+        type: SET_FOLDERS,
         folders
     }
 }
@@ -43,7 +43,7 @@ export function setOpenFolders(openFolderIds) {
 export function fetchFolders(dispatch) {
     axios.get("/directories")
         .then(function (data) {
-            dispatch(setFoldersList(data.data))
+            dispatch(setFolders(data.data))
         })
         .catch(function (err) {
 
