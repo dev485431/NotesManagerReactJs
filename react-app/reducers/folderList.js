@@ -1,4 +1,4 @@
-import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDERS, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/folderListState"
 import _ from "lodash"
 
@@ -14,9 +14,9 @@ export default function folderList(state = initState, action) {
                 folders: [...state.folders, action.folder]
             });
             break;
-        case REMOVE_FOLDER:
+        case REMOVE_FOLDERS:
             return Object.assign({}, state, {
-                folders: _.filter(state.folders, el => el.id != action.folderId && el.parentId != action.folderId)
+                folders: _.filter(state.folders, el => !action.folderIds.includes(el.id))
             });
             break;
         case SET_FOLDERS:

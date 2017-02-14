@@ -7,8 +7,9 @@ import {ROOT_FOLDER_ID} from "../constants/appSettings"
 export default class MainMenu extends React.Component {
 
     static propTypes = {
+        folders: React.PropTypes.array.isRequired,
         activeFolderId: React.PropTypes.number.isRequired,
-        deleteFolder: React.PropTypes.func.isRequired,
+        deleteFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired
     }
 
@@ -21,8 +22,17 @@ export default class MainMenu extends React.Component {
     }
 
     removeFolder = () => {
-        this.props.deleteFolder(this.props.activeFolderId);
+        this.props.deleteFolders([this.props.activeFolderId, ...this.getFolderChildren(this.props.activeFolderId)]);
         this.props.setActiveFolder(ROOT_FOLDER_ID);
+    }
+
+    getFolderChildren = (folderId) => {
+        let childrenIds = [];
+        let children = _.filter(this.props.folders, el => el.parentId == folderId);
+        children.map(folder => {
+            childrenIds.push(folder.id);
+        })
+        return childrenIds;
     }
 
     render() {

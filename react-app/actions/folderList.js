@@ -1,5 +1,5 @@
 import {addError} from "../actions/errors"
-import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDERS, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -10,10 +10,10 @@ export function addFolder(folder) {
     }
 }
 
-export function removeFolder(folderId) {
+export function removeFolders(folderIds) {
     return {
-        type: REMOVE_FOLDER,
-        folderId
+        type: REMOVE_FOLDERS,
+        folderIds
     }
 }
 
@@ -67,12 +67,21 @@ export function saveFolder(parentId, name, dispatch) {
         })
 }
 
-export function deleteFolder(folderId, dispatch) {
-    axios.delete("/directories/" + folderId)
+export function deleteFolders(folderIds, dispatch) {
+    let deleteRequests = [];
+    folderIds.map(folderId => {
+        deleteRequests.push(deleteFolder(folderId));
+    })
+    axios.all(deleteRequests)
         .then(function () {
-            dispatch(removeFolder(folderId))
+            dispatch(removeFolders(folderIds))
         })
         .catch(function (err) {
             dispatch(addError(err.response.data))
         })
+
+}
+
+function deleteFolder(folderId) {
+    return axios.delete("/directories/" + folderId)
 }

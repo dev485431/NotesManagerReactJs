@@ -10,7 +10,7 @@ import {removeError} from "../actions/errors"
 
 import FolderList from "../components/FolderList/FolderList"
 import {LOADED} from "../constants/folderListState"
-import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolder} from "../actions/folderList"
+import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders} from "../actions/folderList"
 
 class MainPage extends React.Component {
 
@@ -21,7 +21,7 @@ class MainPage extends React.Component {
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
         setOpenFolders: React.PropTypes.func.isRequired,
-        deleteFolder: React.PropTypes.func.isRequired
+        deleteFolders: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -38,8 +38,8 @@ class MainPage extends React.Component {
                     <Errors errors={this.props.errors} clearError={this.props.removeError}/>
                 </div>
                 <div className="col-sm-1">
-                    <MainMenu activeFolderId={this.props.folderList.activeFolderId}
-                              deleteFolder={this.props.deleteFolder} setActiveFolder={this.props.setActiveFolder}/>
+                    <MainMenu folders={this.props.folderList.folders} activeFolderId={this.props.folderList.activeFolderId}
+                              deleteFolders={this.props.deleteFolders} setActiveFolder={this.props.setActiveFolder}/>
                 </div>
                 <div className="col-sm-4">
                     <FolderList folderList={this.props.folderList} setActiveFolder={this.props.setActiveFolder}
@@ -82,8 +82,8 @@ export default connect(state => {
             setOpenFolders: (openFolderIds) => {
                 dispatch(setOpenFolders(openFolderIds))
             },
-            deleteFolder: (folderId) => {
-                deleteFolder(folderId, dispatch)
+            deleteFolders: (folderIds) => {
+                deleteFolders(folderIds, dispatch)
             }
         }
 
