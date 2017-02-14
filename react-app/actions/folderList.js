@@ -11,10 +11,10 @@ export function addFolder(folder) {
     }
 }
 
-export function removeFolder(removedId) {
+export function removeFolder(folderId) {
     return {
         type: REMOVE_FOLDER,
-        removedId
+        folderId
     }
 }
 
@@ -46,7 +46,6 @@ export function fetchFolders(dispatch) {
             dispatch(setFolders(data.data))
         })
         .catch(function (err) {
-
             dispatch(addError(err.response.data))
         })
 }
@@ -65,19 +64,16 @@ export function saveFolder(parentId, name, dispatch) {
             dispatch(addFolder(folder))
         })
         .catch(function (err) {
-
             dispatch(addError(err.response.data))
         })
 }
 
 export function deleteFolder(folderId, dispatch) {
     axios.delete("/directories/" + folderId)
-        .then(function (data) {
-            console.log(data);
-            // dispatch(addFolder(folder))
+        .then(function () {
+            dispatch(removeFolder(folderId))
         })
         .catch(function (err) {
-
             dispatch(addError(err.response.data))
         })
 }

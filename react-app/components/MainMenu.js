@@ -7,7 +7,8 @@ export default class MainMenu extends React.Component {
 
     static propTypes = {
         activeFolderId: React.PropTypes.number.isRequired,
-        deleteFolder: React.PropTypes.func.isRequired
+        deleteFolder: React.PropTypes.func.isRequired,
+        setActiveFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -16,6 +17,11 @@ export default class MainMenu extends React.Component {
 
     isRemoveFolderButtonDisabled = () => {
         return !this.props.activeFolderId || this.props.activeFolderId === ROOT_FOLDER_ID;
+    }
+
+    removeFolder = () => {
+        this.props.deleteFolder(this.props.activeFolderId);
+        this.props.setActiveFolder(ROOT_FOLDER_ID);
     }
 
     render() {
@@ -39,11 +45,9 @@ export default class MainMenu extends React.Component {
                 </div>
                 <br/>
 
-                {/*//todo: onClick remove folder from api*/}
                 <div className="row text-center">
                     <Link className="btn btn-lg btn-default button-main-menu"
-                          disabled={this.isRemoveFolderButtonDisabled()}
-                          onClick={this.props.deleteFolder.bind(this, this.props.activeFolderId)}>
+                          disabled={this.isRemoveFolderButtonDisabled()} onClick={this.removeFolder}>
                         <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
                     </Link>
                     <br/>

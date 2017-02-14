@@ -39,7 +39,7 @@ class MainPage extends React.Component {
                 </div>
                 <div className="col-sm-1">
                     <MainMenu activeFolderId={this.props.folderList.activeFolderId}
-                              deleteFolder={this.props.deleteFolder}/>
+                              deleteFolder={this.props.deleteFolder} setActiveFolder={this.props.setActiveFolder}/>
                 </div>
                 <div className="col-sm-4">
                     <FolderList folderList={this.props.folderList} setActiveFolder={this.props.setActiveFolder}
