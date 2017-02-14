@@ -13,8 +13,14 @@ body {
     font-size: 35px;
 }
 
+.button-main-menu:hover {
+    color: #d43f3a;
+}
+
 .active-folder-list {
+    color: #d43f3a;
     font-weight: bold;
+    font-style: italic;
 }
 
 .glyphicon-folder-list {

@@ -2,6 +2,7 @@ import React from "react"
 import Folder from "./Folder";
 
 import {LOADED} from "../../constants/folderListState"
+import {ROOT_FOLDER_ID}  from "../../constants/appSettings"
 
 export default class FolderList extends React.Component {
 
@@ -17,7 +18,15 @@ export default class FolderList extends React.Component {
 
     onFolderClick = (folderId) => {
         this.openCloseFolder(folderId);
-        this.props.setActiveFolder(folderId);
+        this.setActiveFolder(folderId);
+    }
+
+    setActiveFolder = (folderId) => {
+        if (this.props.folderList.activeFolderId === folderId || this.isOpened(folderId)) {
+            this.props.setActiveFolder(ROOT_FOLDER_ID);
+        } else {
+            this.props.setActiveFolder(folderId);
+        }
     }
 
     openCloseFolder = (folderId) => {
@@ -29,6 +38,10 @@ export default class FolderList extends React.Component {
             openFolders.push(folderId)
         }
         this.props.setOpenFolders(openFolders);
+    }
+
+    isOpened = (folderId) => {
+        return this.props.folderList.openFolderIds.indexOf(folderId) > -1;
     }
 
     getFoldersTree = () => {
