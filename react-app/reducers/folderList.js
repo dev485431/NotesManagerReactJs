@@ -16,7 +16,7 @@ export default function folderList(state = initState, action) {
             break;
         case REMOVE_FOLDER:
             return Object.assign({}, state, {
-                folders: _.filter(state.folders, el => el.id != action.folderId)
+                folders: _.filter(state.folders, el => el.id != action.folderId && el.parentId != action.folderId)
             });
             break;
         case SET_FOLDERS:

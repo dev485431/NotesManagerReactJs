@@ -3,7 +3,6 @@ import {ADD_FOLDER, REMOVE_FOLDER, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLD
 
 import axios from "axios"
 
-// action creators; returned objects will be dispatch()ed and caught by reducers
 export function addFolder(folder) {
     return {
         type: ADD_FOLDER,

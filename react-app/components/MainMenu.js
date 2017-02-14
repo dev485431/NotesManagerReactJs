@@ -1,5 +1,6 @@
 import React from "react"
 import {Link} from "react-router"
+import _ from "lodash"
 
 import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
@@ -25,6 +26,8 @@ export default class MainMenu extends React.Component {
     }
 
     render() {
+        let disableRemoveFolder = this.isRemoveFolderButtonDisabled() ? " disabled" : "";
+
         return (
             <div>
                 <div className="row text-center">
@@ -46,8 +49,8 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default button-main-menu"
-                          disabled={this.isRemoveFolderButtonDisabled()} onClick={this.removeFolder}>
+                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolder}
+                          onClick={this.removeFolder}>
                         <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
                     </Link>
                     <br/>
