@@ -62,14 +62,12 @@ class MainPage extends React.Component {
 export default connect(state => {
 
         // mapStateToProps
-        // map application state to this container's props
         return {
             errors: state.errors,
             folderList: state.folderList,
         }
     },
     // mapDispatchToProps
-    // when function is passed you can handle the dispatch()es of certain ACTIONS yourself
     dispatch => {
         return {
             removeError: (err) => {
