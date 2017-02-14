@@ -5,7 +5,6 @@ export default class FolderList extends React.Component {
 
     static propTypes = {
         folderList: React.PropTypes.object.isRequired,
-        //todo: use active folderId when rendering to highlight active folder
         setActiveFolder: React.PropTypes.func.isRequired,
         setOpenFolders: React.PropTypes.func.isRequired
     }
@@ -62,7 +61,7 @@ export default class FolderList extends React.Component {
             folder.children.map(child => {
                 subFolders.push(...this.getFolderSubTree(child));
             })
-            subTree.push(<ul key={"" + folder.id + folder.id}>{subFolders}</ul>);
+            subTree.push(<ul className="sublist-folder-list" key={"" + folder.id + folder.id}>{subFolders}</ul>);
         }
         return subTree;
     }
@@ -72,6 +71,7 @@ export default class FolderList extends React.Component {
         this.getFoldersTree().map(folder => {
             folderTree.push(...this.getFolderSubTree(folder));
         })
+        console.log(folderTree)
         return (
             <div className="well nav">
                 <ul className="list-unstyled">

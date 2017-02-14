@@ -9,6 +9,22 @@ body {
     overflow-y:scroll;
 }
 
-.active-folder {
+.glyphicon-main-menu {
+    font-size: 35px;
+}
+
+.active-folder-list {
     font-weight: bold;
+}
+
+.glyphicon-folder-list {
+    font-size: 30px;
+}
+
+.text-folder-list {
+    padding-left:5px;
+}
+
+.sublist-folder-list {
+    list-style: none;
 }

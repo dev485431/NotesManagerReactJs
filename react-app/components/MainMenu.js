@@ -12,7 +12,7 @@ export default class MainMenu extends React.Component {
             <div>
                 <div className="row text-center">
                     <Link className="btn btn-lg btn-default" to="/addFolder">
-                        <span className="glyphicon glyphicon-plus"/>
+                        <span className="glyphicon glyphicon-plus glyphicon-main-menu"/>
                     </Link>
                     <br/>
                     <small>Add folder</small>
@@ -21,7 +21,7 @@ export default class MainMenu extends React.Component {
 
                 <div className="row text-center">
                     <Link className="btn btn-lg btn-default" to="/addNote">
-                        <span className="glyphicon glyphicon-pencil"/>
+                        <span className="glyphicon glyphicon-pencil glyphicon-main-menu"/>
                     </Link>
                     <br/>
                     <small>Add note</small>
@@ -30,7 +30,7 @@ export default class MainMenu extends React.Component {
 
                 <div className="row text-center">
                     <Link className="btn btn-lg btn-default" to="/removeFolder">
-                        <span className="glyphicon glyphicon-remove"/>
+                        <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
                     </Link>
                     <br/>
                     <small>Remove folder</small>
