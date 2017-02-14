@@ -1,10 +1,21 @@
 import React from "react"
 import {Link} from "react-router"
 
+import {ROOT_FOLDER_ID} from "../constants/appSettings"
+
 export default class MainMenu extends React.Component {
+
+    static propTypes = {
+        activeFolderId: React.PropTypes.number.isRequired,
+        deleteFolder: React.PropTypes.func.isRequired
+    }
 
     constructor(props) {
         super(props)
+    }
+
+    isRemoveFolderButtonDisabled = () => {
+        return !this.props.activeFolderId || this.props.activeFolderId === ROOT_FOLDER_ID;
     }
 
     render() {
@@ -28,8 +39,11 @@ export default class MainMenu extends React.Component {
                 </div>
                 <br/>
 
+                {/*//todo: onClick remove folder from api*/}
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default button-main-menu" to="/removeFolder">
+                    <Link className="btn btn-lg btn-default button-main-menu"
+                          disabled={this.isRemoveFolderButtonDisabled()}
+                          onClick={this.props.deleteFolder.bind(this, this.props.activeFolderId)}>
                         <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
                     </Link>
                     <br/>

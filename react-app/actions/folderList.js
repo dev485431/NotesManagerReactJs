@@ -52,7 +52,7 @@ export function fetchFolders(dispatch) {
 }
 
 export function saveFolder(parentId, name, dispatch) {
-    axios.post("/directories", {
+    axios.post("/directories/", {
         parentId: parentId,
         name: name
     })
@@ -63,6 +63,18 @@ export function saveFolder(parentId, name, dispatch) {
                 name: name
             }
             dispatch(addFolder(folder))
+        })
+        .catch(function (err) {
+
+            dispatch(addError(err.response.data))
+        })
+}
+
+export function deleteFolder(folderId, dispatch) {
+    axios.delete("/directories/" + folderId)
+        .then(function (data) {
+            console.log(data);
+            // dispatch(addFolder(folder))
         })
         .catch(function (err) {
 
