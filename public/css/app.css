@@ -28,18 +28,23 @@ body {
 }
 
 .text-folder-list {
-    padding-left:5px;
+    padding-left:7px;
 }
 
 .sublist-folder-list {
     list-style: none;
 }
 
-.glyphicon-note {
+.element-note-list {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.glyphicon-note-list {
     font-size: 45px;
 }
 
-.active-note {
+.active-note-list {
     color: #d43f3a;
     font-weight: bold;
     font-style: italic;

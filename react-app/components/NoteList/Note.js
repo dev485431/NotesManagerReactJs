@@ -13,11 +13,11 @@ export default class Note extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.isSelected ? "active-note" : "";
+        let isSelected = this.props.isSelected ? " active-note-list" : "";
 
-        return <li className={isSelected} onClick={this.props.onNoteClick}>
-            <span className="glyphicon glyphicon-file glyphicon-note"/> <span
-            className="text-folder-list">{this.props.note.title}</span>
+        return <li className={"element-note-list" + isSelected} onClick={this.props.onNoteClick}>
+            <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
+            <span>{this.props.note.title}</span>
         </li>
     }
 }

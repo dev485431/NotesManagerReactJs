@@ -34,7 +34,7 @@ export default class NoteList extends React.Component {
         }
         return (
             <div>
-                <ul className="list-unstyled">
+                <ul className="list-inline">
                     {notes}
                 </ul>
             </div>
