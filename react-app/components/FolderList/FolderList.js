@@ -66,7 +66,7 @@ export default class FolderList extends React.Component {
         let subTree = [];
 
         let isOpen = this.props.folderList.openFolderIds.indexOf(folder.id) > -1;
-        let isSelected = folder.id === this.props.folderList.activeFolderId;
+        let isSelected = folder.id == this.props.folderList.activeFolderId;
 
         subTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen} isSelected={isSelected}
                              onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)

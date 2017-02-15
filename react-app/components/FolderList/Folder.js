@@ -14,7 +14,7 @@ export default class Folder extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.isSelected ? "active-folder-list" : "";
+        let isSelected = this.props.isSelected ? "active-folder" : "";
         let folderIcon = this.props.isOpen ? "glyphicon glyphicon-folder-list glyphicon-folder-open" : "glyphicon" +
             " glyphicon-folder-list glyphicon-folder-close";
 

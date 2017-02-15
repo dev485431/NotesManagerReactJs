@@ -12,7 +12,7 @@ import FolderList from "../components/FolderList/FolderList"
 import {LOADED as FOLDERS_LOADED} from "../constants/folderListState"
 import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders} from "../actions/folderList"
-import {fetchNotes} from "../actions/noteList"
+import {fetchNotes, setActiveNote} from "../actions/noteList"
 
 class MainPage extends React.Component {
 
@@ -27,7 +27,8 @@ class MainPage extends React.Component {
         deleteFolders: React.PropTypes.func.isRequired,
 
         noteList: React.PropTypes.object.isRequired,
-        loadNotes: React.PropTypes.func.isRequired
+        loadNotes: React.PropTypes.func.isRequired,
+        setActiveNote: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -41,7 +42,7 @@ class MainPage extends React.Component {
     }
 
     render() {
-        const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList} = this.props;
+        const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote} = this.props;
         return (
             <div>
                 <div className="row">
@@ -62,7 +63,7 @@ class MainPage extends React.Component {
                     </div>
                     <br/>
                     <div className="row">
-                        <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId}/>
+                        <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId} setActiveNote={setActiveNote}/>
                     </div>
                 </div>
             </div>
@@ -99,7 +100,11 @@ export default connect(state => {
             },
             loadNotes: () => {
                 fetchNotes(dispatch)
+            },
+            setActiveNote: (noteId) => {
+                dispatch(setActiveNote(noteId))
             }
+
         }
 
     })(MainPage)

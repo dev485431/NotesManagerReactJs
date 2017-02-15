@@ -17,7 +17,7 @@ body {
     color: #d43f3a;
 }
 
-.active-folder-list {
+.active-folder {
     color: #d43f3a;
     font-weight: bold;
     font-style: italic;
@@ -35,7 +35,11 @@ body {
     list-style: none;
 }
 
-.active-file {
+.glyphicon-note {
+    font-size: 45px;
+}
+
+.active-note {
     color: #d43f3a;
     font-weight: bold;
     font-style: italic;
