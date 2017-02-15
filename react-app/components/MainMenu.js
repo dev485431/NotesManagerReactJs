@@ -28,15 +28,17 @@ export default class MainMenu extends React.Component {
 
     getFolderChildren = (folderId) => {
         let childrenIds = [];
-        let children = _.filter(this.props.folders, el => el.parentId == folderId);
-        children.map(folder => {
+        let childFolders = _.filter(this.props.folders, el => el.parentId == folderId);
+        childFolders.map(folder => {
             childrenIds.push(folder.id);
         })
+
+        childrenIds.map(childId => childrenIds.push(...this.getFolderChildren(childId)));
         return childrenIds;
     }
 
     render() {
-        let disableRemoveFolder = this.isRemoveFolderButtonDisabled() ? " disabled" : "";
+        let disableRemoveFolderBtn = this.isRemoveFolderButtonDisabled() ? " disabled" : "";
 
         return (
             <div>
@@ -59,7 +61,7 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolder}
+                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolderBtn}
                           onClick={this.removeFolder}>
                         <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
                     </Link>
