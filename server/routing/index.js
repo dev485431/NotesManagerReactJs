@@ -15,7 +15,7 @@ module.exports = (app, dir) => {
     "use strict";
 
     app.use("/public", express.static(path.join(dir, 'public')));
-    app.use( bodyParser.json() );
+    app.use(bodyParser.json());
 
     app.get('/', (req, res) => {
         res.sendFile(path.join(dir, 'public', 'index.html'));
@@ -30,7 +30,7 @@ module.exports = (app, dir) => {
             .catch(data => {
                 res.status(400).json(data.response.data)
             });
-    })
+    });
 
     app.post(FOLDERS_PATH, (req, res) => {
         server.post(FOLDERS_PATH, {
@@ -43,7 +43,7 @@ module.exports = (app, dir) => {
             .catch(data => {
                 res.status(400).json(data.response.data)
             });
-    })
+    });
 
     app.delete(FOLDERS_PATH + "/:id", (req, res) => {
         let id = req.params.id;
@@ -55,7 +55,7 @@ module.exports = (app, dir) => {
             .catch(data => {
                 res.status(400).json(data.response.data)
             });
-    })
+    });
 
     // notes
     app.get(NOTES_PATH, (req, res) => {
@@ -66,7 +66,7 @@ module.exports = (app, dir) => {
             .catch(data => {
                 res.status(400).json(data.response.data)
             });
-    })
+    });
 
     app.post(NOTES_PATH, (req, res) => {
         server.post(NOTES_PATH, {
@@ -81,7 +81,7 @@ module.exports = (app, dir) => {
             .catch(data => {
                 res.status(400).json(data.response.data)
             });
-    })
+    });
 
 
     return app

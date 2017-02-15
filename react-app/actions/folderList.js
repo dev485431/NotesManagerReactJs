@@ -50,7 +50,7 @@ export function fetchFolders(dispatch) {
 }
 
 export function saveFolder(parentId, name, dispatch) {
-    axios.post("/directories/", {
+    axios.post("/directories", {
         parentId: parentId,
         name: name
     })

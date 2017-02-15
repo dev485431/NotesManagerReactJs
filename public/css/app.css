@@ -34,3 +34,9 @@ body {
 .sublist-folder-list {
     list-style: none;
 }
+
+.active-file {
+    color: #d43f3a;
+    font-weight: bold;
+    font-style: italic;
+}
