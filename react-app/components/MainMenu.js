@@ -10,7 +10,11 @@ export default class MainMenu extends React.Component {
         folders: React.PropTypes.array.isRequired,
         activeFolderId: React.PropTypes.number.isRequired,
         deleteFolders: React.PropTypes.func.isRequired,
-        setActiveFolder: React.PropTypes.func.isRequired
+        setActiveFolder: React.PropTypes.func.isRequired,
+
+        activeNoteId: React.PropTypes.number,
+        deleteNote: React.PropTypes.func.isRequired,
+        setActiveNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -21,9 +25,18 @@ export default class MainMenu extends React.Component {
         return !this.props.activeFolderId || this.props.activeFolderId === ROOT_FOLDER_ID;
     }
 
+    isRemoveNoteButtonDisabled = () => {
+        return !this.props.activeNoteId;
+    }
+
     removeFolder = () => {
         this.props.deleteFolders([this.props.activeFolderId, ...this.getFolderChildren(this.props.activeFolderId)]);
         this.props.setActiveFolder(ROOT_FOLDER_ID);
+    }
+
+    removeNote = () => {
+        this.props.deleteNote(this.props.activeNoteId);
+        this.props.setActiveNote(null);
     }
 
     getFolderChildren = (folderId) => {
@@ -39,6 +52,7 @@ export default class MainMenu extends React.Component {
 
     render() {
         let disableRemoveFolderBtn = this.isRemoveFolderButtonDisabled() ? " disabled" : "";
+        let disableRemoveNoteBtn = this.isRemoveNoteButtonDisabled() ? " disabled" : "";
 
         return (
             <div>
@@ -69,6 +83,15 @@ export default class MainMenu extends React.Component {
                     <small>Remove folder</small>
                 </div>
                 <br/>
+
+                <div className="row text-center">
+                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveNoteBtn}
+                          onClick={this.removeNote}>
+                        <span className="glyphicon glyphicon-remove-circle glyphicon-main-menu"/>
+                    </Link>
+                    <br/>
+                    <small>Remove file</small>
+                </div>
             </div>
         )
     }

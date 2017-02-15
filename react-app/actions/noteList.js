@@ -64,3 +64,13 @@ export function saveNote(directoryId, title, description, tags, dispatch) {
             dispatch(addError(err.response.data))
         })
 }
+
+export function deleteNote(noteId, dispatch) {
+    axios.delete("/notices/" + noteId)
+        .then(function () {
+            dispatch(removeNote(noteId))
+        })
+        .catch(function (err) {
+            dispatch(addError(err.response.data))
+        })
+}

@@ -12,7 +12,7 @@ import FolderList from "../components/FolderList/FolderList"
 import {LOADED as FOLDERS_LOADED} from "../constants/folderListState"
 import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders} from "../actions/folderList"
-import {fetchNotes, setActiveNote} from "../actions/noteList"
+import {fetchNotes, setActiveNote, deleteNote} from "../actions/noteList"
 
 class MainPage extends React.Component {
 
@@ -28,7 +28,8 @@ class MainPage extends React.Component {
 
         noteList: React.PropTypes.object.isRequired,
         loadNotes: React.PropTypes.func.isRequired,
-        setActiveNote: React.PropTypes.func.isRequired
+        setActiveNote: React.PropTypes.func.isRequired,
+        deleteNote: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -42,16 +43,16 @@ class MainPage extends React.Component {
     }
 
     render() {
-        const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote} = this.props;
+        const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote, deleteNote} = this.props;
         return (
             <div>
                 <div className="row">
                     <Errors errors={errors} clearError={removeError}/>
                 </div>
                 <div className="col-sm-1">
-                    <MainMenu folders={folderList.folders}
-                              activeFolderId={folderList.activeFolderId}
-                              deleteFolders={deleteFolders} setActiveFolder={this.props.setActiveFolder}/>
+                    <MainMenu folders={folderList.folders} activeFolderId={folderList.activeFolderId}
+                              deleteFolders={deleteFolders} setActiveFolder={setActiveFolder}
+                              activeNoteId={noteList.activeNoteId} deleteNote={deleteNote} setActiveNote={setActiveNote}/>
                 </div>
                 <div className="col-sm-5">
                     <FolderList folderList={folderList} setActiveFolder={setActiveFolder}
@@ -63,7 +64,8 @@ class MainPage extends React.Component {
                     </div>
                     <br/>
                     <div className="row">
-                        <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId} setActiveNote={setActiveNote}/>
+                        <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId}
+                                  setActiveNote={setActiveNote}/>
                     </div>
                 </div>
             </div>
@@ -103,8 +105,10 @@ export default connect(state => {
             },
             setActiveNote: (noteId) => {
                 dispatch(setActiveNote(noteId))
+            },
+            deleteNote: (noteId) => {
+                deleteNote(noteId, dispatch)
             }
-
         }
 
     })(MainPage)

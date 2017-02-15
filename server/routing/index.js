@@ -83,6 +83,18 @@ module.exports = (app, dir) => {
             });
     });
 
+    app.delete(NOTES_PATH + "/:id", (req, res) => {
+        let id = req.params.id;
+
+        server.delete(NOTES_PATH + "/" + id)
+            .then((data) => {
+                res.json(data.data)
+            })
+            .catch(data => {
+                res.status(400).json(data.response.data)
+            });
+    });
+
 
     return app
 };
