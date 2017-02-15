@@ -1,5 +1,5 @@
 import {addError} from "../actions/errors"
-import {ADD_NOTE, REMOVE_NOTE, SET_NOTES, SET_ACTIVE_NOTE} from "../constants/actionNames"
+import {ADD_NOTE, REMOVE_NOTES, SET_NOTES, SET_ACTIVE_NOTE} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -10,10 +10,10 @@ export function addNote(note) {
     }
 }
 
-export function removeNote(noteId) {
+export function removeNotes(noteIds) {
     return {
-        type: REMOVE_NOTE,
-        noteId
+        type: REMOVE_NOTES,
+        noteIds
     }
 }
 
@@ -65,12 +65,20 @@ export function saveNote(directoryId, title, description, tags, dispatch) {
         })
 }
 
-export function deleteNote(noteId, dispatch) {
-    axios.delete("/notices/" + noteId)
+export function deleteNotes(noteIds, dispatch) {
+    let deleteRequests = [];
+    noteIds.map(noteId => {
+        deleteRequests.push(deleteNote(noteId));
+    })
+    axios.all(deleteRequests)
         .then(function () {
-            dispatch(removeNote(noteId))
+            dispatch(removeNotes(noteIds))
         })
         .catch(function (err) {
             dispatch(addError(err.response.data))
         })
+}
+
+function deleteNote(noteId) {
+    return axios.delete("/notices/" + noteId)
 }

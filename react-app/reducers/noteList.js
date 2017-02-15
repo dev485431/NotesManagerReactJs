@@ -1,4 +1,4 @@
-import {ADD_NOTE, REMOVE_NOTE, SET_NOTES, SET_ACTIVE_NOTE} from "../constants/actionNames"
+import {ADD_NOTE, REMOVE_NOTES, SET_NOTES, SET_ACTIVE_NOTE} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/noteListState"
 import _ from "lodash"
 
@@ -12,9 +12,9 @@ export default function noteList(state = initState, action) {
                 notes: [...state.notes, action.note]
             });
             break;
-        case REMOVE_NOTE:
+        case REMOVE_NOTES:
             return Object.assign({}, state, {
-                notes: _.filter(state.notes, el => el.id != action.noteId)
+                notes: _.filter(state.notes, el => !action.noteIds.includes(el.id))
             });
             break;
         case SET_NOTES:

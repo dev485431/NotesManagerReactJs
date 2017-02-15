@@ -12,8 +12,9 @@ export default class MainMenu extends React.Component {
         deleteFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
 
+        notes: React.PropTypes.array.isRequired,
         activeNoteId: React.PropTypes.number,
-        deleteNote: React.PropTypes.func.isRequired,
+        deleteNotes: React.PropTypes.func.isRequired,
         setActiveNote: React.PropTypes.func.isRequired
     }
 
@@ -30,24 +31,36 @@ export default class MainMenu extends React.Component {
     }
 
     removeFolder = () => {
-        this.props.deleteFolders([this.props.activeFolderId, ...this.getFolderChildren(this.props.activeFolderId)]);
+        let removedFolderIds = [this.props.activeFolderId, ...this.getSubFoldersIds(this.props.activeFolderId)];
+        this.props.deleteFolders(removedFolderIds);
         this.props.setActiveFolder(ROOT_FOLDER_ID);
-    }
-
-    removeNote = () => {
-        this.props.deleteNote(this.props.activeNoteId);
+        this.props.deleteNotes(this.getSubNotesIds(removedFolderIds));
         this.props.setActiveNote(null);
     }
 
-    getFolderChildren = (folderId) => {
-        let childrenIds = [];
-        let childFolders = _.filter(this.props.folders, el => el.parentId == folderId);
-        childFolders.map(folder => {
-            childrenIds.push(folder.id);
+    removeNote = () => {
+        this.props.deleteNotes([this.props.activeNoteId]);
+        this.props.setActiveNote(null);
+    }
+
+    getSubFoldersIds = (folderId) => {
+        let subFolderIds = [];
+        let subFolders = _.filter(this.props.folders, el => el.parentId == folderId);
+        subFolders.map(folder => {
+            subFolderIds.push(folder.id);
         })
 
-        childrenIds.map(childId => childrenIds.push(...this.getFolderChildren(childId)));
-        return childrenIds;
+        subFolderIds.map(childId => subFolderIds.push(...this.getSubFoldersIds(childId)));
+        return subFolderIds;
+    }
+
+    getSubNotesIds = (folderIds) => {
+        let subNotesIds = [];
+        let subNotes =  _.filter(this.props.notes, el => folderIds.includes(el.directoryId));
+        subNotes.map(subNote => {
+            subNotesIds.push(subNote.id)
+        })
+        return subNotesIds;
     }
 
     render() {
