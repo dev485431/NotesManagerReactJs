@@ -9,6 +9,7 @@ let server = axios.create({
 });
 
 const FOLDERS_PATH = "/directories";
+const NOTES_PATH = "/notices";
 
 module.exports = (app, dir) => {
     "use strict";
@@ -20,6 +21,7 @@ module.exports = (app, dir) => {
         res.sendFile(path.join(dir, 'public', 'index.html'));
     });
 
+    // folders
     app.get(FOLDERS_PATH, (req, res) => {
         server.get(FOLDERS_PATH)
             .then((data) => {
@@ -54,6 +56,33 @@ module.exports = (app, dir) => {
                 res.status(400).json(data.response.data)
             });
     })
+
+    // notes
+    app.get(NOTES_PATH, (req, res) => {
+        server.get(NOTES_PATH)
+            .then((data) => {
+                res.json(data.data)
+            })
+            .catch(data => {
+                res.status(400).json(data.response.data)
+            });
+    })
+
+    app.post(NOTES_PATH, (req, res) => {
+        server.post(NOTES_PATH, {
+            directoryId: req.body.directoryId,
+            title: req.body.title,
+            description: req.body.description,
+            tags: req.body.tags
+        })
+            .then((data) => {
+                res.json(data.data)
+            })
+            .catch(data => {
+                res.status(400).json(data.response.data)
+            });
+    })
+
 
     return app
 };

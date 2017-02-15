@@ -7,6 +7,7 @@ import * as reducers from "../reducers"
 
 import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
+import AddNotePage from "./AddNotePage"
 
 // function without params to get initial/preloaded state and pass to the store
 // there should be reducers for each initial state object's keys !!!
@@ -42,9 +43,7 @@ export default class App extends React.Component {
                 <Router history={history}>
                     <Route path="/" component={MainPage}/>
                     <Route path="/addFolder" component={AddFolderPage}/>
-                    {/*<Route path="/removeFolder/:idNote" component={RemoveFolder}/>*/}
-                    {/*<Route path="/addNote" component={AddNote}/>*/}
-                    {/*<Route path="/removeNote/:idNote" component={RemoveNote}/>*/}
+                    <Route path="/addNote" component={AddNotePage}/>
                 </Router>
             </Provider>
         )
