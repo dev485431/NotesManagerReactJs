@@ -9,7 +9,8 @@ export default class FolderList extends React.Component {
     static propTypes = {
         folderList: React.PropTypes.object.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
-        setOpenFolders: React.PropTypes.func.isRequired
+        setOpenFolders: React.PropTypes.func.isRequired,
+        setActiveNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -19,6 +20,7 @@ export default class FolderList extends React.Component {
     onFolderClick = (folderId) => {
         this.openCloseFolder(folderId);
         this.setActiveFolder(folderId);
+        this.props.setActiveNote(null);
     }
 
     setActiveFolder = (folderId) => {

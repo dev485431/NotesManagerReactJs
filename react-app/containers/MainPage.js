@@ -56,7 +56,7 @@ class MainPage extends React.Component {
                 </div>
                 <div className="col-sm-5">
                     <FolderList folderList={folderList} setActiveFolder={setActiveFolder}
-                                setOpenFolders={setOpenFolders}/>
+                                setOpenFolders={setOpenFolders} setActiveNote={setActiveNote}/>
                 </div>
                 <div className="col-sm-6">
                     <div className="row">
