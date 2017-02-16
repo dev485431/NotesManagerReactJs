@@ -4,7 +4,14 @@ import {Link} from "react-router"
 
 import TagList from "../components/TagList";
 import {saveNote} from "../actions/noteList"
-import {NOTE_TITLE_MIN, NOTE_TITLE_MAX, NOTE_DESC_MIN, NOTE_DESC_MAX, NOTE_TAGS_MAX} from "../constants/appSettings"
+import {
+    NOTE_TITLE_MIN,
+    NOTE_TITLE_MAX,
+    NOTE_DESC_MIN,
+    NOTE_DESC_MAX,
+    NOTE_TAGS_MIN,
+    NOTE_TAGS_MAX
+} from "../constants/appSettings"
 
 
 class AddNotePage extends React.Component {
@@ -39,16 +46,14 @@ class AddNotePage extends React.Component {
     }
 
     isAddNoteButtonDisabled = () => {
-        if (this.state.noteTitle.length < NOTE_TITLE_MIN || this.state.noteTitle.length > NOTE_TITLE_MAX) {
-            return true;
-        }
-        if (this.state.noteDesc.length < NOTE_DESC_MIN || this.state.noteDesc.length > NOTE_DESC_MAX) {
+        if (this.state.noteTitle.length < NOTE_TITLE_MIN || this.state.noteTitle.length > NOTE_TITLE_MAX
+            || this.state.noteDesc.length < NOTE_DESC_MIN || this.state.noteDesc.length > NOTE_DESC_MAX
+            || this.state.noteTags.length < NOTE_TAGS_MIN || this.state.noteTags.length > NOTE_TAGS_MAX) {
             return true;
         }
         return !(this.state.noteTitle.trim() && this.state.noteDesc.trim());
     }
 
-    //todo
     addNoteAction = (e) => {
         e.preventDefault();
         if (!this.isAddNoteButtonDisabled()) {
@@ -87,7 +92,7 @@ class AddNotePage extends React.Component {
 
                         <TagList tags={tags} id="noteTags" name="noteTags" setTags={this.setTags}/>
                         <small className="text-muted">
-                            max {NOTE_TAGS_MAX} tags
+                            min {NOTE_TAGS_MIN} max {NOTE_TAGS_MAX} tags
                         </small>
 
                     </div>
