@@ -8,7 +8,6 @@ import {NOTE_TITLE_MIN, NOTE_TITLE_MAX, NOTE_DESC_MIN, NOTE_DESC_MAX} from "../c
 
 class AddNotePage extends React.Component {
 
-    //todo
     static propTypes = {
         saveNote: React.PropTypes.func.isRequired,
         activeFolderId: React.PropTypes.number

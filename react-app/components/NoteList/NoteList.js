@@ -19,7 +19,7 @@ export default class NoteList extends React.Component {
         super(props)
         this.state = {
             showModal: false,
-            activeNote: this.props.noteList.activeNoteId
+            activeNote: null
         }
     }
 
@@ -53,7 +53,7 @@ export default class NoteList extends React.Component {
         }
 
         let noteDetails = null;
-        if (this.props.noteList.activeNoteId) {
+        if (this.state.activeNote) {
             let tags = [];
             this.state.activeNote.tags.map(tag => {
                 tags.push(<Tag text={tag}/>)
