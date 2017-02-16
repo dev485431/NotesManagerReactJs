@@ -94,7 +94,6 @@ class AddNotePage extends React.Component {
                         <small className="text-muted">
                             min {NOTE_TAGS_MIN} max {NOTE_TAGS_MAX} tags
                         </small>
-
                     </div>
 
                     <div className="form-group text-center">
