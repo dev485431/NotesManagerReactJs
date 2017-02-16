@@ -37,7 +37,8 @@ body {
 
 .element-note-list {
     text-align: center;
-    padding-top: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .glyphicon-note-list {

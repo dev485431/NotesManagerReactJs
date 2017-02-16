@@ -1,4 +1,5 @@
 import React from "react"
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 export default class Note extends React.Component {
 
@@ -13,11 +14,25 @@ export default class Note extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.isSelected ? " active-note-list" : "";
+        const {note} = this.props;
+        const tooltip = (
+            <Tooltip id="modal-tooltip">
+                {note.description}
+            </Tooltip>
+        );
 
-        return <li className={"element-note-list" + isSelected} onClick={this.props.onNoteClick}>
-            <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
-            <span>{this.props.note.title}</span>
-        </li>
+        let isSelected = this.props.isSelected ? " active-note-list" : "";
+        return (
+            <OverlayTrigger placement="top" delayHide={150} overlay={tooltip}>
+                <li >
+                    <div className={"element-note-list" + isSelected} onClick={this.props.onNoteClick}>
+                        <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
+                        <span>{note.title}</span>
+                    </div>
+                </li>
+            </OverlayTrigger>
+
+        )
+
     }
 }

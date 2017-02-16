@@ -14,6 +14,7 @@ import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders} from "../actions/folderList"
 import {fetchNotes, setActiveNote, deleteNotes} from "../actions/noteList"
 
+
 class MainPage extends React.Component {
 
     static propTypes = {
@@ -44,6 +45,7 @@ class MainPage extends React.Component {
 
     render() {
         const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote, deleteNotes} = this.props;
+
         return (
             <div>
                 <div className="row">
