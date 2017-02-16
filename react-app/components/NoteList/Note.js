@@ -22,7 +22,7 @@ export default class Note extends React.Component {
             'length': NOTE_TOOLTIP_MAX
         }).concat("...");
         const tooltip = (
-            <Tooltip id="modal-tooltip">
+            <Tooltip id="note-tooltip">
                 {tooltipTxt}
             </Tooltip>
         );
@@ -30,8 +30,8 @@ export default class Note extends React.Component {
         let isSelected = this.props.isSelected ? " active-note-list" : "";
         return (
             <OverlayTrigger placement="top" overlay={tooltip}>
-                <li>
-                    <div className={"element-note-list" + isSelected} onClick={this.props.onNoteClick}>
+                <li className={"element-note-list" + isSelected}>
+                    <div onClick={this.props.onNoteClick}>
                         <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
                         <span>{note.title}</span>
                     </div>

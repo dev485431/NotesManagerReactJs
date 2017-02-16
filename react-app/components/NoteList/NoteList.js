@@ -18,7 +18,7 @@ export default class NoteList extends React.Component {
         super(props)
         this.state = {
             showModal: false,
-            note: null
+            activeNote: this.props.noteList.activeNoteId
         }
     }
 
@@ -34,7 +34,7 @@ export default class NoteList extends React.Component {
     openModal = (note) => {
         this.setState({
             showModal: true,
-            note: note
+            activeNote: note
         });
     }
 
@@ -51,18 +51,18 @@ export default class NoteList extends React.Component {
             })
         }
 
-        let modal = null;
+        let noteDetails = null;
         if (this.props.noteList.activeNoteId) {
-            modal = <div>
+            noteDetails = <div>
                 <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.state.showModal}
                        onHide={this.closeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.state.note.title}</Modal.Title>
+                        <Modal.Title>{this.state.activeNote.title}</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
-                        <p>{this.state.note.description}</p>
-                        <p>{this.state.note.tags}</p>
+                        <p>{this.state.activeNote.description}</p>
+                        <p>{this.state.activeNote.tags}</p>
                     </Modal.Body>
 
                     <Modal.Footer>
@@ -80,7 +80,7 @@ export default class NoteList extends React.Component {
                     </ul>
                 </div>
 
-                {modal}
+                {noteDetails}
 
             </div>
         )
