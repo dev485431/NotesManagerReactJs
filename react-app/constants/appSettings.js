@@ -9,3 +9,5 @@ export const NOTE_TITLE_MIN = 1;
 export const NOTE_TITLE_MAX = 10;
 export const NOTE_DESC_MIN = 1;
 export const NOTE_DESC_MAX = 10;
+
+export const NOTE_TOOLTIP_MAX = 15;

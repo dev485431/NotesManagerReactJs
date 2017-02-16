@@ -1,0 +1,1 @@
+export const TOOLTIP_FILE = "Click for details";
