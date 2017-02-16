@@ -64,8 +64,6 @@ class AddNotePage extends React.Component {
     }
 
     render() {
-        let tags = [];
-
         return (
             <div>
                 <form>
@@ -90,7 +88,7 @@ class AddNotePage extends React.Component {
                     <div className="form-group">
                         <label htmlFor="noteTags">Tags</label>
 
-                        <TagList tags={tags} id="noteTags" name="noteTags" setTags={this.setTags}/>
+                        <TagList id="noteTags" name="noteTags" returnTags={this.setTags}/>
                         <small className="text-muted">
                             min {NOTE_TAGS_MIN} max {NOTE_TAGS_MAX} tags
                         </small>

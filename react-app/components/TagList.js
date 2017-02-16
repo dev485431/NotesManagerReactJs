@@ -6,14 +6,15 @@ import {NOTE_TAGS_MAX} from "../constants/appSettings"
 export default class TagList extends React.Component {
 
     static propTypes = {
-        tags: React.PropTypes.array.isRequired,
-        setTags: React.PropTypes.func
+        tags: React.PropTypes.array,
+        returnTags: React.PropTypes.func
     }
 
     constructor(props) {
         super(props);
+        let tags = this.props.tags ? this.props.tags.slice() : [];
         this.state = {
-            tags: this.props.tags.slice()
+            tags: tags
         }
     }
 
@@ -21,7 +22,7 @@ export default class TagList extends React.Component {
         let tags = this.state.tags.slice();
         tags.splice(i, 1);
         this.setState({tags: tags});
-        this.props.setTags(tags);
+        if (this.props.returnTags) this.props.returnTags(tags);
     }
 
     handleAddition = (tag) => {
@@ -33,7 +34,7 @@ export default class TagList extends React.Component {
                 text: tag
             });
             this.setState({tags: tags});
-            this.props.setTags(tags);
+            if (this.props.returnTags) this.props.returnTags(tags);
         }
     }
 
@@ -42,14 +43,13 @@ export default class TagList extends React.Component {
         tags.splice(currPos, 1);
         tags.splice(newPos, 0, tag);
         this.setState({tags: tags});
-        this.props.setTags(tags);
+        if (this.props.returnTags) this.props.returnTags(tags);
     }
 
     render() {
-        let tags = this.state.tags;
         return (
             <div>
-                <ReactTags tags={tags}
+                <ReactTags tags={this.state.tags}
                            handleDelete={this.handleDelete}
                            handleAddition={this.handleAddition}
                            handleDrag={this.handleDrag}/>
