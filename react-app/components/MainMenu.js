@@ -56,7 +56,7 @@ export default class MainMenu extends React.Component {
 
     getSubNotesIds = (folderIds) => {
         let subNotesIds = [];
-        let subNotes =  _.filter(this.props.notes, el => folderIds.includes(el.directoryId));
+        let subNotes = _.filter(this.props.notes, el => folderIds.includes(el.directoryId));
         subNotes.map(subNote => {
             subNotesIds.push(subNote.id)
         })
