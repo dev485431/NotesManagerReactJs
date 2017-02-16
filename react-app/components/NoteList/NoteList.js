@@ -3,7 +3,7 @@ import _ from "lodash"
 import {Modal, Button} from "react-bootstrap";
 
 import Note from "./Note";
-import TagList from "../TagList";
+import NoteDetails from "./NoteDetails";
 import {LOADED} from "../../constants/noteListState"
 
 
@@ -28,15 +28,15 @@ export default class NoteList extends React.Component {
         this.openModal(note);
     }
 
-    closeModal = () => {
-        this.setState({showModal: false});
-    }
-
     openModal = (note) => {
         this.setState({
             showModal: true,
             activeNote: note
         });
+    }
+
+    closeModal = () => {
+        this.setState({showModal: false});
     }
 
     render() {
@@ -55,21 +55,8 @@ export default class NoteList extends React.Component {
         let noteDetails = null;
         if (this.state.activeNote) {
             noteDetails = <div>
-                <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.state.showModal}
-                       onHide={this.closeModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{this.state.activeNote.title}</Modal.Title>
-                    </Modal.Header>
-
-                    <Modal.Body>
-                        <p>{this.state.activeNote.description}</p>
-                        <TagList tags={this.state.activeNote.tags}/>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <Button onClick={this.closeModal}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
+                <NoteDetails activeNote={this.state.activeNote} showModal={this.state.showModal}
+                             closeModal={this.closeModal}/>
             </div>
         }
 

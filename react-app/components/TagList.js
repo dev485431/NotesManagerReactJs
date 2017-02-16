@@ -7,7 +7,7 @@ export default class TagList extends React.Component {
 
     static propTypes = {
         tags: React.PropTypes.array.isRequired,
-        setTags: React.PropTypes.func.isRequired
+        setTags: React.PropTypes.func
     }
 
     constructor(props) {
