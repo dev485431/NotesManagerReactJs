@@ -37,7 +37,6 @@ export default class Note extends React.Component {
                     </div>
                 </li>
             </OverlayTrigger>
-
         )
 
     }
