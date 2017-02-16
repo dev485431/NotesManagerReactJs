@@ -3,7 +3,7 @@ import _ from "lodash"
 import {Modal, Button} from "react-bootstrap";
 
 import Note from "./Note";
-import Tag from "../Tag";
+import TagList from "../TagList";
 import {LOADED} from "../../constants/noteListState"
 
 
@@ -54,11 +54,6 @@ export default class NoteList extends React.Component {
 
         let noteDetails = null;
         if (this.state.activeNote) {
-            let tags = [];
-            this.state.activeNote.tags.map(tag => {
-                tags.push(<Tag text={tag}/>)
-            });
-
             noteDetails = <div>
                 <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.state.showModal}
                        onHide={this.closeModal}>
@@ -68,7 +63,7 @@ export default class NoteList extends React.Component {
 
                     <Modal.Body>
                         <p>{this.state.activeNote.description}</p>
-                        <p>{tags}</p>
+                        <TagList tags={this.state.activeNote.tags}/>
                     </Modal.Body>
 
                     <Modal.Footer>
@@ -85,9 +80,7 @@ export default class NoteList extends React.Component {
                         {notes}
                     </ul>
                 </div>
-
                 {noteDetails}
-
             </div>
         )
     }
