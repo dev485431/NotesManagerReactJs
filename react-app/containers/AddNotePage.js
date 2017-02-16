@@ -2,8 +2,9 @@ import React from "react"
 import {connect} from "react-redux"
 import {Link} from "react-router"
 
+import TagList from "../components/TagList";
 import {saveNote} from "../actions/noteList"
-import {NOTE_TITLE_MIN, NOTE_TITLE_MAX, NOTE_DESC_MIN, NOTE_DESC_MAX} from "../constants/appSettings"
+import {NOTE_TITLE_MIN, NOTE_TITLE_MAX, NOTE_DESC_MIN, NOTE_DESC_MAX, NOTE_TAGS_MAX} from "../constants/appSettings"
 
 
 class AddNotePage extends React.Component {
@@ -17,8 +18,15 @@ class AddNotePage extends React.Component {
         super(props);
         this.state = {
             noteTitle: "",
-            noteDesc: ""
+            noteDesc: "",
+            noteTags: []
         };
+    }
+
+    setTags = (tags) => {
+        this.setState({
+            noteTags: tags
+        })
     }
 
     handleInputChange = (event) => {
@@ -45,13 +53,14 @@ class AddNotePage extends React.Component {
         e.preventDefault();
         if (!this.isAddNoteButtonDisabled()) {
             let activeFolderId = this.props.activeFolderId;
-            //todo TAGS!!!
-            this.props.saveNote(activeFolderId, this.state.noteTitle, this.state.noteDesc, []);
+            this.props.saveNote(activeFolderId, this.state.noteTitle, this.state.noteDesc, this.state.noteTags);
             this.props.router.push({pathname: '/'});
         }
     }
 
     render() {
+        let tags = [];
+
         return (
             <div>
                 <form>
@@ -71,6 +80,16 @@ class AddNotePage extends React.Component {
                         <small className="text-muted">
                             min {NOTE_DESC_MIN} max {NOTE_DESC_MAX} characters
                         </small>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="noteTags">Tags</label>
+
+                        <TagList tags={tags} id="noteTags" name="noteTags" setTags={this.setTags}/>
+                        <small className="text-muted">
+                            max {NOTE_TAGS_MAX} tags
+                        </small>
+
                     </div>
 
                     <div className="form-group text-center">
