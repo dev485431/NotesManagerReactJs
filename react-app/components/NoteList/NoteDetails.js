@@ -2,6 +2,8 @@ import React from "react"
 import {Link} from "react-router"
 import {Modal, Button} from "react-bootstrap";
 
+import _ from "lodash"
+
 import TagList from "../TagList";
 import {LOADED} from "../../constants/noteListState"
 
@@ -47,7 +49,6 @@ export default class NoteDetails extends React.Component {
         })
     }
 
-    // todo: cause re-render of NoteList component
     updateNoteAction = (e) => {
         e.preventDefault();
         if (!this.isUpdateNoteButtonDisabled()) {
@@ -55,24 +56,29 @@ export default class NoteDetails extends React.Component {
                 title: this.state.noteTitle,
                 description: this.state.noteDesc,
                 tags: this.state.noteTags,
-
                 id: this.props.activeNote.id,
                 directoryId: this.props.activeNote.directoryId,
                 position: this.props.activeNote.position
-            })
+            });
             this.props.closeModal();
         }
     }
 
-    //todo: enable only if something was changed
-    //todo compare object by fields
     isUpdateNoteButtonDisabled = () => {
-        if (this.state.noteTitle.length < NOTE_TITLE_MIN || this.state.noteTitle.length > NOTE_TITLE_MAX
-            || this.state.noteDesc.length < NOTE_DESC_MIN || this.state.noteDesc.length > NOTE_DESC_MAX
-            || this.state.noteTags.length < NOTE_TAGS_MIN || this.state.noteTags.length > NOTE_TAGS_MAX) {
-            return true;
-        }
-        return !(this.state.noteTitle.trim() && this.state.noteDesc.trim());
+        return !this.state.noteTitle.trim() || !this.state.noteDesc.trim()
+            || this.state.noteTitle.length < NOTE_TITLE_MIN
+            || this.state.noteTitle.length > NOTE_TITLE_MAX
+            || this.state.noteDesc.length < NOTE_DESC_MIN
+            || this.state.noteDesc.length > NOTE_DESC_MAX
+            || this.state.noteTags.length < NOTE_TAGS_MIN
+            || this.state.noteTags.length > NOTE_TAGS_MAX;
+    }
+
+    //todo: check if form was changed; possible problem with array of tags reference
+    isFormChanged = () => {
+        return !(this.props.activeNote.title == this.state.noteTitle
+        || this.props.activeNote.description == this.state.noteDesc
+        || _.isEqual(this.props.activeNote.tags, this.state.noteTags));
     }
 
     render() {
