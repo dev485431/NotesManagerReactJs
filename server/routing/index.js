@@ -95,10 +95,11 @@ module.exports = (app, dir) => {
             });
     });
 
-    app.post(NOTES_PATH + "/:id", (req, res) => {
+    app.put(NOTES_PATH + "/:id", (req, res) => {
         let id = req.params.id;
 
         server.put(NOTES_PATH + "/" + id, {
+            id: req.body.id,
             directoryId: req.body.directoryId,
             title: req.body.title,
             description: req.body.description,

@@ -90,8 +90,10 @@ function deleteNote(noteId) {
     return axios.delete("/notices/" + noteId)
 }
 
-export function updateNote(noteId, note, dispatch) {
-    axios.post("/notices/" + noteId, {
+
+export function updateNote(note, dispatch) {
+    axios.put("/notices/" + note.id, {
+        id: note.id,
         directoryId: note.directoryId,
         title: note.title,
         description: note.description,

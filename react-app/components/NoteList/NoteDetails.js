@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router"
 import {Modal, Button} from "react-bootstrap";
 
 import TagList from "../TagList";
@@ -18,7 +19,8 @@ export default class NoteDetails extends React.Component {
     static propTypes = {
         activeNote: React.PropTypes.object.isRequired,
         showModal: React.PropTypes.bool.isRequired,
-        closeModal: React.PropTypes.func.isRequired
+        closeModal: React.PropTypes.func.isRequired,
+        updateNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -45,6 +47,34 @@ export default class NoteDetails extends React.Component {
         })
     }
 
+    // todo: cause re-render of NoteList component
+    updateNoteAction = (e) => {
+        e.preventDefault();
+        if (!this.isUpdateNoteButtonDisabled()) {
+            this.props.updateNote({
+                title: this.state.noteTitle,
+                description: this.state.noteDesc,
+                tags: this.state.noteTags,
+
+                id: this.props.activeNote.id,
+                directoryId: this.props.activeNote.directoryId,
+                position: this.props.activeNote.position
+            })
+            // this.props.closeModal();
+        }
+    }
+
+    //todo: enable only if something was changed
+    //todo compare object by fields
+    isUpdateNoteButtonDisabled = () => {
+        if (this.state.noteTitle.length < NOTE_TITLE_MIN || this.state.noteTitle.length > NOTE_TITLE_MAX
+            || this.state.noteDesc.length < NOTE_DESC_MIN || this.state.noteDesc.length > NOTE_DESC_MAX
+            || this.state.noteTags.length < NOTE_TAGS_MIN || this.state.noteTags.length > NOTE_TAGS_MAX) {
+            return true;
+        }
+        return !(this.state.noteTitle.trim() && this.state.noteDesc.trim());
+    }
+
     render() {
         return <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.props.showModal}
                       onHide={this.props.closeModal}>
@@ -67,9 +97,8 @@ export default class NoteDetails extends React.Component {
                     <div className="form-group">
                         <label htmlFor="noteDesc">Description</label>
                         <textarea className="form-control" id="noteDesc" name="noteDesc" rows="3"
-                                  placeholder="Description" onChange={this.handleInputChange}>
-                            {this.state.noteDesc}
-                        </textarea>
+                                  placeholder="Description" onChange={this.handleInputChange}
+                                  value={this.state.noteDesc}/>
                         <small className="text-muted">
                             min {NOTE_DESC_MIN} max {NOTE_DESC_MAX} characters
                         </small>
@@ -88,6 +117,10 @@ export default class NoteDetails extends React.Component {
             </Modal.Body>
 
             <Modal.Footer>
+                <Link onClick={this.updateNoteAction} disabled={this.isUpdateNoteButtonDisabled()}
+                      className="btn btn-primary"
+                      type="submit">Save</Link>
+
                 <Button onClick={this.props.closeModal}>Close</Button>
             </Modal.Footer>
         </Modal>

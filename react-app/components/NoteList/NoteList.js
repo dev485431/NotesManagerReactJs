@@ -12,7 +12,8 @@ export default class NoteList extends React.Component {
     static propTypes = {
         noteList: React.PropTypes.object.isRequired,
         activeFolderId: React.PropTypes.number.isRequired,
-        setActiveNote: React.PropTypes.func.isRequired
+        setActiveNote: React.PropTypes.func.isRequired,
+        updateNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -56,7 +57,7 @@ export default class NoteList extends React.Component {
         if (this.state.activeNote) {
             noteDetails = <div>
                 <NoteDetails activeNote={this.state.activeNote} showModal={this.state.showModal}
-                             closeModal={this.closeModal}/>
+                             closeModal={this.closeModal} updateNote={this.props.updateNote}/>
             </div>
         }
 
