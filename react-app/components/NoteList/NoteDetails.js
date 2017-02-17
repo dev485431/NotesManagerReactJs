@@ -60,7 +60,7 @@ export default class NoteDetails extends React.Component {
                 directoryId: this.props.activeNote.directoryId,
                 position: this.props.activeNote.position
             })
-            // this.props.closeModal();
+            this.props.closeModal();
         }
     }
 

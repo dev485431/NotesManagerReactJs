@@ -29,7 +29,7 @@ export default function noteList(state = initState, action) {
             });
             break;
         case SET_NOTE:
-            let updatedNotes = state.notes.splice();
+            let updatedNotes = state.notes.slice();
             let match = _.find(updatedNotes, el => el.id == action.note.id);
             if (match) {
                 let index = _.indexOf(updatedNotes, match);
