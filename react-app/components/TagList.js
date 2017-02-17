@@ -7,7 +7,8 @@ export default class TagList extends React.Component {
 
     static propTypes = {
         tags: React.PropTypes.array,
-        returnTags: React.PropTypes.func
+        returnTags: React.PropTypes.func,
+        disabled: React.PropTypes.bool
     }
 
     constructor(props) {
@@ -16,6 +17,10 @@ export default class TagList extends React.Component {
         this.state = {
             tags: tags
         }
+    }
+
+    isDisabled = () => {
+        return this.props.disabled ? this.props.disabled : false;
     }
 
     handleDelete = (i) => {
@@ -52,7 +57,8 @@ export default class TagList extends React.Component {
                 <ReactTags tags={this.state.tags}
                            handleDelete={this.handleDelete}
                            handleAddition={this.handleAddition}
-                           handleDrag={this.handleDrag}/>
+                           handleDrag={this.handleDrag}
+                           readOnly={this.isDisabled()}/>
             </div>
         )
     }

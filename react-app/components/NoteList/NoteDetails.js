@@ -26,7 +26,7 @@ export default class NoteDetails extends React.Component {
 
             <Modal.Body>
                 <p>{this.props.activeNote.description}</p>
-                <TagList tags={this.props.activeNote.tags}/>
+                <TagList tags={this.props.activeNote.tags} disabled={true}/>
             </Modal.Body>
 
             <Modal.Footer>
