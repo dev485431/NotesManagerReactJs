@@ -33,7 +33,6 @@ export default class TagList extends React.Component {
     handleAddition = (tag) => {
         if (this.state.tags.length < NOTE_TAGS_MAX) {
             let tags = this.state.tags.slice();
-            //todo tags id from sth
             tags.push({
                 id: tags.length + 1,
                 text: tag
