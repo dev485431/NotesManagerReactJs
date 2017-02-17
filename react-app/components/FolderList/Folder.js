@@ -14,10 +14,10 @@ export default class Folder extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.isSelected ? "active-folder" : "";
+        let isSelected = this.props.isSelected ? " active-folder-list" : "";
         let folderIcon = this.props.isOpen ? " glyphicon-folder-open" : " glyphicon-folder-close";
 
-        return <li className={isSelected} onClick={this.props.onFolderClick}>
+        return <li className={"element-folder-list" + isSelected} onClick={this.props.onFolderClick}>
             <span className={"glyphicon glyphicon-folder-list" + folderIcon}/>
             <span className="text-folder-list" >{this.props.folder.name}</span>
         </li>

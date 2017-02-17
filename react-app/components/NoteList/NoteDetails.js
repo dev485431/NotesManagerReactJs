@@ -37,14 +37,12 @@ export default class NoteDetails extends React.Component {
         this.setState({
             [name]: value
         });
-        console.log(name, value)
     }
 
     setTags = (tags) => {
         this.setState({
             noteTags: tags
         })
-        console.log(tags)
     }
 
     render() {
