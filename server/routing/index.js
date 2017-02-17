@@ -95,6 +95,24 @@ module.exports = (app, dir) => {
             });
     });
 
+    app.post(NOTES_PATH + "/:id", (req, res) => {
+        let id = req.params.id;
+
+        server.put(NOTES_PATH + "/" + id, {
+            directoryId: req.body.directoryId,
+            title: req.body.title,
+            description: req.body.description,
+            tags: req.body.tags,
+            position: req.body.position
+        })
+            .then((data) => {
+                res.json(data.data)
+            })
+            .catch(data => {
+                res.status(400).json(data.response.data)
+            });
+    });
+
 
     return app
 };

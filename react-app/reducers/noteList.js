@@ -1,4 +1,4 @@
-import {ADD_NOTE, REMOVE_NOTES, SET_NOTES, SET_ACTIVE_NOTE} from "../constants/actionNames"
+import {ADD_NOTE, REMOVE_NOTES, SET_NOTES, SET_ACTIVE_NOTE, SET_NOTE} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/noteListState"
 import _ from "lodash"
 
@@ -26,6 +26,17 @@ export default function noteList(state = initState, action) {
         case SET_ACTIVE_NOTE:
             return Object.assign({}, state, {
                 activeNoteId: action.activeNoteId
+            });
+            break;
+        case SET_NOTE:
+            let updatedNotes = state.notes.splice();
+            let match = _.find(updatedNotes, el => el.id == action.note.id);
+            if (match) {
+                let index = _.indexOf(updatedNotes, match);
+                updatedNotes.splice(index, 1, action.note);
+            }
+            return Object.assign({}, state, {
+                notes: updatedNotes
             });
             break;
         default:
