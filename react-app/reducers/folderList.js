@@ -1,4 +1,4 @@
-import {ADD_FOLDER, REMOVE_FOLDERS, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS} from "../constants/actionNames"
+import {ADD_FOLDER, REMOVE_FOLDERS, SET_FOLDERS, SET_ACTIVE_FOLDER, SET_OPEN_FOLDERS, SET_FOLDER} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/folderListState"
 import _ from "lodash"
 
@@ -33,6 +33,17 @@ export default function folderList(state = initState, action) {
         case SET_OPEN_FOLDERS:
             return Object.assign({}, state, {
                 openFolderIds: action.openFolderIds
+            });
+            break;
+        case SET_FOLDER:
+            let updatedFolders = state.folders.slice();
+            let match = _.find(updatedFolders, el => el.id == action.folder.id);
+            if (match) {
+                let index = _.indexOf(updatedFolders, match);
+                updatedFolders.splice(index, 1, action.folder);
+            }
+            return Object.assign({}, state, {
+                folders: updatedFolders
             });
             break;
         default:

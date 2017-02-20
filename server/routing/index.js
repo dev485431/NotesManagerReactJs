@@ -57,6 +57,22 @@ module.exports = (app, dir) => {
             });
     });
 
+    app.put(FOLDERS_PATH + "/:id", (req, res) => {
+        let id = req.params.id;
+
+        server.put(FOLDERS_PATH + "/" + id, {
+            id: req.body.id,
+            parentId: req.body.parentId,
+            name: req.body.name
+        })
+            .then((data) => {
+                res.json(data.data)
+            })
+            .catch(data => {
+                res.status(400).json(data.response.data)
+            });
+    });
+
     // notes
     app.get(NOTES_PATH, (req, res) => {
         server.get(NOTES_PATH)

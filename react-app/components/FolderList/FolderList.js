@@ -10,7 +10,8 @@ export default class FolderList extends React.Component {
         folderList: React.PropTypes.object.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
         setOpenFolders: React.PropTypes.func.isRequired,
-        setActiveNote: React.PropTypes.func.isRequired
+        setActiveNote: React.PropTypes.func.isRequired,
+        updateFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -71,7 +72,7 @@ export default class FolderList extends React.Component {
         let isSelected = folder.id == this.props.folderList.activeFolderId;
 
         subTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen} isSelected={isSelected}
-                             onFolderClick={this.onFolderClick.bind(this, folder.id)}/>)
+                             onFolderClick={this.onFolderClick.bind(this, folder.id)} updateFolder={this.props.updateFolder}/>)
 
         if (isOpen && folder.children.length > 0) {
             let subFolders = [];

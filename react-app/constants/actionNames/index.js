@@ -6,6 +6,7 @@ export const REMOVE_FOLDERS = "REMOVE_FOLDERS";
 export const SET_FOLDERS = "SET_FOLDERS";
 export const SET_ACTIVE_FOLDER = "SET_ACTIVE_FOLDER";
 export const SET_OPEN_FOLDERS = "SET_OPEN_FOLDERS";
+export const SET_FOLDER = "SET_FOLDER";
 
 export const ADD_NOTE = "ADD_NOTE";
 export const REMOVE_NOTES = "REMOVE_NOTES";

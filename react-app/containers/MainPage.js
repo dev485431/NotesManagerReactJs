@@ -11,7 +11,7 @@ import {removeError} from "../actions/errors"
 import FolderList from "../components/FolderList/FolderList"
 import {LOADED as FOLDERS_LOADED} from "../constants/folderListState"
 import {LOADED as NOTES_LOADED} from "../constants/noteListState"
-import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders} from "../actions/folderList"
+import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders, updateFolder} from "../actions/folderList"
 import {fetchNotes, setActiveNote, deleteNotes, updateNote} from "../actions/noteList"
 
 
@@ -26,6 +26,7 @@ class MainPage extends React.Component {
         setActiveFolder: React.PropTypes.func.isRequired,
         setOpenFolders: React.PropTypes.func.isRequired,
         deleteFolders: React.PropTypes.func.isRequired,
+        updateFolder: React.PropTypes.func.isRequired,
 
         noteList: React.PropTypes.object.isRequired,
         loadNotes: React.PropTypes.func.isRequired,
@@ -60,7 +61,8 @@ class MainPage extends React.Component {
                 </div>
                 <div className="col-sm-5">
                     <FolderList folderList={folderList} setActiveFolder={setActiveFolder}
-                                setOpenFolders={setOpenFolders} setActiveNote={setActiveNote}/>
+                                setOpenFolders={setOpenFolders} setActiveNote={setActiveNote}
+                                updateFolder={this.props.updateFolder}/>
                 </div>
                 <div className="col-sm-6">
                     <div className="row">
@@ -103,6 +105,9 @@ export default connect(state => {
             },
             deleteFolders: (folderIds) => {
                 deleteFolders(folderIds, dispatch)
+            },
+            updateFolder: (folder) => {
+                updateFolder(folder, dispatch)
             },
             loadNotes: () => {
                 fetchNotes(dispatch)

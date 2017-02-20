@@ -10,23 +10,20 @@ export default class Folder extends React.Component {
         isOpen: React.PropTypes.bool.isRequired,
         isSelected: React.PropTypes.bool.isRequired,
         onFolderClick: React.PropTypes.func.isRequired,
+        updateFolder: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props)
-        this.state = {
-            folderName: this.props.folder.name
-        }
     }
 
-    //todo
-    dataChanged = (data) => {
-        // data = { description: "New validated text comes here" }
-        // Update your model from here
-        console.log(data)
-        this.setState({...data})
+    nameChanged = (data) => {
+        this.props.updateFolder({
+            name: data.folderName,
+            id: this.props.folder.id,
+            parentId: this.props.folder.parentId
+        });
     }
-
 
     render() {
         let isSelected = this.props.isSelected ? " active-folder-list" : "";
@@ -42,7 +39,7 @@ export default class Folder extends React.Component {
                 maxLength={FOLDER_NAME_MAX}
                 text={this.props.folder.name}
                 paramName="folderName"
-                change={this.dataChanged}
+                change={this.nameChanged}
             />
         </li>
     }
