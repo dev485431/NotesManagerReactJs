@@ -76,7 +76,7 @@ export default class NoteDetails extends React.Component {
         return <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.props.showModal}
                       onHide={this.props.closeModal}>
             <Modal.Header closeButton>
-                <Modal.Title>{this.state.noteTitle}</Modal.Title>
+                <Modal.Title>{this.props.activeNote.title}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -85,7 +85,7 @@ export default class NoteDetails extends React.Component {
                         <label htmlFor="noteTitle">Title</label>
                         <input type="text" className="form-control" id="noteTitle" name="noteTitle"
                                placeholder="Title" onChange={this.handleInputChange}
-                               value={this.state.noteTitle}/>
+                               defaultValue={this.props.activeNote.title} />
                         <small className="form-text text-muted">
                             min {NOTE_TITLE_MIN} max {NOTE_TITLE_MAX} characters
                         </small>
@@ -95,7 +95,7 @@ export default class NoteDetails extends React.Component {
                         <label htmlFor="noteDesc">Description</label>
                         <textarea className="form-control" id="noteDesc" name="noteDesc" rows="3"
                                   placeholder="Description" onChange={this.handleInputChange}
-                                  value={this.state.noteDesc}/>
+                                  defaultValue={this.props.activeNote.description}/>
                         <small className="text-muted">
                             min {NOTE_DESC_MIN} max {NOTE_DESC_MAX} characters
                         </small>
@@ -104,7 +104,7 @@ export default class NoteDetails extends React.Component {
                     <div className="form-group">
                         <label htmlFor="noteTags">Tags</label>
 
-                        <TagList id="noteTags" name="noteTags" tags={this.state.noteTags}
+                        <TagList id="noteTags" name="noteTags" tags={this.props.activeNote.tags}
                                  returnTags={this.setTags}/>
                         <small className="text-muted">
                             min {NOTE_TAGS_MIN} max {NOTE_TAGS_MAX} tags
