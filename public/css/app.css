@@ -17,6 +17,10 @@ body {
     color: #d43f3a;
 }
 
+.element-folder-list {
+    padding-top: 5px;
+}
+
 .element-folder-list:hover {
     cursor: pointer;
 }
@@ -32,7 +36,11 @@ body {
 }
 
 .text-folder-list {
-    padding-left: 7px;
+    margin-left: 12px;
+}
+
+.text-folder-list-editing {
+    margin-left: 12px;
 }
 
 .sublist-folder-list {

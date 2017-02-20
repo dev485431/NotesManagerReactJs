@@ -84,18 +84,18 @@ export default class FolderList extends React.Component {
     }
 
     render() {
-        let folderTree = [];
+        let foldersTree = [];
         if (this.props.folderList.status == LOADED) {
             let subRootFolders = this.getFoldersTree()[0].children;
             subRootFolders.map(folder => {
-                folderTree.push(...this.getFolderSubTree(folder));
+                foldersTree.push(...this.getFolderSubTree(folder));
             })
         }
 
         return (
             <div className="well nav">
                 <ul className="list-unstyled">
-                    {folderTree}
+                    {foldersTree}
                 </ul>
             </div>
         )
