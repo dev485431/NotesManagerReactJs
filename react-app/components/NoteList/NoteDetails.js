@@ -2,8 +2,6 @@ import React from "react"
 import {Link} from "react-router"
 import {Modal, Button} from "react-bootstrap";
 
-import _ from "lodash"
-
 import TagList from "../TagList";
 import {LOADED} from "../../constants/noteListState"
 
@@ -72,13 +70,6 @@ export default class NoteDetails extends React.Component {
             || this.state.noteDesc.length > NOTE_DESC_MAX
             || this.state.noteTags.length < NOTE_TAGS_MIN
             || this.state.noteTags.length > NOTE_TAGS_MAX;
-    }
-
-    //todo: check if form was changed; possible problem with array of tags reference
-    isFormChanged = () => {
-        return !(this.props.activeNote.title == this.state.noteTitle
-        || this.props.activeNote.description == this.state.noteDesc
-        || _.isEqual(this.props.activeNote.tags, this.state.noteTags));
     }
 
     render() {
