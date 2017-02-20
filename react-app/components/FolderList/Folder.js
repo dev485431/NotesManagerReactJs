@@ -18,11 +18,7 @@ export default class Folder extends React.Component {
     }
 
     nameChanged = (data) => {
-        this.props.updateFolder({
-            name: data.folderName,
-            id: this.props.folder.id,
-            parentId: this.props.folder.parentId
-        });
+        this.props.updateFolder(Object.assign({}, this.props.folder, {name: data.folderName}));
     }
 
     render() {

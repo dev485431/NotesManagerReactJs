@@ -48,7 +48,7 @@ export default class NoteList extends React.Component {
                 let isSelected = note.id == this.props.noteList.activeNoteId;
                 notes.push(
                     <Note key={note.id} note={note} isSelected={isSelected}
-                          onNoteClick={this.onNoteClick.bind(this, note)}/>
+                          onNoteClick={this.onNoteClick.bind(this, note)} updateNote={this.props.updateNote}/>
                 )
             })
         }
@@ -63,11 +63,9 @@ export default class NoteList extends React.Component {
 
         return (
             <div>
-                <div>
-                    <ul className="list-inline">
-                        {notes}
-                    </ul>
-                </div>
+                <ul className="list-inline note-list">
+                    {notes}
+                </ul>
                 {noteDetails}
             </div>
         )

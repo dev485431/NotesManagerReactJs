@@ -47,6 +47,12 @@ body {
     list-style: none;
 }
 
+.note-list {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
 .element-note-list {
     text-align: center;
     margin-top: 10px;
@@ -59,6 +65,15 @@ body {
 
 .glyphicon-note-list {
     font-size: 45px;
+}
+
+.text-container-note-list {
+    width: 50px;
+    word-break:break-all;
+}
+
+.text-input-note-list {
+    width: 50px;
 }
 
 .active-note-list {
