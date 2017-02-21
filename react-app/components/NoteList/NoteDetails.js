@@ -32,6 +32,14 @@ export default class NoteDetails extends React.Component {
         };
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+            noteTitle: nextProps.activeNote.title,
+            noteDesc: nextProps.activeNote.description,
+            noteTags: nextProps.activeNote.tags
+        })
+    }
+
     handleInputChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -50,14 +58,13 @@ export default class NoteDetails extends React.Component {
     updateNoteAction = (e) => {
         e.preventDefault();
         if (!this.isUpdateNoteButtonDisabled()) {
-            this.props.updateNote({
-                title: this.state.noteTitle,
-                description: this.state.noteDesc,
-                tags: this.state.noteTags,
-                id: this.props.activeNote.id,
-                directoryId: this.props.activeNote.directoryId,
-                position: this.props.activeNote.position
-            });
+            this.props.updateNote(Object.assign({},
+                this.props.activeNote,
+                {
+                    title: this.state.noteTitle,
+                    description: this.state.noteDesc,
+                    tags: this.state.noteTags
+                }));
             this.props.closeModal();
         }
     }
@@ -76,7 +83,7 @@ export default class NoteDetails extends React.Component {
         return <Modal bsSize="large" aria-labelledby="contained-modal-title-lg" show={this.props.showModal}
                       onHide={this.props.closeModal}>
             <Modal.Header closeButton>
-                <Modal.Title>{this.props.activeNote.title}</Modal.Title>
+                <Modal.Title>{this.state.noteTitle}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -85,7 +92,7 @@ export default class NoteDetails extends React.Component {
                         <label htmlFor="noteTitle">Title</label>
                         <input type="text" className="form-control" id="noteTitle" name="noteTitle"
                                placeholder="Title" onChange={this.handleInputChange}
-                               defaultValue={this.props.activeNote.title} />
+                               value={this.state.noteTitle}/>
                         <small className="form-text text-muted">
                             min {NOTE_TITLE_MIN} max {NOTE_TITLE_MAX} characters
                         </small>
@@ -95,7 +102,7 @@ export default class NoteDetails extends React.Component {
                         <label htmlFor="noteDesc">Description</label>
                         <textarea className="form-control" id="noteDesc" name="noteDesc" rows="3"
                                   placeholder="Description" onChange={this.handleInputChange}
-                                  defaultValue={this.props.activeNote.description}/>
+                                  value={this.state.noteDesc}/>
                         <small className="text-muted">
                             min {NOTE_DESC_MIN} max {NOTE_DESC_MAX} characters
                         </small>
@@ -104,7 +111,7 @@ export default class NoteDetails extends React.Component {
                     <div className="form-group">
                         <label htmlFor="noteTags">Tags</label>
 
-                        <TagList id="noteTags" name="noteTags" tags={this.props.activeNote.tags}
+                        <TagList id="noteTags" name="noteTags" tags={this.state.noteTags}
                                  returnTags={this.setTags}/>
                         <small className="text-muted">
                             min {NOTE_TAGS_MIN} max {NOTE_TAGS_MAX} tags
