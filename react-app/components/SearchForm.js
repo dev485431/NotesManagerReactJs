@@ -23,6 +23,22 @@ export default class SearchForm extends React.Component {
         });
     }
 
+    getAutocompleteItems = () => {
+        if (this.state.advancedSearch) {
+            let autoCompleteItems = this.props.notes.slice();
+            this.props.notes.map(note => {
+                note.tags.map(tag => {
+                    autoCompleteItems.push({
+                        title: tag.text
+                    })
+                })
+            });
+            return autoCompleteItems;
+        } else {
+            return this.props.notes
+        }
+    }
+
     render() {
 
         const styles = {
@@ -53,6 +69,7 @@ export default class SearchForm extends React.Component {
             }
         };
 
+
         return (
             <div className="container-fluid">
                 <form>
@@ -66,14 +83,14 @@ export default class SearchForm extends React.Component {
                             wrapperStyle={styles.wrapper}
                             inputProps={{className: "form-control", placeholder: "Search..."}}
 
-                            items={this.props.notes}
+                            items={this.getAutocompleteItems()}
                             getItemValue={(item) => item.title}
                             onChange={(event, value) => this.setState({value})}
                             onSelect={value => this.setState({value})}
                             renderItem={(item, isHighlighted) => (
                                 <div
                                     style={isHighlighted ? styles.highlightedItem : styles.item}
-                                    key={item.abbr}
+                                    key={item.id}
                                 >{item.title}</div>
                             )}
                         />
