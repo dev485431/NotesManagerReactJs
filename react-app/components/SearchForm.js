@@ -40,17 +40,17 @@ export default class SearchForm extends React.Component {
 
             menu: {
                 border: 'solid 1px #ccc'
-            }
-        };
+            },
 
-        const wrapperStyle = {
-            position: 'relative',
-            display: 'table',
-            borderCollapse: 'separate',
-            zIndex: '2',
-            float: 'left',
-            width: '100%',
-            marginBottom: '0'
+            wrapper: {
+                position: 'relative',
+                display: 'table',
+                borderCollapse: 'separate',
+                zIndex: '2',
+                float: 'left',
+                width: '100%',
+                marginBottom: '0'
+            }
         };
 
         return (
@@ -63,7 +63,7 @@ export default class SearchForm extends React.Component {
 
                         <Autocomplete
                             value={this.state.value}
-                            wrapperStyle={wrapperStyle}
+                            wrapperStyle={styles.wrapper}
                             inputProps={{className: "form-control", placeholder: "Search..."}}
 
                             items={this.props.notes}
