@@ -54,33 +54,23 @@ export default class SearchForm extends React.Component {
 
     onAutocompleteSelect = (value) => {
         this.setState({value});
-        this.getSearchResults();
+        this.setSearchResults();
     }
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        this.getSearchResults();
+        this.setSearchResults();
     }
 
-    getSearchResults = () => {
-        if (this.state.advancedSearch) {
-            this.getNotesByAdvancedSearch();
-        } else {
-            this.getNotesBySimpleSearch();
-        }
+    setSearchResults = () => {
+        let searchResult = this.state.advancedSearch ? this.getNotesByAdvancedSearch() : this.getNotesBySimpleSearch();
+        this.setState({
+            searchResult: searchResult
+        });
     }
 
     getNotesBySimpleSearch = () => {
-        this.setState({
-            searchResult: _.filter(this.props.notes, note => {
-                _.includes(note.title, this.state.value)
-            })
-        });
-        let results = _.filter(this.props.notes, note => {
-            _.includes(note.title, this.state.value)
-        })
-        console.log(results)
-        console.log(this.state.searchResult)
+        return _.filter(this.props.notes, note => note.title.includes(this.state.value))
     }
 
     //todo: get rid of duplicated or show results in categories: byTitle, byDesc, byTags
@@ -98,11 +88,7 @@ export default class SearchForm extends React.Component {
                 }
             }
         });
-        this.setState({
-            searchResult: [...byNoteTile, ...byNoteDescription, ...byNoteTags]
-        });
-        console.log(this.state.value)
-        console.log(this.state.searchResult)
+        return [...byNoteTile, ...byNoteDescription, ...byNoteTags]
     }
 
     renderSearchResults = () => {
@@ -180,7 +166,8 @@ export default class SearchForm extends React.Component {
                 </div>
 
                 <div className="row">
-                    <SearchResults searchResults={this.state.searchResult} isVisible={this.state.isSearchResultVisible}/>
+                    <SearchResults searchResults={this.state.searchResult}
+                                   isVisible={this.state.isSearchResultVisible}/>
                 </div>
             </div>
         )

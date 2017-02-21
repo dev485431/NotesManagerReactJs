@@ -14,10 +14,9 @@ export default class SearchResults extends React.Component {
 
     //todo: display Note's for search results here
     render() {
-        let searchResults = <div>123</div>;
-        if (this.props.isVisible) {
+        console.log(this.props.searchResults)
+        return <div>
 
-        }
-        return searchResults;
+        </div>
     }
 }
