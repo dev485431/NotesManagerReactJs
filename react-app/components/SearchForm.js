@@ -6,7 +6,7 @@ import Autocomplete from "react-autocomplete"
 export default class SearchForm extends React.Component {
 
     static propTypes = {
-        noteList: React.PropTypes.object.isRequired
+        notes: React.PropTypes.array.isRequired
     }
 
     constructor(props) {
@@ -66,7 +66,7 @@ export default class SearchForm extends React.Component {
                             wrapperStyle={wrapperStyle}
                             inputProps={{className: "form-control", placeholder: "Search..."}}
 
-                            items={this.props.noteList.notes}
+                            items={this.props.notes}
                             getItemValue={(item) => item.title}
                             onChange={(event, value) => this.setState({value})}
                             onSelect={value => this.setState({value})}
@@ -89,12 +89,6 @@ export default class SearchForm extends React.Component {
                             Advanced search
                         </label>
                     </div>
-
-                    <div>
-
-
-                    </div>
-
 
                 </form>
             </div>
