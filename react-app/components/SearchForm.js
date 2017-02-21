@@ -1,7 +1,10 @@
 import React from "react"
-import {Link} from "react-router"
-
 import Autocomplete from "react-autocomplete"
+
+import _ from "lodash"
+
+import SearchResults from "./SearchResults"
+
 
 export default class SearchForm extends React.Component {
 
@@ -12,8 +15,10 @@ export default class SearchForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            value: "",
             advancedSearch: false,
-            value: ""
+            isSearchResultVisible: false,
+            searchResult: []
         }
     }
 
@@ -37,6 +42,71 @@ export default class SearchForm extends React.Component {
         } else {
             return this.props.notes
         }
+    }
+
+    getAutocompleteItemValue = (item) => {
+        return item.title
+    }
+
+    onAutocompleteChange = (event, value) => {
+        this.setState({value})
+    }
+
+    onAutocompleteSelect = (value) => {
+        this.setState({value});
+        this.getSearchResults();
+    }
+
+    onFormSubmit = (event) => {
+        event.preventDefault();
+        this.getSearchResults();
+    }
+
+    getSearchResults = () => {
+        if (this.state.advancedSearch) {
+            this.getNotesByAdvancedSearch();
+        } else {
+            this.getNotesBySimpleSearch();
+        }
+    }
+
+    getNotesBySimpleSearch = () => {
+        this.setState({
+            searchResult: _.filter(this.props.notes, note => {
+                _.includes(note.title, this.state.value)
+            })
+        });
+        let results = _.filter(this.props.notes, note => {
+            _.includes(note.title, this.state.value)
+        })
+        console.log(results)
+        console.log(this.state.searchResult)
+    }
+
+    //todo: get rid of duplicated or show results in categories: byTitle, byDesc, byTags
+    getNotesByAdvancedSearch = () => {
+        let byNoteTile = this.getNotesBySimpleSearch();
+        let byNoteTags = [];
+        let byNoteDescription = [];
+        this.props.notes.map(note => {
+            if (note.description.includes(this.state.value)) byNoteDescription.push(note);
+
+            for (let tag of note.tags) {
+                if (tag.text.includes(this.state.value)) {
+                    byNoteTags.push(note);
+                    break;
+                }
+            }
+        });
+        this.setState({
+            searchResult: [...byNoteTile, ...byNoteDescription, ...byNoteTags]
+        });
+        console.log(this.state.value)
+        console.log(this.state.searchResult)
+    }
+
+    renderSearchResults = () => {
+
     }
 
     render() {
@@ -72,42 +142,46 @@ export default class SearchForm extends React.Component {
 
         return (
             <div className="container-fluid">
-                <form>
-                    <div className="input-group">
+                <div className="row">
+                    <form onSubmit={this.onFormSubmit}>
+                        <div className="input-group">
                         <span className="input-group-addon">
                         <i className="glyphicon glyphicon-search"/>
                         </span>
 
-                        <Autocomplete
-                            value={this.state.value}
-                            wrapperStyle={styles.wrapper}
-                            inputProps={{className: "form-control", placeholder: "Search..."}}
+                            <Autocomplete
+                                value={this.state.value}
+                                wrapperStyle={styles.wrapper}
+                                inputProps={{className: "form-control", placeholder: "Search..."}}
+                                items={this.getAutocompleteItems()}
+                                getItemValue={(item) => this.getAutocompleteItemValue(item)}
+                                onChange={(event, value) => this.onAutocompleteChange(event, value)}
+                                onSelect={value => this.onAutocompleteSelect(value)}
+                                renderItem={(item, isHighlighted) => (
+                                    <div style={isHighlighted ? styles.highlightedItem : styles.item}
+                                         key={item.id}
+                                    >{item.title}</div>
+                                )}
+                            />
 
-                            items={this.getAutocompleteItems()}
-                            getItemValue={(item) => item.title}
-                            onChange={(event, value) => this.setState({value})}
-                            onSelect={value => this.setState({value})}
-                            renderItem={(item, isHighlighted) => (
-                                <div
-                                    style={isHighlighted ? styles.highlightedItem : styles.item}
-                                    key={item.id}
-                                >{item.title}</div>
-                            )}
-                        />
+                        </div>
 
-                    </div>
+                        <div className="form-check pull-right">
+                            <label className="form-check-label">
+                                <input id="advancedSearch" name="advancedSearch"
+                                       className="form-check-input"
+                                       type="checkbox"
+                                       onChange={this.handleCheckboxChange}/>
+                                Advanced search
+                            </label>
+                        </div>
 
-                    <div className="form-check pull-right">
-                        <label className="form-check-label">
-                            <input id="advancedSearch" name="advancedSearch"
-                                   className="form-check-input"
-                                   type="checkbox"
-                                   onChange={this.handleCheckboxChange}/>
-                            Advanced search
-                        </label>
-                    </div>
+                    </form>
+                </div>
 
-                </form>
+                <div className="row">
+                    <SearchResults searchResults={this.state.searchResult} isVisible={this.state.isSearchResultVisible}/>
+                </div>
             </div>
         )
     }
