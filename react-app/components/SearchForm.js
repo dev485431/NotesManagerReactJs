@@ -52,6 +52,7 @@ export default class SearchForm extends React.Component {
         this.setState({value})
     }
 
+    //todo: or try to setState for both in one call
     onAutocompleteSelect = (value) => {
         this.setState({value});
         this.setSearchResults();
@@ -59,9 +60,11 @@ export default class SearchForm extends React.Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
+        //todo: this.setState(<event.value>)
         this.setSearchResults();
     }
 
+    // todo:? pass results of this function to SearchResult as prop
     setSearchResults = () => {
         let searchResult = this.state.advancedSearch ? this.getNotesByAdvancedSearch() : this.getNotesBySimpleSearch();
         this.setState({
