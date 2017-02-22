@@ -96,6 +96,7 @@ export default class SearchForm extends React.Component {
 
     render() {
 
+        //todo: export to css modules
         const styles = {
             item: {
                 padding: '2px 6px',

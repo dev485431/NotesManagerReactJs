@@ -26,8 +26,14 @@ export default class SearchResult extends React.Component {
             )
         });
 
-        return <div>
-            {resultNotes}
-        </div>
+        let nonEmptyResult = <div>
+            <h4>Search results:</h4>
+            <ul className="list-inline note-list">
+                {resultNotes}
+            </ul>
+            <hr/>
+        </div>;
+
+        return this.props.notes.length > 0 ? nonEmptyResult : <div></div>;
     }
 }
