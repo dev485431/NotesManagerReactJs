@@ -3,6 +3,8 @@ import _ from "lodash"
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import InlineEdit from 'react-edit-inline';
 
+import NoteDetails from "./NoteDetails";
+
 import {NOTE_TOOLTIP_PREVIEW_MAX} from "../../constants/appSettings"
 import {NOTE_TITLE_MIN, NOTE_TITLE_MAX} from "../../constants/appSettings"
 
@@ -11,13 +13,29 @@ export default class Note extends React.Component {
 
     static propTypes = {
         note: React.PropTypes.object.isRequired,
-        isSelected: React.PropTypes.bool.isRequired,
-        onNoteClick: React.PropTypes.func.isRequired,
+        activeNoteId: React.PropTypes.number,
+        setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props)
+        this.state = {
+            showDetails: false
+        }
+    }
+
+    onNoteClick = () => {
+        this.props.setActiveNote(this.props.note.id);
+        this.setState({
+            showDetails: true
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            showDetails: false
+        });
     }
 
     nameChanged = (data) => {
@@ -35,12 +53,21 @@ export default class Note extends React.Component {
             </Tooltip>
         );
 
-        let isSelected = this.props.isSelected ? " active-note-list" : "";
+        let isActiveNote = this.props.note.id === this.props.activeNoteId;
+        let noteDetails = null;
+        if (isActiveNote) {
+            noteDetails = <div>
+                <NoteDetails note={this.props.note} showModal={this.state.showDetails}
+                             closeModal={this.closeModal} updateNote={this.props.updateNote}/>
+            </div>
+        }
+
+        let selectedClass = isActiveNote ? " active-note-list" : "";
         return (
-            <li className={"element-note-list" + isSelected}>
+            <li className={"element-note-list" + selectedClass}>
                 <div>
                     <OverlayTrigger placement="top" overlay={tooltip}>
-                        <div onClick={this.props.onNoteClick}>
+                        <div onClick={this.onNoteClick}>
                             <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
                         </div>
                     </OverlayTrigger>
@@ -56,8 +83,8 @@ export default class Note extends React.Component {
                         change={this.nameChanged}
                     />
                 </div>
+                {noteDetails}
             </li>
-
         )
 
     }

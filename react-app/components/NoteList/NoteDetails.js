@@ -17,7 +17,7 @@ import {
 export default class NoteDetails extends React.Component {
 
     static propTypes = {
-        activeNote: React.PropTypes.object.isRequired,
+        note: React.PropTypes.object.isRequired,
         showModal: React.PropTypes.bool.isRequired,
         closeModal: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired
@@ -26,17 +26,17 @@ export default class NoteDetails extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            noteTitle: this.props.activeNote.title,
-            noteDesc: this.props.activeNote.description,
-            noteTags: this.props.activeNote.tags
+            noteTitle: this.props.note.title,
+            noteDesc: this.props.note.description,
+            noteTags: this.props.note.tags
         };
     }
 
     componentWillReceiveProps = (nextProps) => {
         this.setState({
-            noteTitle: nextProps.activeNote.title,
-            noteDesc: nextProps.activeNote.description,
-            noteTags: nextProps.activeNote.tags
+            noteTitle: nextProps.note.title,
+            noteDesc: nextProps.note.description,
+            noteTags: nextProps.note.tags
         })
     }
 
@@ -59,7 +59,7 @@ export default class NoteDetails extends React.Component {
         e.preventDefault();
         if (!this.isUpdateNoteButtonDisabled()) {
             this.props.updateNote(Object.assign({},
-                this.props.activeNote,
+                this.props.note,
                 {
                     title: this.state.noteTitle,
                     description: this.state.noteDesc,

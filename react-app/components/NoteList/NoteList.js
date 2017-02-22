@@ -3,7 +3,6 @@ import _ from "lodash"
 import {Modal, Button} from "react-bootstrap";
 
 import Note from "./Note";
-import NoteDetails from "./NoteDetails";
 import {LOADED} from "../../constants/noteListState"
 
 
@@ -18,26 +17,6 @@ export default class NoteList extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            showModal: false,
-            activeNote: null
-        }
-    }
-
-    onNoteClick = (note) => {
-        this.props.setActiveNote(note.id);
-        this.openModal(note);
-    }
-
-    openModal = (note) => {
-        this.setState({
-            showModal: true,
-            activeNote: note
-        });
-    }
-
-    closeModal = () => {
-        this.setState({showModal: false});
     }
 
     render() {
@@ -45,20 +24,11 @@ export default class NoteList extends React.Component {
         if (this.props.noteList.status == LOADED) {
             let folderNotes = _.filter(this.props.noteList.notes, el => el.directoryId == this.props.activeFolderId);
             folderNotes.map(note => {
-                let isSelected = note.id == this.props.noteList.activeNoteId;
                 notes.push(
-                    <Note key={note.id} note={note} isSelected={isSelected}
-                          onNoteClick={this.onNoteClick.bind(this, note)} updateNote={this.props.updateNote}/>
+                    <Note key={note.id} note={note} activeNoteId={this.props.noteList.activeNoteId}
+                          setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}/>
                 )
             })
-        }
-
-        let noteDetails = null;
-        if (this.state.activeNote) {
-            noteDetails = <div>
-                <NoteDetails activeNote={this.state.activeNote} showModal={this.state.showModal}
-                             closeModal={this.closeModal} updateNote={this.props.updateNote}/>
-            </div>
         }
 
         return (
@@ -66,7 +36,6 @@ export default class NoteList extends React.Component {
                 <ul className="list-inline note-list">
                     {notes}
                 </ul>
-                {noteDetails}
             </div>
         )
     }
