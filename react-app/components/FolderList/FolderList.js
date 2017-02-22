@@ -72,7 +72,8 @@ export default class FolderList extends React.Component {
         let isSelected = folder.id == this.props.folderList.activeFolderId;
 
         subTree.push(<Folder key={folder.id} folder={folder} isOpen={isOpen} isSelected={isSelected}
-                             onFolderClick={this.onFolderClick.bind(this, folder.id)} updateFolder={this.props.updateFolder}/>)
+                             onFolderClick={this.onFolderClick.bind(this, folder.id)}
+                             updateFolder={this.props.updateFolder}/>)
 
         if (isOpen && folder.children.length > 0) {
             let subFolders = [];
