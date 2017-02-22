@@ -28,7 +28,7 @@ export default class SearchResult extends React.Component {
 
         let nonEmptyResult = <div>
             <h4>Search results:</h4>
-            <ul className="list-inline note-list">
+            <ul className="list-inline search-result-list">
                 {resultNotes}
             </ul>
             <hr/>

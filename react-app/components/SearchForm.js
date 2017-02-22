@@ -27,6 +27,8 @@ export default class SearchForm extends React.Component {
     handleCheckboxChange = (event) => {
         this.setState({
             advancedSearch: event.target.checked
+        }, () => {
+            this.setSearchResults()
         });
     }
 
