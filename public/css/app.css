@@ -69,7 +69,7 @@ body {
 
 .text-container-note-list {
     width: 50px;
-    word-break:break-all;
+    word-break: break-all;
 }
 
 .text-input-note-list {
@@ -80,6 +80,18 @@ body {
     color: #d43f3a;
     font-weight: bold;
     font-style: italic;
+}
+
+.search-from-reset {
+    color: #5e5e5e;
+    pointer-events: auto;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.search-from-reset:hover {
+    color: #d43f3a;
+    text-decoration: none;
 }
 
 /* Tags - begin */

@@ -65,6 +65,13 @@ export default class SearchForm extends React.Component {
         this.setSearchResults();
     }
 
+    resetFormInput = () => {
+        this.setState({
+            value: "",
+            searchResult: []
+        });
+    }
+
     setSearchResults = () => {
         let searchResult = this.state.advancedSearch ? this.getNotesByAdvancedSearch() : this.getNotesBySimpleSearch();
         this.setState({
@@ -73,7 +80,7 @@ export default class SearchForm extends React.Component {
     }
 
     getNotesBySimpleSearch = () => {
-        return _.filter(this.props.notes, note => note.title.includes(this.state.value))
+        return this.state.value.trim().length !== 0 ? _.filter(this.props.notes, note => note.title.includes(this.state.value)) : [];
     }
 
     //todo: get rid of duplicated or show results in categories: byTitle, byDesc, byTags
@@ -150,6 +157,8 @@ export default class SearchForm extends React.Component {
                                 )}
                             />
 
+                            <a className="glyphicon glyphicon-remove-sign form-control-feedback form-control-clear search-from-reset"
+                               onClick={this.resetFormInput}/>
                         </div>
 
                         <div className="form-check pull-right">
