@@ -80,25 +80,30 @@ export default class SearchForm extends React.Component {
     }
 
     getNotesBySimpleSearch = () => {
-        return this.state.value.trim().length !== 0 ? _.filter(this.props.notes, note => note.title.includes(this.state.value)) : [];
+        return this.state.value.trim().length !== 0 ? _.filter(this.props.notes, note => _.includes(note.title, this.state.value)) : [];
     }
 
-    //todo: get rid of duplicated or show results in categories: byTitle, byDesc, byTags
     getNotesByAdvancedSearch = () => {
-        let byNoteTile = this.getNotesBySimpleSearch();
-        let byNoteTags = [];
-        let byNoteDescription = [];
-        this.props.notes.map(note => {
-            if (note.description.includes(this.state.value)) byNoteDescription.push(note);
+        if (this.state.value.trim().length !== 0) {
+            let byNoteTitle = this.getNotesBySimpleSearch();
+            let byNoteDescription = [];
+            let byNoteTags = [];
+            this.props.notes.map(note => {
+                if (_.includes(note.description, this.state.value)) byNoteDescription.push(note);
 
-            for (let tag of note.tags) {
-                if (tag.text.includes(this.state.value)) {
-                    byNoteTags.push(note);
-                    break;
+                for (let tag of note.tags) {
+                    if (_.includes(tag.text, this.state.value)) {
+                        byNoteTags.push(note);
+                        break;
+                    }
                 }
-            }
-        });
-        return [...byNoteTile, ...byNoteDescription, ...byNoteTags]
+            });
+            return _.uniqBy([...byNoteTitle, ...byNoteDescription, ...byNoteTags], (note) => {
+                return note.id
+            })
+        } else {
+            return [];
+        }
     }
 
     render() {
