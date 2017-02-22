@@ -13,6 +13,7 @@ import {LOADED as FOLDERS_LOADED} from "../constants/folderListState"
 import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders, updateFolder} from "../actions/folderList"
 import {fetchNotes, setActiveNote, deleteNotes, updateNote} from "../actions/noteList"
+import {setSearchResult, clearSearchResult} from "../actions/searchForm"
 
 
 class MainPage extends React.Component {
@@ -32,7 +33,11 @@ class MainPage extends React.Component {
         loadNotes: React.PropTypes.func.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
         deleteNotes: React.PropTypes.func.isRequired,
-        updateNote: React.PropTypes.func.isRequired
+        updateNote: React.PropTypes.func.isRequired,
+
+        searchForm: React.PropTypes.object.isRequired,
+        setSearchResult: React.PropTypes.func.isRequired,
+        clearSearchResult: React.PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -46,7 +51,10 @@ class MainPage extends React.Component {
     }
 
     render() {
-        const {errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote, deleteNotes} = this.props;
+        const {
+            errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote,
+            deleteNotes, updateNote, searchForm, setSearchResult, clearSearchResult
+        } = this.props;
 
         return (
             <div>
@@ -67,7 +75,9 @@ class MainPage extends React.Component {
                 <div className="col-sm-6">
                     <div className="row">
                         <SearchForm notes={noteList.notes} activeNoteId={noteList.activeNoteId}
-                                    setActiveNote={setActiveNote} updateNote={this.props.updateNote}/>
+                                    setActiveNote={setActiveNote} updateNote={updateNote}
+                                    searchResult={searchForm.notes} setSearchResult={setSearchResult}
+                                    clearSearchResult={clearSearchResult}/>
                     </div>
                     <br/>
                     <div className="row">
@@ -86,7 +96,8 @@ export default connect(state => {
         return {
             errors: state.errors,
             folderList: state.folderList,
-            noteList: state.noteList
+            noteList: state.noteList,
+            searchForm: state.searchForm
         }
     },
     // mapDispatchToProps
@@ -121,6 +132,12 @@ export default connect(state => {
             },
             updateNote: (note) => {
                 updateNote(note, dispatch)
+            },
+            setSearchResult: (notes) => {
+                dispatch(setSearchResult(notes))
+            },
+            clearSearchResult: () => {
+                dispatch(clearSearchResult())
             }
         }
 

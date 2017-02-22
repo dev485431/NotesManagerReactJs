@@ -5,14 +5,16 @@ import _ from "lodash"
 
 import SearchResult from "./SearchResult"
 
-
 export default class SearchForm extends React.Component {
 
     static propTypes = {
         notes: React.PropTypes.array.isRequired,
         activeNoteId: React.PropTypes.number,
         setActiveNote: React.PropTypes.func.isRequired,
-        updateNote: React.PropTypes.func.isRequired
+        updateNote: React.PropTypes.func.isRequired,
+        searchResult: React.PropTypes.array.isRequired,
+        setSearchResult: React.PropTypes.func.isRequired,
+        clearSearchResult: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -20,7 +22,6 @@ export default class SearchForm extends React.Component {
         this.state = {
             value: "",
             advancedSearch: false,
-            searchResult: []
         }
     }
 
@@ -70,15 +71,13 @@ export default class SearchForm extends React.Component {
     resetFormInput = () => {
         this.setState({
             value: "",
-            searchResult: []
         });
+        this.props.clearSearchResult();
     }
 
     setSearchResults = () => {
         let searchResult = this.state.advancedSearch ? this.getNotesByAdvancedSearch() : this.getNotesBySimpleSearch();
-        this.setState({
-            searchResult: searchResult
-        });
+        this.props.setSearchResult(searchResult);
     }
 
     getNotesBySimpleSearch = () => {
@@ -182,7 +181,7 @@ export default class SearchForm extends React.Component {
                 </div>
 
                 <div className="row">
-                    <SearchResult notes={this.state.searchResult} activeNoteId={this.props.activeNoteId}
+                    <SearchResult notes={this.props.searchResult} activeNoteId={this.props.activeNoteId}
                                   setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}/>
                 </div>
             </div>

@@ -13,3 +13,6 @@ export const REMOVE_NOTES = "REMOVE_NOTES";
 export const SET_NOTES = "SET_NOTES";
 export const SET_ACTIVE_NOTE = "SET_ACTIVE_NOTE";
 export const SET_NOTE = "SET_NOTE";
+
+export const SET_SEARCH_RESULT = "SET_SEARCH_RESULT";
+export const CLEAR_SEARCH_RESULT = "CLEAR_SEARCH_RESULT";
