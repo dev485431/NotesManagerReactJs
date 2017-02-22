@@ -66,7 +66,8 @@ class MainPage extends React.Component {
                 </div>
                 <div className="col-sm-6">
                     <div className="row">
-                        <SearchForm notes={noteList.notes}/>
+                        <SearchForm notes={noteList.notes} activeNoteId={noteList.activeNoteId}
+                                    setActiveNote={setActiveNote} updateNote={this.props.updateNote}/>
                     </div>
                     <br/>
                     <div className="row">

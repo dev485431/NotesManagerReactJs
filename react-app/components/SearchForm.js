@@ -9,7 +9,10 @@ import SearchResult from "./SearchResult"
 export default class SearchForm extends React.Component {
 
     static propTypes = {
-        notes: React.PropTypes.array.isRequired
+        notes: React.PropTypes.array.isRequired,
+        activeNoteId: React.PropTypes.number,
+        setActiveNote: React.PropTypes.func.isRequired,
+        updateNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -17,7 +20,6 @@ export default class SearchForm extends React.Component {
         this.state = {
             value: "",
             advancedSearch: false,
-            isSearchResultVisible: false,
             searchResult: []
         }
     }
@@ -163,8 +165,8 @@ export default class SearchForm extends React.Component {
                 </div>
 
                 <div className="row">
-                    <SearchResult notes={this.state.searchResult}
-                                  isVisible={this.state.isSearchResultVisible}/>
+                    <SearchResult notes={this.state.searchResult} activeNoteId={this.props.activeNoteId}
+                                  setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}/>
                 </div>
             </div>
         )

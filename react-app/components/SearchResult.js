@@ -1,22 +1,33 @@
 import React from "react"
 
+import Note from "../components/NoteList/Note";
+
 export default class SearchResult extends React.Component {
 
-    //todo: searchResult must be array consisting of Notes
     static propTypes = {
         notes: React.PropTypes.array.isRequired,
-        isVisible: React.PropTypes.bool.isRequired
+        activeNoteId: React.PropTypes.number,
+        setActiveNote: React.PropTypes.func.isRequired,
+        updateNote: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
         super(props)
     }
 
-    //todo: display Note's for search results here
     render() {
         console.log(this.props.notes)
-        return <div>
 
+        let resultNotes = [];
+        this.props.notes.map(note => {
+            resultNotes.push(
+                <Note key={note.id} note={note} activeNoteId={this.props.activeNoteId}
+                      setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}/>
+            )
+        });
+
+        return <div>
+            {resultNotes}
         </div>
     }
 }
