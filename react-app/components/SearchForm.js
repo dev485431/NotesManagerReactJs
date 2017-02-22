@@ -46,11 +46,10 @@ export default class SearchForm extends React.Component {
             return _.uniqBy(autoCompleteItems, (item) => {
                 return item.title
             })
-        } else {
-            return _.uniqBy(this.props.notes, (item) => {
-                return item.title
-            })
         }
+        return _.uniqBy(this.props.notes, (item) => {
+            return item.title
+        })
     }
 
     getAutocompleteItemValue = (item) => {
