@@ -117,6 +117,7 @@ export default connect(state => {
             },
             deleteFolders: (folderIds) => {
                 deleteFolders(folderIds, dispatch)
+                dispatch(clearSearchResult())
             },
             updateFolder: (folder) => {
                 updateFolder(folder, dispatch)
@@ -129,6 +130,7 @@ export default connect(state => {
             },
             deleteNotes: (noteIds) => {
                 deleteNotes(noteIds, dispatch)
+                dispatch(clearSearchResult())
             },
             updateNote: (note) => {
                 updateNote(note, dispatch)
