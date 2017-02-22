@@ -1,10 +1,10 @@
 import React from "react"
 
-export default class SearchResults extends React.Component {
+export default class SearchResult extends React.Component {
 
     //todo: searchResult must be array consisting of Notes
     static propTypes = {
-        searchResults: React.PropTypes.array.isRequired,
+        notes: React.PropTypes.array.isRequired,
         isVisible: React.PropTypes.bool.isRequired
     }
 
@@ -14,7 +14,7 @@ export default class SearchResults extends React.Component {
 
     //todo: display Note's for search results here
     render() {
-        console.log(this.props.searchResults)
+        console.log(this.props.notes)
         return <div>
 
         </div>
