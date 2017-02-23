@@ -16,7 +16,8 @@ class NoteList extends React.Component {
         noteList: React.PropTypes.object.isRequired,
         activeFolderId: React.PropTypes.number.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
-        updateNote: React.PropTypes.func.isRequired
+        updateNote: React.PropTypes.func.isRequired,
+        updateNotes: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -33,10 +34,12 @@ class NoteList extends React.Component {
     }
 
     saveNotesPosition = () => {
+        let updatedNotes = [];
         this.state.notes.map(note => {
             let newPosition = this.state.notes.indexOf(note);
-            this.props.updateNote(_.assign({}, note, {position: newPosition}))
+            updatedNotes.push(_.assign({}, note, {position: newPosition}))
         })
+        this.props.updateNotes(updatedNotes)
     }
 
     moveNote = (dragIndex, hoverIndex) => {

@@ -84,7 +84,7 @@ export function saveFolder(parentId, name, dispatch) {
 export function deleteFolders(folderIds, dispatch) {
     let deleteRequests = [];
     folderIds.map(folderId => {
-        deleteRequests.push(deleteFolder(folderId));
+        deleteRequests.push(axios.delete("/directories/" + folderId));
     })
     axios.all(deleteRequests)
         .then(function () {
@@ -94,10 +94,6 @@ export function deleteFolders(folderIds, dispatch) {
             dispatch(addError(err.response.data))
         })
 
-}
-
-function deleteFolder(folderId) {
-    return axios.delete("/directories/" + folderId)
 }
 
 export function updateFolder(folder, dispatch) {

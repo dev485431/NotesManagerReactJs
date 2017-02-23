@@ -12,7 +12,7 @@ import FolderList from "../components/FolderList/FolderList"
 import {LOADED as FOLDERS_LOADED} from "../constants/folderListState"
 import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders, updateFolder} from "../actions/folderList"
-import {fetchNotes, setActiveNote, deleteNotes, updateNote} from "../actions/noteList"
+import {fetchNotes, setActiveNote, deleteNotes, updateNote, updateNotes} from "../actions/noteList"
 import {setSearchResult, clearSearchResult} from "../actions/searchForm"
 
 
@@ -34,6 +34,7 @@ class MainPage extends React.Component {
         setActiveNote: React.PropTypes.func.isRequired,
         deleteNotes: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
+        updateNotes: React.PropTypes.func.isRequired,
 
         searchForm: React.PropTypes.object.isRequired,
         setSearchResult: React.PropTypes.func.isRequired,
@@ -53,7 +54,7 @@ class MainPage extends React.Component {
     render() {
         const {
             errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote,
-            deleteNotes, updateNote, searchForm, setSearchResult, clearSearchResult
+            deleteNotes, updateNote, updateNotes, searchForm, setSearchResult, clearSearchResult
         } = this.props;
 
         return (
@@ -82,7 +83,8 @@ class MainPage extends React.Component {
                     <br/>
                     <div className="row">
                         <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId}
-                                  setActiveNote={setActiveNote} updateNote={this.props.updateNote}/>
+                                  setActiveNote={setActiveNote} updateNote={this.props.updateNote}
+                                  updateNotes={updateNotes}/>
                     </div>
                 </div>
             </div>
@@ -134,6 +136,9 @@ export default connect(state => {
             },
             updateNote: (note) => {
                 updateNote(note, dispatch)
+            },
+            updateNotes: (notes) => {
+                updateNotes(notes, dispatch)
             },
             setSearchResult: (notes) => {
                 dispatch(setSearchResult(notes))

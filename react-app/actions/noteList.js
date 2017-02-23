@@ -1,5 +1,5 @@
 import {addError} from "../actions/errors"
-import {ADD_NOTE, REMOVE_NOTES, SET_NOTES, SET_ACTIVE_NOTE, SET_NOTE} from "../constants/actionNames"
+import {ADD_NOTE, REMOVE_NOTES, SET_FETCHED_NOTES, SET_UPDATED_NOTES, SET_ACTIVE_NOTE, SET_NOTE} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -17,9 +17,16 @@ export function removeNotes(noteIds) {
     }
 }
 
-export function setNotes(notes) {
+export function setFetchedNotes(notes) {
     return {
-        type: SET_NOTES,
+        type: SET_FETCHED_NOTES,
+        notes
+    }
+}
+
+export function setUpdatedNotes(notes) {
+    return {
+        type: SET_UPDATED_NOTES,
         notes
     }
 }
@@ -42,7 +49,7 @@ export function setNote(note) {
 export function fetchNotes(dispatch) {
     axios.get("/notices")
         .then(function (data) {
-            dispatch(setNotes(data.data))
+            dispatch(setFetchedNotes(data.data))
         })
         .catch(function (err) {
             dispatch(addError(err.response.data))
@@ -75,7 +82,7 @@ export function saveNote(directoryId, title, description, tags, dispatch) {
 export function deleteNotes(noteIds, dispatch) {
     let deleteRequests = [];
     noteIds.map(noteId => {
-        deleteRequests.push(deleteNote(noteId));
+        deleteRequests.push(axios.delete("/notices/" + noteId));
     })
     axios.all(deleteRequests)
         .then(function () {
@@ -85,11 +92,6 @@ export function deleteNotes(noteIds, dispatch) {
             dispatch(addError(err.response.data))
         })
 }
-
-function deleteNote(noteId) {
-    return axios.delete("/notices/" + noteId)
-}
-
 
 export function updateNote(note, dispatch) {
     axios.put("/notices/" + note.id, {
@@ -110,6 +112,29 @@ export function updateNote(note, dispatch) {
                 tags: data.data.tags
             };
             dispatch(setNote(note))
+        })
+        .catch(function (err) {
+            dispatch(addError(err.response.data))
+        })
+}
+
+export function updateNotes(notes, dispatch) {
+    let updateRequests = [];
+    notes.map(note => {
+        updateRequests.push(axios.put("/notices/" + note.id, {
+            id: note.id,
+            directoryId: note.directoryId,
+            title: note.title,
+            description: note.description,
+            tags: note.tags,
+            position: note.position
+        }))
+    })
+
+    axios.all(updateRequests)
+        .then(function (data) {
+            //todo: get data returned form api?
+            dispatch(setUpdatedNotes(notes))
         })
         .catch(function (err) {
             dispatch(addError(err.response.data))
