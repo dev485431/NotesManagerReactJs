@@ -19,7 +19,7 @@ export default function noteList(state = initState, action) {
             break;
         case SET_NOTES:
             return Object.assign({}, state, {
-                notes: action.notes,
+                notes: _.sortBy(action.notes, note => note.position),
                 status: LOADED
             });
             break;

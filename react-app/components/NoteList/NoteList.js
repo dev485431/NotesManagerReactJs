@@ -22,19 +22,28 @@ class NoteList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            notes: _.sortBy(this.props.noteList.notes, note => note.position)
+            notes: this.props.noteList.notes.slice()
         }
     }
 
     componentWillReceiveProps = (nextProps) => {
         this.setState({
-            notes: _.sortBy(nextProps.noteList.notes, note => note.position)
+            notes: nextProps.noteList.notes.slice()
+        })
+    }
+
+    saveNotesPosition = () => {
+        this.state.notes.map(note => {
+            let newPosition = this.state.notes.indexOf(note);
+            this.props.updateNote(_.assign({}, note, {position: newPosition}))
         })
     }
 
     moveNote = (dragIndex, hoverIndex) => {
         const dragNote = this.state.notes[dragIndex];
 
+        //todo: callback after setState => save notes to the api;
+        //todo: save notes from the state, but change their {position} to their index in the local state
         this.setState(update(this.state, {
             notes: {
                 $splice: [
@@ -42,7 +51,10 @@ class NoteList extends React.Component {
                     [hoverIndex, 0, dragNote],
                 ],
             },
-        }));
+        }), () => {
+            console.log(this.state);
+            this.saveNotesPosition();
+        });
     }
 
     render() {
