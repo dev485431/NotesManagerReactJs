@@ -5,6 +5,8 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux'
 import {createStore, combineReducers} from 'redux'
 import * as reducers from "../reducers"
 
+import {DragDropContext} from 'react-dnd';
+
 import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
 import AddNotePage from "./AddNotePage"
@@ -30,7 +32,7 @@ const store = createStore(
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(hashHistory, store);
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -49,3 +51,6 @@ export default class App extends React.Component {
         )
     }
 }
+
+//todo: react dnd context
+export default DragDropContext()(App);
