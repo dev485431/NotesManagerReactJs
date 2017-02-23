@@ -32,7 +32,7 @@ const store = createStore(
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(hashHistory, store);
 
-class App extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -51,6 +51,3 @@ class App extends React.Component {
         )
     }
 }
-
-//todo: react dnd context
-export default DragDropContext()(App);
