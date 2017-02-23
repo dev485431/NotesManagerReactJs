@@ -27,6 +27,7 @@ class NoteList extends React.Component {
         }
     }
 
+    // rerender
     componentWillReceiveProps = (nextProps) => {
         this.setState({
             notes: nextProps.noteList.notes.slice()
@@ -47,6 +48,7 @@ class NoteList extends React.Component {
 
         //todo: callback after setState => save notes to the api;
         //todo: save notes from the state, but change their {position} to their index in the local state
+        // rerender
         this.setState(update(this.state, {
             notes: {
                 $splice: [
@@ -54,21 +56,19 @@ class NoteList extends React.Component {
                     [hoverIndex, 0, dragNote],
                 ],
             },
-        }), () => {
-            console.log(this.state);
-            this.saveNotesPosition();
-        });
+        }));
     }
 
     render() {
         let notes = [];
-        if (this.props.noteList.status == LOADED) {
-            let folderNotes = _.filter(this.state.notes, el => el.directoryId == this.props.activeFolderId);
+        if (this.props.noteList.status === LOADED) {
+            let folderNotes = _.filter(this.state.notes, el => el.directoryId === this.props.activeFolderId);
             folderNotes.map(note => {
                 notes.push(
                     <Note key={note.id} note={note} activeNoteId={this.props.noteList.activeNoteId}
                           setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}
-                          id={note.id} index={note.position} moveNote={this.moveNote}/>
+                          id={note.id} index={note.position} moveNote={this.moveNote}
+                          saveNotesPosition={this.saveNotesPosition}/>
                 )
             })
         }

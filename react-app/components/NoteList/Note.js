@@ -29,7 +29,6 @@ const noteTarget = {
     hover(props, monitor, component) {
         const dragIndex = monitor.getItem().index;
         const hoverIndex = props.index;
-        console.log(hoverIndex)
 
         if (dragIndex === hoverIndex) {
             return;
@@ -52,6 +51,10 @@ const noteTarget = {
         props.moveNote(dragIndex, hoverIndex);
         monitor.getItem().index = hoverIndex;
     },
+
+    drop(props, monitor, component) {
+        if (monitor.didDrop()) props.saveNotesPosition()
+    }
 };
 
 class Note extends React.Component {
@@ -68,6 +71,7 @@ class Note extends React.Component {
         isDragging: React.PropTypes.bool.isRequired,
         id: React.PropTypes.any.isRequired,
         moveNote: React.PropTypes.func.isRequired,
+        saveNotesPosition: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
