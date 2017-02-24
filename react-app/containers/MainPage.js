@@ -14,6 +14,7 @@ import {LOADED as NOTES_LOADED} from "../constants/noteListState"
 import {fetchFolders, setActiveFolder, setOpenFolders, deleteFolders, updateFolder} from "../actions/folderList"
 import {fetchNotes, setActiveNote, deleteNotes, updateNote, updateNotes} from "../actions/noteList"
 import {setSearchResult, clearSearchResult} from "../actions/searchForm"
+import {openNoteDetails, closeNoteDetails} from "../actions/noteDetails"
 
 
 class MainPage extends React.Component {
@@ -30,11 +31,14 @@ class MainPage extends React.Component {
         updateFolder: React.PropTypes.func.isRequired,
 
         noteList: React.PropTypes.object.isRequired,
+        noteDetails: React.PropTypes.object.isRequired,
         loadNotes: React.PropTypes.func.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
         deleteNotes: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
         updateNotes: React.PropTypes.func.isRequired,
+        openNoteDetails: React.PropTypes.func.isRequired,
+        closeNoteDetails: React.PropTypes.func.isRequired,
 
         searchForm: React.PropTypes.object.isRequired,
         setSearchResult: React.PropTypes.func.isRequired,
@@ -54,7 +58,7 @@ class MainPage extends React.Component {
     render() {
         const {
             errors, removeError, folderList, setActiveFolder, deleteFolders, setOpenFolders, noteList, setActiveNote,
-            deleteNotes, updateNote, updateNotes, searchForm, setSearchResult, clearSearchResult
+            deleteNotes, updateNote, updateNotes, noteDetails, openNoteDetails, closeNoteDetails, searchForm, setSearchResult, clearSearchResult
         } = this.props;
 
         return (
@@ -84,7 +88,8 @@ class MainPage extends React.Component {
                     <div className="row">
                         <NoteList noteList={noteList} activeFolderId={folderList.activeFolderId}
                                   setActiveNote={setActiveNote} updateNote={this.props.updateNote}
-                                  updateNotes={updateNotes}/>
+                                  updateNotes={updateNotes} openNoteDetailsFlag={noteDetails.openNoteDetailsFlag}
+                                  openNoteDetails={openNoteDetails} closeNoteDetails={closeNoteDetails}/>
                     </div>
                 </div>
             </div>
@@ -99,7 +104,8 @@ export default connect(state => {
             errors: state.errors,
             folderList: state.folderList,
             noteList: state.noteList,
-            searchForm: state.searchForm
+            searchForm: state.searchForm,
+            noteDetails: state.noteDetails
         }
     },
     // mapDispatchToProps
@@ -139,6 +145,12 @@ export default connect(state => {
             },
             updateNotes: (notes) => {
                 updateNotes(notes, dispatch)
+            },
+            openNoteDetails: () => {
+                openNoteDetails(dispatch)
+            },
+            closeNoteDetails: () => {
+                closeNoteDetails(dispatch)
             },
             setSearchResult: (notes) => {
                 dispatch(setSearchResult(notes))

@@ -64,6 +64,9 @@ class Note extends React.Component {
         activeNoteId: React.PropTypes.number,
         setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
+        openNoteDetailsFlag: React.PropTypes.bool.isRequired,
+        openNoteDetails: React.PropTypes.func.isRequired,
+        closeNoteDetails: React.PropTypes.func.isRequired,
 
         connectDragSource: React.PropTypes.func.isRequired,
         connectDropTarget: React.PropTypes.func.isRequired,
@@ -76,22 +79,15 @@ class Note extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            showDetails: false
-        }
     }
 
     onNoteClick = () => {
         this.props.setActiveNote(this.props.note.id);
-        this.setState({
-            showDetails: true
-        });
+        this.props.openNoteDetails();
     }
 
     closeModal = () => {
-        this.setState({
-            showDetails: false
-        });
+        this.props.closeNoteDetails();
     }
 
     nameChanged = (data) => {
@@ -113,7 +109,7 @@ class Note extends React.Component {
         let noteDetails = null;
         if (isActiveNote) {
             noteDetails = <div>
-                <NoteDetails note={this.props.note} showModal={this.state.showDetails}
+                <NoteDetails note={this.props.note} showModal={this.props.openNoteDetailsFlag}
                              closeModal={this.closeModal} updateNote={this.props.updateNote}/>
             </div>
         }

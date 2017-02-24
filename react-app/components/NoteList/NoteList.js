@@ -14,7 +14,10 @@ export default class NoteList extends React.Component {
         activeFolderId: React.PropTypes.number.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
-        updateNotes: React.PropTypes.func.isRequired
+        updateNotes: React.PropTypes.func.isRequired,
+        openNoteDetailsFlag: React.PropTypes.bool.isRequired,
+        openNoteDetails: React.PropTypes.func.isRequired,
+        closeNoteDetails: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -63,7 +66,9 @@ export default class NoteList extends React.Component {
                     <Note key={note.id} note={note} activeNoteId={this.props.noteList.activeNoteId}
                           setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}
                           id={note.id} index={note.position} moveNote={this.moveNote}
-                          saveNotesPosition={this.saveNotesPosition}/>
+                          saveNotesPosition={this.saveNotesPosition}
+                          openNoteDetailsFlag={this.props.openNoteDetailsFlag}
+                          openNoteDetails={this.props.openNoteDetails} closeNoteDetails={this.props.closeNoteDetails}/>
                 )
             })
         }
