@@ -133,7 +133,7 @@ export function updateNotes(notes, dispatch) {
 
     axios.all(updateRequests)
         .then(function (data) {
-            //todo: get data returned form api?
+            console.log(data)
             dispatch(setUpdatedNotes(notes))
         })
         .catch(function (err) {

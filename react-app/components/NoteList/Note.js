@@ -22,7 +22,7 @@ const noteSource = {
             id: props.id,
             index: props.index,
         };
-    },
+    }
 };
 
 const noteTarget = {
@@ -39,11 +39,11 @@ const noteTarget = {
         const clientOffset = monitor.getClientOffset();
         const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
-        //move left only when dragged on the left of hover
+        //move left only when dragged on the left side of hover
         if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
             return;
         }
-        //move right only when dragged on the right of hover
+        //move right only when dragged on the right side of hover
         if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
             return;
         }
@@ -52,8 +52,8 @@ const noteTarget = {
         monitor.getItem().index = hoverIndex;
     },
 
-    drop(props, monitor, component) {
-        if (monitor.didDrop()) props.saveNotesPosition()
+    drop(props) {
+        props.saveNotesPosition()
     }
 };
 

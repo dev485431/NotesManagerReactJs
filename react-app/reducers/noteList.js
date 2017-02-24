@@ -1,4 +1,11 @@
-import {ADD_NOTE, REMOVE_NOTES, SET_FETCHED_NOTES, SET_UPDATED_NOTES, SET_ACTIVE_NOTE, SET_NOTE} from "../constants/actionNames"
+import {
+    ADD_NOTE,
+    REMOVE_NOTES,
+    SET_FETCHED_NOTES,
+    SET_UPDATED_NOTES,
+    SET_ACTIVE_NOTE,
+    SET_NOTE
+} from "../constants/actionNames"
 import {LOADED, NOT_LOADED, CLEAR} from "../constants/noteListState"
 import _ from "lodash"
 
@@ -33,7 +40,7 @@ export default function noteList(state = initState, action) {
                 }
             })
             return Object.assign({}, state, {
-                notes: notes
+                notes: _.sortBy(notes, note => note.position),
             });
             break;
         case SET_ACTIVE_NOTE:
