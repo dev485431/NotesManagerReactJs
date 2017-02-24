@@ -3,14 +3,11 @@ import update from 'react/lib/update';
 import _ from "lodash"
 import {Modal, Button} from "react-bootstrap";
 
-import HTML5Backend from 'react-dnd-html5-backend';
-import {DragDropContext} from 'react-dnd';
-
 import Note from "./Note";
 import {LOADED} from "../../constants/noteListState"
 
 
-class NoteList extends React.Component {
+export default class NoteList extends React.Component {
 
     static propTypes = {
         noteList: React.PropTypes.object.isRequired,
@@ -80,5 +77,3 @@ class NoteList extends React.Component {
         )
     }
 }
-
-export default DragDropContext(HTML5Backend)(NoteList);

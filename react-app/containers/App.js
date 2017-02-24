@@ -6,6 +6,8 @@ import {createStore, combineReducers} from 'redux'
 import * as reducers from "../reducers"
 
 import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 
 import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
@@ -32,7 +34,7 @@ const store = createStore(
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(hashHistory, store);
 
-export default class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -51,3 +53,5 @@ export default class App extends React.Component {
         )
     }
 }
+
+export default DragDropContext(HTML5Backend)(App);
