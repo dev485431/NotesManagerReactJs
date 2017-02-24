@@ -1,5 +1,5 @@
 import React from 'react';
-import {WithContext as ReactTags} from 'react-tag-input';
+import {WithOutContext as ReactTags} from 'react-tag-input';
 import {NOTE_TAGS_MAX} from "../constants/appSettings"
 
 
