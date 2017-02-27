@@ -130,6 +130,5 @@ module.exports = (app, dir) => {
             });
     });
 
-
     return app
 };

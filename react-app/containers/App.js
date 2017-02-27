@@ -12,6 +12,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import MainPage from "./MainPage"
 import AddFolderPage from "./AddFolderPage"
 import AddNotePage from "./AddNotePage"
+import NotFound404 from "../components/NotFound404"
 
 // function without params to get initial/preloaded state and pass to the store
 // there should be reducers for each initial state object's keys !!!
@@ -48,6 +49,7 @@ class App extends React.Component {
                     <Route path="/" component={MainPage}/>
                     <Route path="/addFolder" component={AddFolderPage}/>
                     <Route path="/addNote" component={AddNotePage}/>
+                    <Route path="*" status={404} component={NotFound404}/>
                 </Router>
             </Provider>
         )
