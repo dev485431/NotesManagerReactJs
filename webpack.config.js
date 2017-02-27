@@ -30,10 +30,24 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(true),
     ],
     module: {
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loader: 'eslint',
+                exclude: [
+                    path.resolve('/public/'),
+                    path.resolve('/node_modules/')
+                ]
+            }
+        ],
         loaders: [{
             test: /\.js?$/,
             loaders: ['babel'],
             include: path.join(__dirname, 'react-app')
         }]
+    },
+    eslint: {
+        failOnWarning: false,
+        failOnError: true
     }
 };
