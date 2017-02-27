@@ -20,27 +20,41 @@ import {openNoteDetails, closeNoteDetails} from "../actions/noteDetails"
 class MainPage extends React.Component {
 
     static propTypes = {
-        errors: React.PropTypes.array,
+        errors: React.PropTypes.arrayOf(React.PropTypes.string),
         removeError: React.PropTypes.func.isRequired,
 
-        folderList: React.PropTypes.object.isRequired,
+        folderList: React.PropTypes.shape({
+            folders: React.PropTypes.arrayOf(React.PropTypes.object),
+            status: React.PropTypes.string.isRequired,
+            activeFolderId: React.PropTypes.number.isRequired,
+            openFolderIds: React.PropTypes.arrayOf(React.PropTypes.number)
+        }).isRequired,
         loadFolders: React.PropTypes.func.isRequired,
         setActiveFolder: React.PropTypes.func.isRequired,
         setOpenFolders: React.PropTypes.func.isRequired,
         deleteFolders: React.PropTypes.func.isRequired,
         updateFolder: React.PropTypes.func.isRequired,
 
-        noteList: React.PropTypes.object.isRequired,
-        noteDetails: React.PropTypes.object.isRequired,
+        noteList: React.PropTypes.shape({
+            notes: React.PropTypes.arrayOf(React.PropTypes.object),
+            status: React.PropTypes.string.isRequired,
+            activeNoteId: React.PropTypes.number,
+        }).isRequired,
         loadNotes: React.PropTypes.func.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
         deleteNotes: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
         updateNotes: React.PropTypes.func.isRequired,
+
+        noteDetails: React.PropTypes.shape({
+            openNoteDetailsFlag: React.PropTypes.bool.isRequired
+        }).isRequired,
         openNoteDetails: React.PropTypes.func.isRequired,
         closeNoteDetails: React.PropTypes.func.isRequired,
 
-        searchForm: React.PropTypes.object.isRequired,
+        searchForm: React.PropTypes.shape({
+            notes: React.PropTypes.arrayOf(React.PropTypes.object)
+        }).isRequired,
         setSearchResult: React.PropTypes.func.isRequired,
         clearSearchResult: React.PropTypes.func.isRequired
     };
@@ -82,7 +96,9 @@ class MainPage extends React.Component {
                         <SearchForm notes={noteList.notes} activeNoteId={noteList.activeNoteId}
                                     setActiveNote={setActiveNote} updateNote={updateNote}
                                     searchResult={searchForm.notes} setSearchResult={setSearchResult}
-                                    clearSearchResult={clearSearchResult}/>
+                                    clearSearchResult={clearSearchResult}
+                                    openNoteDetailsFlag={noteDetails.openNoteDetailsFlag}
+                                    openNoteDetails={openNoteDetails} closeNoteDetails={closeNoteDetails}/>
                     </div>
                     <br/>
                     <div className="row">
@@ -124,7 +140,7 @@ export default connect(state => {
                 dispatch(setOpenFolders(openFolderIds))
             },
             deleteFolders: (folderIds) => {
-                deleteFolders(folderIds, dispatch)
+                deleteFolders(folderIds, dispatch);
                 dispatch(clearSearchResult())
             },
             updateFolder: (folder) => {
@@ -137,7 +153,7 @@ export default connect(state => {
                 dispatch(setActiveNote(noteId))
             },
             deleteNotes: (noteIds) => {
-                deleteNotes(noteIds, dispatch)
+                deleteNotes(noteIds, dispatch);
                 dispatch(clearSearchResult())
             },
             updateNote: (note) => {

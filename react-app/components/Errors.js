@@ -2,7 +2,7 @@ import React from "react"
 
 export default class Errors extends React.Component {
     static propTypes = {
-        errors: React.PropTypes.array.isRequired,
+        errors: React.PropTypes.arrayOf(React.PropTypes.string),
         clearError: React.PropTypes.func.isRequired
     }
 

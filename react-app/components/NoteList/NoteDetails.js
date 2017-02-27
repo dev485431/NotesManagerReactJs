@@ -17,7 +17,17 @@ import {
 export default class NoteDetails extends React.Component {
 
     static propTypes = {
-        note: React.PropTypes.object.isRequired,
+        note: React.PropTypes.shape({
+            id: React.PropTypes.number.isRequired,
+            directoryId: React.PropTypes.number.isRequired,
+            position: React.PropTypes.number.isRequired,
+            title: React.PropTypes.string.isRequired,
+            description: React.PropTypes.string.isRequired,
+            tags: React.PropTypes.arrayOf(React.PropTypes.shape({
+                id: React.PropTypes.number.isRequired,
+                text: React.PropTypes.string.isRequired
+            })).isRequired
+        }),
         showModal: React.PropTypes.bool.isRequired,
         closeModal: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired

@@ -6,7 +6,10 @@ import {NOTE_TAGS_MAX} from "../constants/appSettings"
 export default class TagList extends React.Component {
 
     static propTypes = {
-        tags: React.PropTypes.array,
+        tags: React.PropTypes.arrayOf(React.PropTypes.shape({
+            id: React.PropTypes.number.isRequired,
+            text: React.PropTypes.string.isRequired
+        })),
         returnTags: React.PropTypes.func,
         disabled: React.PropTypes.bool
     }

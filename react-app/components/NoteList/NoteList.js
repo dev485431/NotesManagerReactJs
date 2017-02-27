@@ -11,7 +11,7 @@ export default class NoteList extends React.Component {
 
     static propTypes = {
         noteList: React.PropTypes.shape({
-            notes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+            notes: React.PropTypes.arrayOf(React.PropTypes.object),
             status: React.PropTypes.string.isRequired,
             activeNoteId: React.PropTypes.number
         }).isRequired,
@@ -32,7 +32,6 @@ export default class NoteList extends React.Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        console.log('new props')
         this.setState({
             notes: nextProps.noteList.notes.slice()
         })

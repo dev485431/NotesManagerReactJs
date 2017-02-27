@@ -1,5 +1,12 @@
 import {addError} from "../actions/errors"
-import {ADD_NOTE, REMOVE_NOTES, SET_FETCHED_NOTES, SET_UPDATED_NOTES, SET_ACTIVE_NOTE, SET_NOTE} from "../constants/actionNames"
+import {
+    ADD_NOTE,
+    REMOVE_NOTES,
+    SET_FETCHED_NOTES,
+    SET_UPDATED_NOTES,
+    SET_ACTIVE_NOTE,
+    SET_NOTE
+} from "../constants/actionNames"
 
 import axios from "axios"
 
@@ -132,9 +139,19 @@ export function updateNotes(notes, dispatch) {
     })
 
     axios.all(updateRequests)
-        .then(function (data) {
-            console.log(data)
-            dispatch(setUpdatedNotes(notes))
+        .then(function (results) {
+            let updatedNotes = [];
+            results.map((res) => {
+                updatedNotes.push({
+                    id: res.data.id,
+                    position: res.data.position,
+                    directoryId: res.data.directoryId,
+                    title: res.data.title,
+                    description: res.data.description,
+                    tags: res.data.tags
+                })
+            })
+            dispatch(setUpdatedNotes(updatedNotes))
         })
         .catch(function (err) {
             dispatch(addError(err.response.data))

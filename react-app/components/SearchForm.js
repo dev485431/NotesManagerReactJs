@@ -8,13 +8,16 @@ import SearchResult from "./SearchResult"
 export default class SearchForm extends React.Component {
 
     static propTypes = {
-        notes: React.PropTypes.array.isRequired,
+        notes: React.PropTypes.arrayOf(React.PropTypes.object),
         activeNoteId: React.PropTypes.number,
         setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
-        searchResult: React.PropTypes.array.isRequired,
+        searchResult: React.PropTypes.arrayOf(React.PropTypes.object),
         setSearchResult: React.PropTypes.func.isRequired,
-        clearSearchResult: React.PropTypes.func.isRequired
+        clearSearchResult: React.PropTypes.func.isRequired,
+        openNoteDetailsFlag: React.PropTypes.bool.isRequired,
+        openNoteDetails: React.PropTypes.func.isRequired,
+        closeNoteDetails: React.PropTypes.func.isRequired
     }
 
     constructor(props) {
@@ -185,7 +188,10 @@ export default class SearchForm extends React.Component {
 
                 <div className="row">
                     <SearchResult notes={this.props.searchResult} activeNoteId={this.props.activeNoteId}
-                                  setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}/>
+                                  setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}
+                                  openNoteDetailsFlag={this.props.openNoteDetailsFlag}
+                                  openNoteDetails={this.props.openNoteDetails}
+                                  closeNoteDetails={this.props.closeNoteDetails}/>
                 </div>
             </div>
         )
