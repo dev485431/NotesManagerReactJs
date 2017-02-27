@@ -19,8 +19,8 @@ const ItemTypes = {
 const noteSource = {
     beginDrag(props) {
         return {
-            id: props.id,
-            index: props.index,
+            id: props.note.id,
+            index: props.note.position,
         };
     }
 };
@@ -117,7 +117,7 @@ class Note extends React.Component {
         const {isDragging, connectDragSource, connectDropTarget} = this.props;
 
         let selectedClass = isActiveNote ? " active-note-list" : "";
-        let draggedClass = isDragging ? " element-note-list-dragged" : "";
+        let draggedClass = isDragging ? " dragged-note-list" : "";
         return connectDragSource(connectDropTarget((
             <li className={"element-note-list" + selectedClass + draggedClass}>
                 <div>
