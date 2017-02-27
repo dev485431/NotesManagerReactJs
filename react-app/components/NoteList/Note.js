@@ -39,11 +39,11 @@ const noteTarget = {
         const clientOffset = monitor.getClientOffset();
         const hoverClientX = clientOffset.x - hoverBoundingRect.left;
 
-        //move left only when dragged on the left side of hover
+        //move left only when dragged on the left side of hovered element
         if (dragIndex > hoverIndex && hoverClientX > hoverMiddleX) {
             return;
         }
-        //move right only when dragged on the right side of hover
+        //move right only when dragged on the right side of hovered element
         if (dragIndex < hoverIndex && hoverClientX < hoverMiddleX) {
             return;
         }
@@ -115,11 +115,11 @@ class Note extends React.Component {
         }
 
         const {isDragging, connectDragSource, connectDropTarget} = this.props;
-        const opacity = isDragging ? 0 : 1;
 
         let selectedClass = isActiveNote ? " active-note-list" : "";
+        let draggedClass = isDragging ? " element-note-list-dragged" : "";
         return connectDragSource(connectDropTarget((
-            <li className={"element-note-list" + selectedClass}>
+            <li className={"element-note-list" + selectedClass + draggedClass}>
                 <div>
                     <OverlayTrigger placement="top" overlay={tooltip}>
                         <div onClick={this.onNoteClick}>

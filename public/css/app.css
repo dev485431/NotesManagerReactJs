@@ -63,6 +63,11 @@ body {
     cursor: pointer;
 }
 
+.element-note-list-dragged {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
 .glyphicon-note-list {
     font-size: 45px;
 }
