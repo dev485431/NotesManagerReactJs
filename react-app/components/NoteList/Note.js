@@ -28,7 +28,7 @@ const noteSource = {
 const noteTarget = {
     hover(props, monitor, component) {
         const dragIndex = monitor.getItem().index;
-        const hoverIndex = props.index;
+        const hoverIndex = props.note.position;
 
         if (dragIndex === hoverIndex) {
             return;
@@ -60,19 +60,23 @@ const noteTarget = {
 class Note extends React.Component {
 
     static propTypes = {
-        note: React.PropTypes.object.isRequired,
+        note: React.PropTypes.shape({
+            id: React.PropTypes.number.isRequired,
+            directoryId: React.PropTypes.number.isRequired,
+            position: React.PropTypes.number.isRequired,
+            title: React.PropTypes.string.isRequired,
+            description: React.PropTypes.string.isRequired,
+            tags: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+        }).isRequired,
         activeNoteId: React.PropTypes.number,
         setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
         openNoteDetailsFlag: React.PropTypes.bool.isRequired,
         openNoteDetails: React.PropTypes.func.isRequired,
         closeNoteDetails: React.PropTypes.func.isRequired,
-
         connectDragSource: React.PropTypes.func.isRequired,
         connectDropTarget: React.PropTypes.func.isRequired,
-        index: React.PropTypes.number.isRequired,
         isDragging: React.PropTypes.bool.isRequired,
-        id: React.PropTypes.any.isRequired,
         moveNote: React.PropTypes.func.isRequired,
         saveNotesPosition: React.PropTypes.func.isRequired
     }

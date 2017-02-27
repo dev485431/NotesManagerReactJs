@@ -10,7 +10,11 @@ import {LOADED} from "../../constants/noteListState"
 export default class NoteList extends React.Component {
 
     static propTypes = {
-        noteList: React.PropTypes.object.isRequired,
+        noteList: React.PropTypes.shape({
+            notes: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+            status: React.PropTypes.string.isRequired,
+            activeNoteId: React.PropTypes.number
+        }).isRequired,
         activeFolderId: React.PropTypes.number.isRequired,
         setActiveNote: React.PropTypes.func.isRequired,
         updateNote: React.PropTypes.func.isRequired,
@@ -27,7 +31,6 @@ export default class NoteList extends React.Component {
         }
     }
 
-    // rerender
     componentWillReceiveProps = (nextProps) => {
         console.log('new props')
         this.setState({
@@ -65,8 +68,7 @@ export default class NoteList extends React.Component {
                 notes.push(
                     <Note key={note.id} note={note} activeNoteId={this.props.noteList.activeNoteId}
                           setActiveNote={this.props.setActiveNote} updateNote={this.props.updateNote}
-                          id={note.id} index={note.position} moveNote={this.moveNote}
-                          saveNotesPosition={this.saveNotesPosition}
+                          moveNote={this.moveNote} saveNotesPosition={this.saveNotesPosition}
                           openNoteDetailsFlag={this.props.openNoteDetailsFlag}
                           openNoteDetails={this.props.openNoteDetails} closeNoteDetails={this.props.closeNoteDetails}/>
                 )
