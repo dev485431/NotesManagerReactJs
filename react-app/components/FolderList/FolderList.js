@@ -4,6 +4,8 @@ import Folder from "./Folder";
 import {LOADED} from "../../constants/folderListState"
 import {ROOT_FOLDER_ID}  from "../../constants/appSettings"
 
+import styles from "../../../public/css/folder-list.css"
+
 export default class FolderList extends React.Component {
 
     static propTypes = {
@@ -95,7 +97,7 @@ export default class FolderList extends React.Component {
         }
 
         return (
-            <div className="well nav">
+            <div className={"well " + styles.nav}>
                 <ul className="list-unstyled">
                     {foldersTree}
                 </ul>

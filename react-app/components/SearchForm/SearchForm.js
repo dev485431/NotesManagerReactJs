@@ -169,7 +169,7 @@ export default class SearchForm extends React.Component {
                                 )}
                             />
 
-                            <a className="glyphicon glyphicon-remove-sign form-control-feedback form-control-clear search-from-reset"
+                            <a className="glyphicon glyphicon-remove-sign form-control-feedback form-control-clear search-form-reset"
                                onClick={this.resetFormInput}/>
                         </div>
 
