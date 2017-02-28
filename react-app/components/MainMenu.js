@@ -2,6 +2,8 @@ import React from "react"
 import {Link} from "react-router"
 import _ from "lodash"
 
+import styles from "../../public/css/app.css"
+
 import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
 export default class MainMenu extends React.Component {

@@ -34,17 +34,21 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'eslint',
-                exclude: [
-                    path.resolve('/public/'),
-                    path.resolve('/node_modules/')
-                ]
+                include: path.join(__dirname, 'react-app')
             }
         ],
-        loaders: [{
-            test: /\.js?$/,
-            loaders: ['babel'],
-            include: path.join(__dirname, 'react-app')
-        }]
+        loaders: [
+            {
+                test: /\.js?$/,
+                loaders: ['babel'],
+                include: path.join(__dirname, 'react-app')
+            },
+            {
+                test: /\.css$/,
+                loaders: [ 'style-loader', 'css-loader' ],
+                options: { modules: true },
+                include: path.join(__dirname, 'public/css')
+            }]
     },
     eslint: {
         failOnWarning: false,
