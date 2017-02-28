@@ -45,8 +45,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loaders: [ 'style-loader', 'css-loader' ],
-                options: { modules: true },
+                loaders: ['style-loader', 'css-loader?modules&camelCase'],
                 include: path.join(__dirname, 'public/css')
             }]
     },

@@ -2,8 +2,6 @@ import React from "react"
 import {Link} from "react-router"
 import _ from "lodash"
 
-import styles from "../../public/css/app.css"
-
 import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
 export default class MainMenu extends React.Component {
@@ -90,20 +88,20 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolderBtn}
+                    <a className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolderBtn}
                           onClick={this.removeFolder}>
                         <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
-                    </Link>
+                    </a>
                     <br/>
                     <small>Remove folder</small>
                 </div>
                 <br/>
 
                 <div className="row text-center">
-                    <Link className={"btn btn-lg btn-default button-main-menu" + disableRemoveNoteBtn}
+                    <a className={"btn btn-lg btn-default button-main-menu" + disableRemoveNoteBtn}
                           onClick={this.removeNote}>
                         <span className="glyphicon glyphicon-remove-circle glyphicon-main-menu"/>
-                    </Link>
+                    </a>
                     <br/>
                     <small>Remove file</small>
                 </div>

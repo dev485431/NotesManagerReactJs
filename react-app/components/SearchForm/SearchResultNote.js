@@ -3,10 +3,10 @@ import _ from "lodash"
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import InlineEdit from 'react-edit-inline';
 
-import NoteDetails from "../components/NoteList/NoteDetails";
+import NoteDetails from "../NoteList/NoteDetails";
 
-import {NOTE_TOOLTIP_PREVIEW_MAX} from "../constants/appSettings"
-import {NOTE_TITLE_MIN, NOTE_TITLE_MAX} from "../constants/appSettings"
+import {NOTE_TOOLTIP_PREVIEW_MAX} from "../../constants/appSettings"
+import {NOTE_TITLE_MIN, NOTE_TITLE_MAX} from "../../constants/appSettings"
 
 
 export default class SearchResult extends React.Component {

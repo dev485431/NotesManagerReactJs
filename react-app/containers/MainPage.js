@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 
 import MainMenu from "../components/MainMenu"
-import SearchForm from "../components/SearchForm"
+import SearchForm from "../components/SearchForm/SearchForm"
 import NoteList from "../components/NoteList/NoteList"
 
 import Errors from "../components/Errors"

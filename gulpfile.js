@@ -8,6 +8,8 @@ const devWebpackConfig = require("./webpack.config");
 const prodWebpackConfig = require("./webpack.config.prod");
 const express = require("express");
 
+const postcss  = require("gulp-postcss");
+const cssnano = require("cssnano");
 
 gulp.task("serve", () => {
     let compiler = webpack(devWebpackConfig);
@@ -37,3 +39,15 @@ gulp.task("build", (c)=> {
         c();
     })
 });
+
+gulp.task("css",()=>{
+    let processors = [
+        cssnano
+    ];
+    gulp.src("./assets/css/*.css")
+        .pipe(postcss(processors))
+        .pipe(gulp.dest("./public/css"))
+})
+gulp.task("css_watch", ()=>{
+    gulp.watch("./assets/css/*.css", ["css"])
+})
