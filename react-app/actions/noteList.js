@@ -52,7 +52,7 @@ export function setNote(note) {
     }
 }
 
-// api calls
+
 export function fetchNotes(dispatch) {
     axios.get("/notices")
         .then(function (data) {

@@ -2,6 +2,9 @@ import React from "react"
 
 import SearchResultNote from "./SearchResultNote";
 
+import styles from "../../../public/css/search-form.css"
+
+
 export default class SearchResult extends React.Component {
 
     static propTypes = {
@@ -32,7 +35,7 @@ export default class SearchResult extends React.Component {
 
         let nonEmptyResult = <div>
             <h4>Search results:</h4>
-            <ul className="list-inline search-result-list">
+            <ul className={"list-inline " + styles.resultList}>
                 {resultNotes}
             </ul>
             <hr/>

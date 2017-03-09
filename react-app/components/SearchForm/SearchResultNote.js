@@ -8,6 +8,7 @@ import NoteDetails from "../NoteList/NoteDetails";
 import {NOTE_TOOLTIP_PREVIEW_MAX} from "../../constants/appSettings"
 import {NOTE_TITLE_MIN, NOTE_TITLE_MAX} from "../../constants/appSettings"
 
+import styles from "../../../public/css/note-list.css"
 
 export default class SearchResult extends React.Component {
 
@@ -68,20 +69,20 @@ export default class SearchResult extends React.Component {
             </div>
         }
 
-        let selectedClass = isActiveNote ? " active-note-list" : "";
+        let selectedClass = isActiveNote ? " " + styles.activeNote : "";
         return (
-            <li className={"element-note-list" + selectedClass}>
+            <li className={styles.element + selectedClass}>
                 <div>
                     <OverlayTrigger placement="top" overlay={tooltip}>
                         <div onClick={this.onNoteClick}>
-                            <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
+                            <span className={"glyphicon glyphicon-file " + styles.noteIcon}/><br/>
                         </div>
                     </OverlayTrigger>
                 </div>
 
-                <div className="text-container-note-list">
+                <div className={styles.textContainer}>
                     <InlineEdit
-                        activeClassName="text-input-note-list"
+                        activeClassName={styles.textInput}
                         minLength={NOTE_TITLE_MIN}
                         maxLength={NOTE_TITLE_MAX}
                         text={this.props.note.title}

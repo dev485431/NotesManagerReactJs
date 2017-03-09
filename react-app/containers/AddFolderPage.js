@@ -90,13 +90,12 @@ class AddFolderPage extends React.Component {
 
 export default connect(state => {
 
-        // mapStateToProps
         return {
             activeFolderId: state.folderList.activeFolderId
         }
 
     },
-    // mapDispatchToProps
+
     dispatch => {
         return {
             saveFolder: (parentId, name) => {

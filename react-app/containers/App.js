@@ -19,7 +19,7 @@ const store = createStore(
         ...reducers,
         routing: routerReducer
     }),
-    //todo: remove in final version
+    // remove in final version
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

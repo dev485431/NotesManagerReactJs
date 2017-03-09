@@ -6,6 +6,7 @@ import {Modal, Button} from "react-bootstrap";
 import Note from "./Note";
 import {LOADED} from "../../constants/noteListState"
 
+import styles from "../../../public/css/note-list.css"
 
 export default class NoteList extends React.Component {
 
@@ -76,7 +77,7 @@ export default class NoteList extends React.Component {
 
         return (
             <div>
-                <ul className="list-inline note-list">
+                <ul className={"list-inline " + styles.noteList}>
                     {notes}
                 </ul>
             </div>

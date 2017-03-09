@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import _ from "lodash"
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 import InlineEdit from 'react-edit-inline';
-
 import {DragSource, DropTarget} from 'react-dnd';
 
 import NoteDetails from "./NoteDetails";
@@ -11,6 +10,7 @@ import NoteDetails from "./NoteDetails";
 import {NOTE_TOOLTIP_PREVIEW_MAX} from "../../constants/appSettings"
 import {NOTE_TITLE_MIN, NOTE_TITLE_MAX} from "../../constants/appSettings"
 
+import styles from "../../../public/css/note-list.css"
 
 const ItemTypes = {
     NOTE: 'note',
@@ -120,21 +120,21 @@ class Note extends React.Component {
 
         const {isDragging, connectDragSource, connectDropTarget} = this.props;
 
-        let selectedClass = isActiveNote ? " active-note-list" : "";
-        let draggedClass = isDragging ? " dragged-note-list" : "";
+        let selectedClass = isActiveNote ? " " + styles.activeNote : "";
+        let draggedClass = isDragging ? " " + styles.draggedNote : "";
         return connectDragSource(connectDropTarget((
-            <li className={"element-note-list" + selectedClass + draggedClass}>
+            <li className={styles.element + selectedClass + draggedClass}>
                 <div>
                     <OverlayTrigger placement="top" overlay={tooltip}>
                         <div onClick={this.onNoteClick}>
-                            <span className="glyphicon glyphicon-file glyphicon-note-list"/><br/>
+                            <span className={"glyphicon glyphicon-file " + styles.noteIcon}/><br/>
                         </div>
                     </OverlayTrigger>
                 </div>
 
-                <div className="text-container-note-list">
+                <div className={styles.textContainer}>
                     <InlineEdit
-                        activeClassName="text-input-note-list"
+                        activeClassName={styles.textInput}
                         minLength={NOTE_TITLE_MIN}
                         maxLength={NOTE_TITLE_MAX}
                         text={this.props.note.title}

@@ -52,7 +52,7 @@ export function setFolder(folder) {
     }
 }
 
-// api calls
+
 export function fetchFolders(dispatch) {
     axios.get("/directories")
         .then(function (data) {

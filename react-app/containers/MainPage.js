@@ -115,7 +115,6 @@ class MainPage extends React.Component {
 
 export default connect(state => {
 
-        // mapStateToProps
         return {
             errors: state.errors,
             folderList: state.folderList,
@@ -124,7 +123,7 @@ export default connect(state => {
             noteDetails: state.noteDetails
         }
     },
-    // mapDispatchToProps
+
     dispatch => {
         return {
             removeError: (err) => {

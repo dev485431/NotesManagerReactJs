@@ -3,6 +3,8 @@ import InlineEdit from 'react-edit-inline';
 
 import {FOLDER_NAME_MIN, FOLDER_NAME_MAX} from "../../constants/appSettings"
 
+import styles from "../../../public/css/folder-list.css"
+
 export default class Folder extends React.Component {
 
     static propTypes = {
@@ -22,15 +24,15 @@ export default class Folder extends React.Component {
     }
 
     render() {
-        let isSelected = this.props.isSelected ? " active-folder-list" : "";
+        let isSelected = this.props.isSelected ? " " + styles.activeFolder : "";
         let folderIcon = this.props.isOpen ? " glyphicon-folder-open" : " glyphicon-folder-close";
 
-        return <li className={"element-folder-list" + isSelected}>
-            <span className={"glyphicon glyphicon-folder-list" + folderIcon} onClick={this.props.onFolderClick}/>
+        return <li className={styles.folder + isSelected}>
+            <span className={"glyphicon " + styles.glyphiconFolder + folderIcon} onClick={this.props.onFolderClick}/>
 
             <InlineEdit
-                className="text-folder-list"
-                activeClassName="text-folder-list-editing"
+                className={styles.folderText}
+                activeClassName={styles.folderTextEditing}
                 minLength={FOLDER_NAME_MIN}
                 maxLength={FOLDER_NAME_MAX}
                 text={this.props.folder.name}

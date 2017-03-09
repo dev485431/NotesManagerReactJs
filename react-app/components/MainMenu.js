@@ -4,6 +4,8 @@ import _ from "lodash"
 
 import {ROOT_FOLDER_ID} from "../constants/appSettings"
 
+import styles from "../../public/css/main-menu.css"
+
 export default class MainMenu extends React.Component {
 
     static propTypes = {
@@ -70,8 +72,8 @@ export default class MainMenu extends React.Component {
         return (
             <div>
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default button-main-menu" to="/addFolder">
-                        <span className="glyphicon glyphicon-plus glyphicon-main-menu"/>
+                    <Link className={"btn btn-lg btn-default " + styles.menuButton} to="/addFolder">
+                        <span className={"glyphicon glyphicon-plus " + styles.menuIcon}/>
                     </Link>
                     <br/>
                     <small>Add folder</small>
@@ -79,8 +81,8 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <Link className="btn btn-lg btn-default button-main-menu" to="/addNote">
-                        <span className="glyphicon glyphicon-pencil glyphicon-main-menu"/>
+                    <Link className={"btn btn-lg btn-default " + styles.menuButton} to="/addNote">
+                        <span className={"glyphicon glyphicon-pencil " + styles.menuIcon}/>
                     </Link>
                     <br/>
                     <small>Add note</small>
@@ -88,9 +90,9 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <a className={"btn btn-lg btn-default button-main-menu" + disableRemoveFolderBtn}
-                          onClick={this.removeFolder}>
-                        <span className="glyphicon glyphicon-remove glyphicon-main-menu"/>
+                    <a className={"btn btn-lg btn-default " + styles.menuButton + disableRemoveFolderBtn}
+                       onClick={this.removeFolder}>
+                        <span className={"glyphicon glyphicon-remove " + styles.menuIcon}/>
                     </a>
                     <br/>
                     <small>Remove folder</small>
@@ -98,9 +100,9 @@ export default class MainMenu extends React.Component {
                 <br/>
 
                 <div className="row text-center">
-                    <a className={"btn btn-lg btn-default button-main-menu" + disableRemoveNoteBtn}
-                          onClick={this.removeNote}>
-                        <span className="glyphicon glyphicon-remove-circle glyphicon-main-menu"/>
+                    <a className={"btn btn-lg btn-default " + styles.menuButton + disableRemoveNoteBtn}
+                       onClick={this.removeNote}>
+                        <span className={"glyphicon glyphicon-remove-circle " + styles.menuIcon}/>
                     </a>
                     <br/>
                     <small>Remove file</small>

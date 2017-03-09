@@ -82,7 +82,7 @@ export default class FolderList extends React.Component {
             folder.children.map(child => {
                 subFolders.push(...this.getFolderSubTree(child));
             })
-            subTree.push(<ul className="sublist-folder-list" key={"" + folder.id + folder.id}>{subFolders}</ul>);
+            subTree.push(<ul className={styles.subFoldersList} key={"" + folder.id + folder.id}>{subFolders}</ul>);
         }
         return subTree;
     }
@@ -97,7 +97,7 @@ export default class FolderList extends React.Component {
         }
 
         return (
-            <div className={"well " + styles.nav}>
+            <div className={"well " + styles.folderList}>
                 <ul className="list-unstyled">
                     {foldersTree}
                 </ul>

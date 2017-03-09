@@ -1,9 +1,11 @@
 import React from "react"
 import Autocomplete from "react-autocomplete"
-
 import _ from "lodash"
 
 import SearchResult from "./SearchResult"
+
+import styles from "../../../public/css/search-form.css"
+
 
 export default class SearchForm extends React.Component {
 
@@ -114,37 +116,6 @@ export default class SearchForm extends React.Component {
     }
 
     render() {
-
-        //todo: export to css modules
-        const styles = {
-            item: {
-                padding: '2px 6px',
-                cursor: 'default'
-            },
-
-            highlightedItem: {
-                color: 'white',
-                background: 'hsl(200, 50%, 50%)',
-                padding: '2px 6px',
-                cursor: 'default'
-            },
-
-            menu: {
-                border: 'solid 1px #ccc'
-            },
-
-            wrapper: {
-                position: 'relative',
-                display: 'table',
-                borderCollapse: 'separate',
-                zIndex: '2',
-                float: 'left',
-                width: '100%',
-                marginBottom: '0'
-            }
-        };
-
-
         return (
             <div className="container-fluid">
                 <div className="row">
@@ -156,20 +127,20 @@ export default class SearchForm extends React.Component {
 
                             <Autocomplete
                                 value={this.state.value}
-                                wrapperStyle={styles.wrapper}
+                                wrapperProps={{className: styles.autocompleteWrapper}}
                                 inputProps={{className: "form-control", placeholder: "Search..."}}
                                 items={this.getAutocompleteItems()}
                                 getItemValue={(item) => this.getAutocompleteItemValue(item)}
                                 onChange={(event, value) => this.onAutocompleteChange(event, value)}
                                 onSelect={value => this.onAutocompleteSelect(value)}
                                 renderItem={(item, isHighlighted) => (
-                                    <div style={isHighlighted ? styles.highlightedItem : styles.item}
-                                         key={item.id}
-                                    >{item.title}</div>
+                                    <div
+                                        className={isHighlighted ? styles.autocompleteHighlighted : styles.autocompleteItem}
+                                        key={item.id}>{item.title}</div>
                                 )}
                             />
 
-                            <a className="glyphicon glyphicon-remove-sign form-control-feedback form-control-clear search-form-reset"
+                            <a className={"glyphicon glyphicon-remove-sign form-control-feedback form-control-clear " + styles.resetButton}
                                onClick={this.resetFormInput}/>
                         </div>
 

@@ -9,7 +9,7 @@ export default class NotFound404 extends React.Component {
         return (
             <div className="text-center">
                 <h2>Page not found</h2><br/>
-                <span className={"glyphicon glyphicon-warning-sign " + styles.glyphiconSign}/><br/><br/><br/>
+                <span className={"glyphicon glyphicon-warning-sign " + styles.glyphiconNotFound}/><br/><br/><br/>
                 <Link to="/" className="btn btn-default">Go back to main page</Link>
             </div>
         )

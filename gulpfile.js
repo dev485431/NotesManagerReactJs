@@ -44,10 +44,10 @@ gulp.task("css",()=>{
     let processors = [
         cssnano
     ];
-    gulp.src("./assets/css/app.css")
+    gulp.src("./assets/css/*.css")
         .pipe(postcss(processors))
         .pipe(gulp.dest("./public/css"))
 })
 gulp.task("css_watch", ()=>{
-    gulp.watch("./assets/css/app.css", ["css"])
+    gulp.watch("./assets/css/*.css", ["css"])
 })
