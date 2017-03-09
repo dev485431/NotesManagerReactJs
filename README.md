@@ -1,5 +1,6 @@
 1. [Building]
 
+gulp css
 gulp build
 
 2. [Serving]
