@@ -1,8 +1,8 @@
-[Notes Manager]
+**Notes Manager**
 
 This application helps users create, edit, and delete their personal notes, and maintain the structure of folders and tags.
 
-[Features:]
+**Features:**
 
 1. Search
 - Simple search: simple search goes only through the names of the notes,
@@ -20,7 +20,7 @@ This application helps users create, edit, and delete their personal notes, and 
 4. Other
 - Names of notes and folders are editable inline
 
-[Technology stack:]
+**Technology stack:**
 
 - ReactJs
 - Redux
