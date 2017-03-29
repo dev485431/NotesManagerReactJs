@@ -1,26 +1,26 @@
-**Notes Manager**
+<h1>Notes Manager</h1>
 
 This application helps users create, edit, and delete their personal notes, and maintain the structure of folders and tags.
 
-**Features:**
+<h4>Features:</h4>
 
-1. Search
+<h5>1. Search</h5>
 - Simple search: simple search goes only through the names of the notes,
 - Advanced search: advanced search goes through the content of notes and tags,
 - Search supports autocomplete /React Autocomplete/
 
-2. Notes
+<h5>2. Notes</h5>
 - It's possible to create, edit and remove notes,
 - Each note can be assigned tags /React-Tags/,
 - Notes order inside a folder can be changed by using drag-and-drop /React DnD/
 
-3. Folders
+<h5>3. Folders</h5>
 - It's possible to create, edit and remove folders and subfolders,
 
-4. Other
+<h5>4. Other</h5>
 - Names of notes and folders are editable inline
 
-**Technology stack:**
+<h4>Technology stack:</h4>
 
 - ReactJs
 - Redux
@@ -32,4 +32,4 @@ This application helps users create, edit, and delete their personal notes, and 
 - Axios
 - Lodash
 
-** Note: For full functionality this application requires the backend server api which is not included in this project at the moment
+** <b>Note:</b> For full functionality this application requires the backend server api which is not included in this project at the moment
